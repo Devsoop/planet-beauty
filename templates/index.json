@@ -284,6 +284,7 @@
       "block_order": [
         "group_yBfdtn"
       ],
+      "disabled": true,
       "name": "t:names.collections_bento",
       "settings": {
         "collection_list": [
@@ -641,6 +642,7 @@
         "group_J7xP8A",
         "group_GjFVKB"
       ],
+      "disabled": true,
       "name": "t:names.split_showcase",
       "settings": {
         "content_direction": "row",
@@ -908,6 +910,7 @@
         "text_cqDghr",
         "button_hgcQda"
       ],
+      "disabled": true,
       "custom_css": [
         "@media screen and (max-width: 749px) {p {font-size: 24px; }}"
       ],
@@ -1102,6 +1105,7 @@
         "group_CiC4n8",
         "image_HT6pbY"
       ],
+      "disabled": true,
       "custom_css": [
         "@media screen and (max-width: 749px) {h2 {font-size: 30px; }}"
       ],
@@ -1296,6 +1300,7 @@
         "image_TwfNNL",
         "group_gphUTj"
       ],
+      "disabled": true,
       "custom_css": [
         "@media screen and (max-width: 749px) {h2 {font-size: 30px; }}"
       ],
@@ -1347,8 +1352,8 @@
           "settings": {
             "content_direction": "row",
             "vertical_on_mobile": false,
-            "horizontal_alignment": "space-between",
-            "vertical_alignment": "flex-end",
+            "horizontal_alignment": "center",
+            "vertical_alignment": "center",
             "align_baseline": true,
             "horizontal_alignment_flex_direction_column": "flex-start",
             "vertical_alignment_flex_direction_column": "center",
@@ -1513,7 +1518,7 @@
       "custom_css": [],
       "name": "Featured collection",
       "settings": {
-        "collection": "crosses",
+        "collection": "bestseller",
         "layout_type": "carousel",
         "carousel_on_mobile": false,
         "max_products": 16,
