@@ -123,7 +123,7 @@
         "corner_radius": 0,
         "slide_height": "custom",
         "custom_height_mobile": 50,
-        "custom_height_desktop": 70,
+        "custom_height_desktop": 60,
         "content_position": "on-media",
         "content_position_mobile": "",
         "color_scheme": "",
