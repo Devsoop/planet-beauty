@@ -121,7 +121,7 @@
         "full_frame_on_mobile": false,
         "slideshow_gap": 12,
         "corner_radius": 0,
-        "slide_height": "custom",
+        "slide_height": "auto",
         "custom_height_mobile": 50,
         "custom_height_desktop": 60,
         "content_position": "on-media",
