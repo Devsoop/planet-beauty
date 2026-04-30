@@ -1,287 +1,42 @@
 {% # theme-check-disable %}
-{% comment %}
-  Optimized Font Loading System
-  - Critical fonts (body) load with high priority
-  - Non-critical fonts load with low priority
-  - Consolidated Google Fonts imports
-  - Proper resource hints
-{% endcomment %}
-
-{% comment %} Preconnect for Google Fonts (only if used) {% endcomment %}
-{% if settings.body_font_source == 'google' or settings.heading_font_source == 'google' or settings.accent_font_source == 'google' or settings.subheading_font_source == 'google' %}
-  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-{% endif %}
-
-{% comment %} Consolidate Google Fonts imports into single style block {% endcomment %}
-{% comment %} Helper: Wrap URL in @import if not already wrapped {% endcomment %}
-{% liquid
-  assign google_fonts_imports = ''
-  
-  if settings.body_font_source == 'google' and settings.body_font_google_url != blank
-    assign body_url = settings.body_font_google_url | strip
-    assign body_url = body_url | remove: '"' | remove: "'"
-    unless body_url contains '@import'
-      assign body_url = '@import url("' | append: body_url | append: '");'
-    endunless
-    assign google_fonts_imports = google_fonts_imports | append: body_url | append: ' '
-  endif
-  
-  if settings.heading_font_source == 'google' and settings.heading_font_google_url != blank
-    assign heading_url = settings.heading_font_google_url | strip
-    assign heading_url = heading_url | remove: '"' | remove: "'"
-    unless heading_url contains '@import'
-      assign heading_url = '@import url("' | append: heading_url | append: '");'
-    endunless
-    assign google_fonts_imports = google_fonts_imports | append: heading_url | append: ' '
-  endif
-  
-  if settings.accent_font_source == 'google' and settings.accent_font_google_url != blank
-    assign accent_url = settings.accent_font_google_url | strip
-    assign accent_url = accent_url | remove: '"' | remove: "'"
-    unless accent_url contains '@import'
-      assign accent_url = '@import url("' | append: accent_url | append: '");'
-    endunless
-    assign google_fonts_imports = google_fonts_imports | append: accent_url | append: ' '
-  endif
-  
-  if settings.subheading_font_source == 'google' and settings.subheading_font_google_url != blank
-    assign subheading_url = settings.subheading_font_google_url | strip
-    assign subheading_url = subheading_url | remove: '"' | remove: "'"
-    unless subheading_url contains '@import'
-      assign subheading_url = '@import url("' | append: subheading_url | append: '");'
-    endunless
-    assign google_fonts_imports = google_fonts_imports | append: subheading_url | append: ' '
-  endif
-%}
-
-{% if google_fonts_imports != blank %}
-  <style>
-    {{ google_fonts_imports | strip }}
-  </style>
-{% endif %}
-
-{% comment %} Body Font - CRITICAL (high priority) {% endcomment %}
-{% if settings.body_font_source == 'shopify' %}
-  {%- unless settings.type_body_font.system? -%}
-    <link
-      rel="preload"
-      as="font"
-      href="{{ settings.type_body_font | font_url }}"
-      type="font/woff2"
-      crossorigin
-      fetchpriority="high"
-    >
-  {%- endunless -%}
-{% elsif settings.body_font_source == 'custom' %}
-  {%- if settings.body_font_custom_normal != blank -%}
-    {%- assign body_normal_url = settings.body_font_custom_normal | asset_url -%}
-    {%- liquid
-      assign body_normal_type = 'font/woff2'
-      if body_normal_url contains '.woff2'
-        assign body_normal_type = 'font/woff2'
-      elsif body_normal_url contains '.woff' and body_normal_url contains '.woff2' == false
-        assign body_normal_type = 'font/woff'
-      elsif body_normal_url contains '.ttf'
-        assign body_normal_type = 'font/ttf'
-      elsif body_normal_url contains '.otf'
-        assign body_normal_type = 'font/otf'
-      elsif body_normal_url contains '.eot'
-        assign body_normal_type = 'application/vnd.ms-fontobject'
-      elsif body_normal_url contains '.svg'
-        assign body_normal_type = 'image/svg+xml'
-      endif
-    -%}
-    <link
-      rel="preload"
-      as="font"
-      href="{{ body_normal_url }}"
-      type="{{ body_normal_type }}"
-      crossorigin
-      fetchpriority="high"
-    >
-  {%- endif -%}
-  {%- if settings.body_font_custom_bold != blank -%}
-    {%- assign body_bold_url = settings.body_font_custom_bold | asset_url -%}
-    {%- liquid
-      assign body_bold_type = 'font/woff2'
-      if body_bold_url contains '.woff2'
-        assign body_bold_type = 'font/woff2'
-      elsif body_bold_url contains '.woff' and body_bold_url contains '.woff2' == false
-        assign body_bold_type = 'font/woff'
-      elsif body_bold_url contains '.ttf'
-        assign body_bold_type = 'font/ttf'
-      elsif body_bold_url contains '.otf'
-        assign body_bold_type = 'font/otf'
-      elsif body_bold_url contains '.eot'
-        assign body_bold_type = 'application/vnd.ms-fontobject'
-      elsif body_bold_url contains '.svg'
-        assign body_bold_type = 'image/svg+xml'
-      endif
-    -%}
-    <link
-      rel="preload"
-      as="font"
-      href="{{ body_bold_url }}"
-      type="{{ body_bold_type }}"
-      crossorigin
-      fetchpriority="low"
-    >
-  {%- endif -%}
-{% endif %}
-
-{% comment %} Heading Font - HIGH PRIORITY {% endcomment %}
-{% if settings.heading_font_source == 'shopify' %}
-  {%- unless settings.type_heading_font.system? -%}
-    <link
-      rel="preload"
-      as="font"
-      href="{{ settings.type_heading_font | font_url }}"
-      type="font/woff2"
-      crossorigin
-      fetchpriority="high"
-    >
-  {%- endunless -%}
-{% elsif settings.heading_font_source == 'custom' %}
-  {%- if settings.heading_font_custom_normal != blank -%}
-    {%- assign heading_normal_url = settings.heading_font_custom_normal | asset_url -%}
-    {%- liquid
-      assign heading_normal_type = 'font/woff2'
-      if heading_normal_url contains '.woff2'
-        assign heading_normal_type = 'font/woff2'
-      elsif heading_normal_url contains '.woff' and heading_normal_url contains '.woff2' == false
-        assign heading_normal_type = 'font/woff'
-      elsif heading_normal_url contains '.ttf'
-        assign heading_normal_type = 'font/ttf'
-      elsif heading_normal_url contains '.otf'
-        assign heading_normal_type = 'font/otf'
-      elsif heading_normal_url contains '.eot'
-        assign heading_normal_type = 'application/vnd.ms-fontobject'
-      elsif heading_normal_url contains '.svg'
-        assign heading_normal_type = 'image/svg+xml'
-      endif
-    -%}
-    <link
-      rel="preload"
-      as="font"
-      href="{{ heading_normal_url }}"
-      type="{{ heading_normal_type }}"
-      crossorigin
-      fetchpriority="high"
-    >
-  {%- endif -%}
-  {%- if settings.heading_font_custom_bold != blank -%}
-    {%- assign heading_bold_url = settings.heading_font_custom_bold | asset_url -%}
-    {%- liquid
-      assign heading_bold_type = 'font/woff2'
-      if heading_bold_url contains '.woff2'
-        assign heading_bold_type = 'font/woff2'
-      elsif heading_bold_url contains '.woff' and heading_bold_url contains '.woff2' == false
-        assign heading_bold_type = 'font/woff'
-      elsif heading_bold_url contains '.ttf'
-        assign heading_bold_type = 'font/ttf'
-      elsif heading_bold_url contains '.otf'
-        assign heading_bold_type = 'font/otf'
-      elsif heading_bold_url contains '.eot'
-        assign heading_bold_type = 'application/vnd.ms-fontobject'
-      elsif heading_bold_url contains '.svg'
-        assign heading_bold_type = 'image/svg+xml'
-      endif
-    -%}
-    <link
-      rel="preload"
-      as="font"
-      href="{{ heading_bold_url }}"
-      type="{{ heading_bold_type }}"
-      crossorigin
-      fetchpriority="low"
-    >
-  {%- endif -%}
-{% endif %}
-
-{% comment %} Accent Font - LOW PRIORITY (decorative elements) {% endcomment %}
-{% if settings.accent_font_source == 'shopify' %}
-  {%- unless settings.type_accent_font.system? -%}
-    <link
-      rel="preload"
-      as="font"
-      href="{{ settings.type_accent_font | font_url }}"
-      type="font/woff2"
-      crossorigin
-      fetchpriority="low"
-    >
-  {%- endunless -%}
-{% elsif settings.accent_font_source == 'custom' %}
-  {%- if settings.accent_font_custom_normal != blank -%}
-    {%- assign accent_normal_url = settings.accent_font_custom_normal | asset_url -%}
-    {%- liquid
-      assign accent_normal_type = 'font/woff2'
-      if accent_normal_url contains '.woff2'
-        assign accent_normal_type = 'font/woff2'
-      elsif accent_normal_url contains '.woff' and accent_normal_url contains '.woff2' == false
-        assign accent_normal_type = 'font/woff'
-      elsif accent_normal_url contains '.ttf'
-        assign accent_normal_type = 'font/ttf'
-      elsif accent_normal_url contains '.otf'
-        assign accent_normal_type = 'font/otf'
-      elsif accent_normal_url contains '.eot'
-        assign accent_normal_type = 'application/vnd.ms-fontobject'
-      elsif accent_normal_url contains '.svg'
-        assign accent_normal_type = 'image/svg+xml'
-      endif
-    -%}
-    <link
-      rel="preload"
-      as="font"
-      href="{{ accent_normal_url }}"
-      type="{{ accent_normal_type }}"
-      crossorigin
-      fetchpriority="low"
-    >
-  {%- endif -%}
-{% endif %}
-
-{% comment %} Subheading Font - LOW PRIORITY (secondary headings, prices) {% endcomment %}
-{% if settings.subheading_font_source == 'shopify' %}
-  {%- unless settings.type_subheading_font.system? -%}
-    <link
-      rel="preload"
-      as="font"
-      href="{{ settings.type_subheading_font | font_url }}"
-      type="font/woff2"
-      crossorigin
-      fetchpriority="low"
-    >
-  {%- endunless -%}
-{% elsif settings.subheading_font_source == 'custom' %}
-  {%- if settings.subheading_font_custom_normal != blank -%}
-    {%- assign subheading_normal_url = settings.subheading_font_custom_normal | asset_url -%}
-    {%- liquid
-      assign subheading_normal_type = 'font/woff2'
-      if subheading_normal_url contains '.woff2'
-        assign subheading_normal_type = 'font/woff2'
-      elsif subheading_normal_url contains '.woff' and subheading_normal_url contains '.woff2' == false
-        assign subheading_normal_type = 'font/woff'
-      elsif subheading_normal_url contains '.ttf'
-        assign subheading_normal_type = 'font/ttf'
-      elsif subheading_normal_url contains '.otf'
-        assign subheading_normal_type = 'font/otf'
-      elsif subheading_normal_url contains '.eot'
-        assign subheading_normal_type = 'application/vnd.ms-fontobject'
-      elsif subheading_normal_url contains '.svg'
-        assign subheading_normal_type = 'image/svg+xml'
-      endif
-    -%}
-    <link
-      rel="preload"
-      as="font"
-      href="{{ subheading_normal_url }}"
-      type="{{ subheading_normal_type }}"
-      crossorigin
-      fetchpriority="low"
-    >
-  {%- endif -%}
-{% endif %}
+{%- unless settings.type_body_font.system? -%}
+  <link
+    rel="preload"
+    as="font"
+    href="{{ settings.type_body_font | font_url }}"
+    type="font/woff2"
+    crossorigin
+    fetchpriority="low"
+  >
+{%- endunless -%}
+{%- unless settings.type_subheading_font.system? -%}
+  <link
+    rel="preload"
+    as="font"
+    href="{{ settings.type_subheading_font | font_url }}"
+    type="font/woff2"
+    crossorigin
+    fetchpriority="low"
+  >
+{%- endunless -%}
+{%- unless settings.type_heading_font.system? -%}
+  <link
+    rel="preload"
+    as="font"
+    href="{{ settings.type_heading_font | font_url }}"
+    type="font/woff2"
+    crossorigin
+    fetchpriority="low"
+  >
+{%- endunless -%}
+{%- unless settings.type_accent_font.system? -%}
+  <link
+    rel="preload"
+    as="font"
+    href="{{ settings.type_accent_font | font_url }}"
+    type="font/woff2"
+    crossorigin
+    fetchpriority="low"
+  >
+{%- endunless -%}
 {% # theme-check-enable %}
