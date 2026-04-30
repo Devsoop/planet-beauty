@@ -11,6 +11,36 @@
   "type": "header",
   "name": "Header",
   "sections": {
+    "header_announcements_FtVNxh": {
+      "type": "header-announcements",
+      "blocks": {
+        "announcement_waRNcH": {
+          "type": "_announcement",
+          "settings": {
+            "text": "Shop our latest arrivals!",
+            "link": "",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "weight": "",
+            "letter_spacing": "normal",
+            "case": "none"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "announcement_waRNcH"
+      ],
+      "name": "t:names.announcement_bar",
+      "settings": {
+        "speed": 5,
+        "section_width": "page-width",
+        "color_scheme": "scheme-2",
+        "divider_width": 0,
+        "padding-block-start": 15,
+        "padding-block-end": 15
+      }
+    },
     "header_section": {
       "type": "header",
       "blocks": {
@@ -47,15 +77,12 @@
           "settings": {
             "title": "contact",
             "content_display_type": "items",
-            "featured_image_1": "shopify://shop_images/Group_583.png",
             "featured_title_1": "Title 1",
             "featured_subtitle_1": "Subtitle",
             "featured_link_1": "#",
-            "featured_image_2": "shopify://shop_images/putting-on-your-shoes_925x_af99f526-9c4d-4684-8d68-26d201b75275.jpg",
             "featured_title_2": "Title 2",
             "featured_subtitle_2": "Subtitle 2",
             "featured_link_2": "#",
-            "featured_image_3": "shopify://shop_images/woman-in-the-city_925x_8169abd9-a75f-4ce4-8802-d30b38f76679.jpg",
             "featured_title_3": "Title 3",
             "featured_subtitle_3": "Subtitle 3",
             "featured_link_3": "#",
@@ -150,6 +177,7 @@
     }
   },
   "order": [
+    "header_announcements_FtVNxh",
     "header_section"
   ]
 }
