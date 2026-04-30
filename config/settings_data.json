@@ -9,20 +9,13 @@
  */
 {
   "current": {
+    "logo": "shopify://shop_images/Checkout_logo_9a923151-3e65-4d2d-a2d2-4ec8cfde7900.png",
     "logo_height": 36,
     "logo_height_mobile": 28,
-    "body_font_source": "custom",
-    "type_body_font": "inter_n4",
-    "body_font_custom_normal": "",
-    "body_font_custom_bold": "",
-    "body_font_custom_name": "",
-    "heading_font_source": "custom",
+    "type_body_font": "muli_n5",
+    "type_subheading_font": "muli_n8",
     "type_heading_font": "inter_n7",
-    "heading_font_custom_normal": "",
-    "heading_font_custom_name": "Dongle-Bold",
-    "heading_font_weight_bold": "800",
     "type_accent_font": "inter_n7",
-    "type_subheading_font": "inter_n5",
     "type_size_paragraph": "14",
     "type_line_height_paragraph": "body-loose",
     "type_font_h1": "heading",
@@ -87,6 +80,14 @@
     "variant_button_border_width": 1,
     "variant_button_radius": 14,
     "variant_button_width": "equal-width-buttons",
+    "body_font_source": "custom",
+    "body_font_custom_normal": "",
+    "body_font_custom_bold": "",
+    "body_font_custom_name": "",
+    "heading_font_source": "custom",
+    "heading_font_custom_normal": "",
+    "heading_font_custom_name": "Dongle-Bold",
+    "heading_font_weight_bold": "800",
     "content_for_index": [],
     "color_schemes": {
       "scheme-1": {
