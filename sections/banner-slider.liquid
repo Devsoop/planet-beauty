@@ -1,0 +1,122 @@
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script>
+
+{%- assign aspect_ratio_desktop = 0 -%}
+{%- assign aspect_ratio_mobile = 0 -%}
+
+{% for block in section.blocks %}
+  {%- assign aspect_ratio_desktop = block.settings.desktop_image.aspect_ratio -%}
+  {%- assign aspect_ratio_mobile = block.settings.mobile_image.aspect_ratio -%}
+{% endfor %}
+
+<style>
+  .banner-slider {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  .splide__slide img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  .splide {
+    position: relative;
+    width: 100%;
+  }
+</style>
+
+<div class="container__full-width">
+  <div class="banner-slider splide" id="banner-slider-{{ section.id }}" data-auto-play="{{ section.settings.auto_play }}" data-auto-play-seconds="{{ section.settings.auto_play_seconds }}">
+    <div class="splide__track">
+      <ul class="splide__list">
+        {% for block in section.blocks %}
+          {%- assign img_url_desktop = block.settings.desktop_image | img_url: '2000x' -%}
+          {%- assign img_url_mobile = block.settings.mobile_image | img_url: '600x' -%}
+          {%- assign alt_image = block.settings.desktop_image.alt | default: 'Image' -%}
+          
+          <li class="splide__slide">
+            {% if block.settings.link %}<a href="{{ block.settings.link }}" aria-label="{{ alt_image }}">{% endif %}
+              <picture>
+                <source srcset="{{ img_url_mobile }}" media="(max-width: 767px)">
+                <img src="{{ img_url_desktop }}" alt="{{ alt_image }}" width="{{ block.settings.desktop_image.width }}" height="{{ block.settings.desktop_image.height }}" {% if forloop.first %}loading="eager" fetchpriority="high"{% else %}loading="lazy"{% endif %}>
+              </picture>
+            {% if block.settings.link %}</a>{% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var bannerSlider = document.querySelector('#banner-slider-{{ section.id }}');
+    if (bannerSlider) {
+      new Splide(bannerSlider, {
+        type: 'loop',
+        autoplay: bannerSlider.dataset.autoPlay === 'true',
+        interval: parseInt(bannerSlider.dataset.autoPlaySeconds) * 1000 || 5000,
+        perPage: 1,
+        arrows: true,
+        pagination: true,
+        breakpoints: {
+          767: { perPage: 1 }
+        }
+      }).mount();
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Banner Slider",
+  "class": "banner-slider-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "auto_play",
+      "label": "Enable auto play",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "auto_play_seconds",
+      "min": 1,
+      "max": 60,
+      "step": 1,
+      "label": "Auto play seconds",
+      "default": 10
+    }
+  ],
+  "blocks": [
+    {
+      "type": "logo_image",
+      "name": "Banner",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "desktop_image",
+          "label": "Desktop Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Mobile Image"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "info": "Optional"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner Slider",
+      "category": "Image"
+    }
+  ]
+}
+{% endschema %}

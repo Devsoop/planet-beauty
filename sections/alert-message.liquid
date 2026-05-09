@@ -1,0 +1,54 @@
+{% if section.settings.message %}
+  {% render 'alert-message', home_page_only: section.settings.home_page_only, color_bg: section.settings.color_bg, color_text: section.settings.color_text, message_link: section.settings.message_link, message_title: section.settings.message_title, message_subtitle: section.settings.message_subtitle %}
+{% endif %}
+
+{% schema %}
+{
+  "name": "Alert message",
+  "class": "alert-message__section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "message",
+      "label": "Show alert message",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "home_page_only",
+      "label": "Home page only",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "message_title",
+      "label": "Title",
+      "default": "FREE SHIPPING"
+    },
+    {
+      "type": "text",
+      "id": "message_subtitle",
+      "label": "Subtitle",
+      "default": "ON ORDERS OVER $59*"
+    },
+    {
+      "type": "url",
+      "id": "message_link",
+      "label": "Link",
+      "info": "Optional"
+    },
+    {
+      "type": "color",
+      "id": "color_bg",
+      "label": "Bar",
+      "default": "#FAEAEA"
+    },
+    {
+      "type": "color",
+      "id": "color_text",
+      "label": "Text",
+      "default": "#323A45"
+    }
+  ]
+}
+{% endschema %}

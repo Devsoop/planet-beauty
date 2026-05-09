@@ -1,0 +1,32 @@
+
+{% render 'footer', footer_settings: section.settings  %}
+
+{% schema %}
+{
+  "name": {
+    "en": "Footer"
+  },
+  "class": "site-footer__section",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "footer"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_message",
+      "label": "Free shipping Message",
+      "default": "*Free shipping offer applies only to the Continental United States"
+    },
+    {
+      "type": "text",
+      "id": "klaviyo_id",
+      "label": "Klaviyo form ID",
+      "default": "VHMJA3"
+    }
+  ],
+  "blocks": []
+}
+{% endschema %}

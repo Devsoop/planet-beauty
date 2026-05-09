@@ -1,0 +1,72 @@
+<style>
+  .banner_afterload, .banner_preload{
+    display:none;
+  }
+  .banner_preload.show_banner_now, .banner_afterload.show_banner_now{display:block;}
+  @media (max-width: 599px) {
+.show_banner_now.hidden__mobile{
+  display:none !important;
+}
+  }
+@media (min-width: 900px) {
+    .show_banner_now.hidden__desktop {
+        display:none !important;
+    }
+  }
+</style>
+<div class="container__full-width">
+<!-- <div class="banner_preload show_banner_now">
+  <div class="banners_check {{ classes }}" style="width:100%; height: 650px;">
+
+  </div>
+</div> -->
+    <div class="banner-slider carousel__loading carousel__hero {{ classes }}" data-banner-slider {% if view %}data-banner-slider-view="{{ view }}"{% endif %} {% if section.settings.auto_play %} data-banner-auto-play="{{ section.settings.auto_play_seconds }}" {% endif %} style="position: relative; padding-top:{{ 1 | divided_by: aspect_ratio | times: 100}}%;">
+
+    <div class="banner-slider__container" style="position: absolute;top: 0;width: 100%;height: 100%;">
+
+        <div id="{{ id }}" data-banner-slider-carousel class="carousel carousel__inner-arrow active" style="opacity: 0;height: 100%;">
+
+        {% for block in blocks %}
+
+            <div class="carousel__item">
+
+                {%- assign img_url_desktop = block.settings.desktop_image | img_url: '2000x' -%}
+                {%- assign img_url_mobile = block.settings.mobile_image | img_url: '600x' -%}
+                {%- assign alt_image = block.settings.desktop_image.alt | default: 'Image' -%}
+
+                 {% comment %} {% if forloop.first %} 
+                    {%- assign small_image = img_url_desktop -%}
+                {% else %}
+                    {%- assign small_image = '' -%}
+                {% endif %}{% endcomment %}
+
+                {% if block.settings.link %}
+                    <a href="{{ block.settings.link }}" aria-label="{{ alt_image }}">
+                        <span class="visually-hidden">{{ alt_image }}</span>
+                {% endif %}
+
+                {% render 'responsive-image-wolazy', 
+                desktop_image: img_url_desktop, 
+                desktop_image_width: block.settings.desktop_image.width, 
+                desktop_image_height: block.settings.desktop_image.height, 
+                mobile_image: img_url_mobile,
+                mobile_image_width: block.settings.mobile_image.width,
+                mobile_image_height: block.settings.mobile_image.hight,
+                flickity_id: id, 
+                alt_image: alt_image %}
+
+                {% if block.settings.link %}
+                    </a>
+                {% endif %}
+                
+            </div>
+
+        {% endfor %}
+
+        </div>
+
+    </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,24 @@
+<div class="search-bar">
+    <form class="search-bar__form" action="{{ routes.search_url }}" method="get">
+        <div class="search-bar__input-wrapper" data-search-suggestions data-selected-suggestion-item="-1">
+            <label for="searchInput" class="visually-hidden">Search</label>
+            <input id="searchInput" data-search-input type="text" name="q" class="search-bar__input" placeholder="Search" data-search-suggestions-input autocomplete="off"/>
+            <input type="hidden" name="options[prefix]" value="last" aria-hidden="true" />
+            <input type="hidden" name="type" value="product" />
+            <div class="search-suggestions__wrapper" data-search-suggestions-results-wrapper aria-hidden="true" tabindex="-1"></div>
+        </div>
+        <div class="search-bar__submit-wrapper">
+            <button class="search-bar__submit btn-link" type="submit">
+                {% render 'icon-search' %}
+                <span class="visually-hidden">Search</span>
+            </button>
+        </div>
+        <div class="search-bar__actions">
+            <button type="button" class="search-bar__close btn-link" data-search-close>
+                {% render 'icon-close' %}
+                <span class="visually-hidden">Close</span>
+            </button>
+        </div>
+    </form>
+</div>
+  

@@ -1,0 +1,92 @@
+
+/* Page heading */
+.page-hair .static-page__heading {
+    max-width: 530px;
+    margin: 40px auto 50px;
+}
+
+.page-hair .static-page__heading .highlight {
+    background: linear-gradient(180deg,hsla(0,0%,100%,0) 70%,#e3b2d2 0);
+}
+
+.page-hair .text-content.no-heading {
+    margin-top: 5px;
+}
+
+/* Container */
+.page-hair .container--small {
+    max-width: 852px;
+}
+
+.page-hair .container--small.text-content {
+    max-width: 642px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Carousel */
+.page-hair .section-products-carousel {
+    margin-top: 80px;
+}
+
+.page-hair .section-products-carousel {
+    max-width: 1300px;
+    margin: 30px auto 100px;
+    padding: 0 15px;
+}
+
+.page-hair .section-products-carousel {
+    max-width: 1300px;
+    margin: 30px auto 100px;
+    padding: 0 15px;
+}
+
+.page-hair .text-content__paragraph:last-of-type {
+    margin-bottom: 100px;
+}
+
+@media (min-width: 600px) {
+    .page-hair .section-products-carousel {
+        padding: 0 25px;
+    }
+
+    .page-hair .static-page__heading {    
+        margin: 60px auto 50px;
+    }
+    
+    .page-hair .section-products-carousel .carousel__heading-wrapper {
+        padding-bottom: 70px;
+        padding-top: 70px;
+    }
+
+    .page-hair .image-grid__item {
+        margin-bottom: 26px;
+    }
+}
+
+@media (min-width: 900px) {
+    .page-hair .section-products-carousel {
+        padding: 0 70px;
+    }
+}
+
+/* Page hair oils */
+.page-hair-oils .static-page__heading .highlight {
+    background: linear-gradient(180deg,hsla(0,0%,100%,0) 70%,#FAEAEA 0);
+}
+
+.page-hair-oils .h1.carousel__heading.highlight {
+    background: #FFF;
+}
+
+.page-hair-oils .text-content__paragraph:last-of-type {
+    margin-bottom: 28px;
+}
+
+.page-hair-oils.page-hair .section-products-carousel {
+    margin: 30px auto;
+}
+
+.page-hair-oils .text-content__paragraph-acids {
+    text-align: center;
+}

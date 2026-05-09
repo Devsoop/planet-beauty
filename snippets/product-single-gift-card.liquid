@@ -1,0 +1,96 @@
+{% assign current_variant = product.selected_or_first_available_variant %}
+
+<div class="product-single" data-product-single="{{ product.id }}">
+
+  <div class="product-single__media">
+
+    <div class="product-single__media-container">
+
+      {% if product.images.size > 0 %}
+
+        <button data-zoom role="button" aria-label="Zoom Image" class="product-single__zoom">{% render 'icon-zoom' %} <span>Zoom</span></button>
+
+        {% render 'product-gallery', product: product %}
+
+      {% else %}
+
+        {% render 'product-placeholder' %}
+
+      {% endif %}
+      
+    </div>
+
+  </div>
+
+  <div class="product-single__details">
+
+    <div class="product-single__title">
+      <div class="product-single__vendor">{{ product.vendor }}</div>
+      <h1>{{ product.title }}</h1>
+      {% if current_variant.sku != blank %}
+        <div class="product-single__sku" data-product-single-update="sku">Item: {{ current_variant.sku }}</div>
+      {% endif %}
+      {% for item in blocks %}
+        {% if item.type == 'tag_base' %}
+          {% assign tags = item.settings.tag %}
+      {% if product.tags contains tags %}
+      <span class="custom-message">{{ item.settings.custom-message }}</span>
+        {% endif %}
+          {% endif %}
+      {% endfor %}
+    </div>
+
+
+    <div class="product-single__price" data-product-single-update="price">
+      <span class="product-single__price--current">{{ current_variant.price | money }}</span>
+      {% if product.compare_at_price_max > 0 %}
+        <span class="product-single__price--compared">{{ product.compare_at_price_max | money }}</span>
+      {% endif %}
+    </div>
+
+    <div class="product-single__form">
+      {% render 'product-form-gift-card', product: product %}
+    </div>
+
+    <div class="product-single__features">
+
+      <div class="accordion" role="navigation" data-accordion>
+        {% if product.description != blank %}
+          <div class="accordion__item">
+              <button class="accordion__heading" id="btnDescription" aria-expanded="false" aria-controls="contentDescription" data-accordion-heading>Description {% render 'icon-chevron' %}</button>
+              <div class="accordion__content" id="contentDescription" role="region" aria-labelledby="btnDescription" data-accordion-content>
+                {{ product.description }}
+              </div>
+          </div>
+        {% endif %}
+        {% if product.metafields.teamwork.ingredients != blank %}
+          <div class="accordion__item">
+              <button class="accordion__heading" id="btnIngredients" aria-expanded="false" aria-controls="contentIngredients" data-accordion-heading>Ingredients {% render 'icon-chevron' %}</button>
+              <div class="accordion__content" id="contentIngredients" role="region" aria-labelledby="btnIngredients" data-accordion-content>{{ product.metafields.teamwork.ingredients }}</div>
+          </div>
+        {% endif %}
+        {% if product.metafields.teamwork.how_to != blank %}
+          <div class="accordion__item">
+              <button class="accordion__heading" id="btnHowTo" aria-expanded="false" aria-controls="contentHowTo" data-accordion-heading>How to {% render 'icon-chevron' %}</button>
+              <div class="accordion__content" id="contentHowTo" role="region" aria-labelledby="btnHowTo" data-accordion-content>{{ product.metafields.teamwork.how_to }}</div>
+          </div>
+        {% endif %}
+
+        {% if blocks.size > 0 %}
+          {% for item in blocks %}
+            {% if item.type == 'additional_info' %}
+              <div class="accordion__item 11111111111111111">
+                <button class="accordion__heading" id="btn{{ forloop.index }}" aria-expanded="false" aria-controls="content{{ forloop.index }}" data-accordion-heading>{{item.settings.heading}} {% render 'icon-chevron' %}</button>
+                <div class="accordion__content" id="content{{ forloop.index }}" role="region" aria-labelledby="btn{{ forloop.index }}" data-accordion-content>{{item.settings.content}}</div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+
+      </div>
+
+    </div>
+  
+  </div>
+
+</div>

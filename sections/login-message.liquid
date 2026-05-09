@@ -1,0 +1,35 @@
+{% if section.settings.message.size > 0 %}
+
+    {% if section.settings.text_color %}
+        <style>
+            .login-form__message,
+            .login-form__message a {
+                color: {{ section.settings.text_color}}
+            }
+        </style>
+    {% endif %}
+
+    <div class="login-form__message">
+    {{ section.settings.message }}
+    </div>
+
+{% endif %}
+
+{% schema %}
+{
+  "name": "Login Message",
+  "settings": [
+    {
+        "type": "html",
+        "id": "message",
+        "label": "Message"
+    },
+    {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text Color",
+        "default": "#d20000"
+    }
+  ]
+}
+{% endschema %}

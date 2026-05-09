@@ -1,0 +1,135 @@
+<script>
+    var appEnvironment = 'storelocator-prod';
+    var shopHash = '9efaac24b0e3e7a6bc0fc22ec609321c';
+</script>
+{% if template contains 'product' %}
+<script>
+    {% capture product_output %}{
+        id:{{product.id}},
+        handle:'{{product.handle}}',
+        title:{{product.title | json}},
+        variants: {{ product.variants | json }},
+        tags: {{ product.tags | json }},
+        collections: {{ product.collections | json }},
+        vendor: "{{ product.vendor}}",
+    }{% endcapture %}
+    {% assign output_lines = product_output | newline_to_br | split: '<br />' %}
+    SCASLShopifyProduct = {% for line in output_lines %}{{ line | strip }}{% endfor %};
+</script>
+{% endif %}.
+
+<style>
+  #scasl-tabs li {
+  float: left;
+  width: 50px;
+  cursor: pointer;
+}
+  #scasl-tabs{
+    float: left;
+width: 100%;
+  }
+  .form-input {
+    width: 300px !important;
+}
+  .scasl-see-more{
+        position: relative;
+    left: 20px;
+    top: 57px;
+    display: none;
+    cursor: pointer;
+  }
+  .scasl-see-less{
+        position: relative;
+    left: 20px;
+    top: 57px;
+    cursor: pointer;
+  }
+
+  .scasl-search-btn {
+  float: left;
+  width: 19%;
+  margin-top: 3.1em !important;
+}
+  #bh-sl-map{
+    float: left;
+margin-left: 20px !important;
+width: 70%;
+  }
+  .bh-sl-loc-list.scasl-location-list {
+  width: 25%;
+  float: left;
+}
+  .bh-sl-title {
+  margin-top: 36px !important;
+  margin-bottom: 0px !important;
+}
+  #scapl-geocode-btn img{
+    display: none;
+  }
+    #scasl-tabs li {
+  background: rgb(230, 0, 121) !important;
+  list-style-type: none;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  margin-right: 10px;
+  width: 65px;
+  padding: 5px;
+}
+  @media screen and (max-width: 1000px) {
+    .bh-sl-container .form-input{
+      width: 40% !important;
+    }
+    .scasl-search-btn {
+  margin-top: 2.5em !important;
+}
+  }
+    @media screen and (max-width: 900px) {
+    .scasl-search-btn {
+  margin-top: 2.5em !important;
+}
+  }
+@media screen and (max-width: 767px) {
+.bh-sl-container .form-input {
+  width: 100% !important;
+}
+  .scasl-search-btn {
+  margin-top: 0 !important;
+}
+  .scasl-see-more{
+       top: 18px;
+  }
+  .scasl-see-less{
+    top: 18px;
+  }
+  .scasl-search-btn {
+  width: 30%;
+  padding-left: 10px;
+}
+  #scasl-tabs {
+  margin-top: 40px;
+  margin-bottom: 0px;
+      padding-left: 10px;
+margin-top: 20px !important;
+}
+  .bh-sl-loc-list.scasl-location-list {
+  width: 100%;
+}
+  #bh-sl-map {
+  margin-left: 0px !important;
+  width: 100%;
+}
+
+
+
+  
+  }
+@media screen and (max-width: 480px) {
+
+  .scasl-search-btn {
+  width: 40%;
+  padding-left: 10px;
+}
+  }
+  
+</style>

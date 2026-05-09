@@ -1,0 +1,135 @@
+{%- assign social_icons = true -%}
+{%- assign footer_linklist = footer_settings.menu -%}
+
+{% render 'overlay' %}
+{% render 'adroll-style' %}
+
+<footer class="site-footer">
+  <div class="page-container">
+    <div class="site-footer__content container">
+      <!-- Link List -->
+      <div class="site-footer__item-link_list">
+        <div class="site-footer__item-inner site-footer__item-inner--link_list">
+          <div class="accordion" role="navigation" data-accordion>
+            {%- for link in linklists[footer_linklist].links -%}
+              <div class="accordion__item">
+                <button class="accordion__heading" id="btnFooter{{ forloop.index }}" aria-expanded="false" aria-controls="contentFooter{{ forloop.index }}" data-accordion-heading>{{link.title}}{% render 'icon-chevron' %}</button>
+                <div class="accordion__content" id="contentFooter{{ forloop.index }}" role="region" aria-labelledby="btnFooter{{ forloop.index }}" data-accordion-content>
+                  {% for childlink in link.links %}
+                    <a href="{{ childlink.url }}" class="hello"><span>{{ childlink.title | escape }}</span></a>
+                  {% endfor %}
+                
+                </div>
+              </div>
+            {% endfor %}
+            
+          </div>
+        </div>
+      </div>
+
+      {% comment %} Newsletter {% endcomment %}
+      <div class="site-footer__item-newsletter">
+        <div class="site-footer__item-inner site-footer__item-inner--newsletter">
+          <div class="site-footer__newsletter">
+            <div class="site-footer__div-newsletter-title">
+
+              {% comment %} Title {% endcomment %}
+              <span class="site-footer__link-list-item-link newsletter-title">Don't miss out!</span><br>
+
+              {% comment %} Subtitle {% endcomment %}
+              <span class="site-footer__child-item__nav-label">Exclusive sales, savings and offers!</span>
+            </div>
+
+            {%- assign formId = 'ContactFooter' -%}
+            {% form 'customer', id: formId, novalidate: 'novalidate' %}
+              {%- if form.posted_successfully? -%}
+                <p class="form-message form-message--success highlight" tabindex="-1" data-form-status>
+                  {{ 'general.newsletter_form.confirmation' | t }}
+                </p>
+              {%- endif -%}
+
+              {% if form.errors contains 'email' %}
+                <span id="{{ formId }}-email-error" class="input-error-message">
+                  <span class="visually-hidden highlight">{{ 'general.accessibility.error' | t }} </span>
+                  <span class="site-footer__newsletter-error highlight">{{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}.</span>
+                </span>
+              {% endif %}
+              
+              <input type="hidden" name="contact[tags]" value="newsletter">
+              <input type="hidden" name="g" value="{{  footer_settings.klaviyo_id }}">
+              <div class="input-group {% if form.errors %} input-group--error{% endif %} site-footer__newsletter-input-group">
+                <input type="email"
+                  name="contact[email]"
+                  id="{{ formId }}-email"
+                  class="input-group__field newsletter__input{% if form.errors %} input--error{% endif %}"
+                  value="{{ form.email }}"
+                  placeholder="{{ 'general.newsletter_form.email_placeholder' | t }}"
+                  aria-label="{{ 'general.newsletter_form.email_placeholder' | t }}"
+                  aria-required="true"
+                  required
+                  autocorrect="off"
+                  autocapitalize="off"
+                  {% if form.errors %}
+                    aria-invalid="true"
+                    aria-describedby="{{ formId }}-email-error"
+                    data-form-status
+                  {% endif %}>
+              </div>
+
+              <button type="submit" class="btn newsletter__submit" name="commit" id="Subscribe" aria-label="Subscribe">
+                {% render 'icon-arrow' %}
+              </button>
+
+
+            {% endform %}
+
+            <div class="site-footer__div-newsletter-bottom">
+              {% comment %} Subscribed {% endcomment %}
+              <span class="site-footer__child-item__nav-label">Subscribed already?</span>
+
+              {% comment %} Subscribed Text Link {% endcomment %}
+              <a class="site-footer__link-list-item-link subscribed" href="/pages/stay-beautiful">Manage your preferences</a>
+            </div>
+          </div>
+          
+          <div class="site-footer__social-icons">
+            {% render 'social-icons' %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% comment %} Line {% endcomment %}
+  <div class="site-footer__page-width page-container">
+    <div class="container">
+      <hr class="site-footer__hr">
+    </div>
+  </div>
+
+  {% comment %} Copyright {% endcomment %}
+  <div class="site-footer__page-width page-container">
+    <div class="container">
+      <div class="grid__item--footer badge_grid">
+        <div class="bottom_left_contect">
+        <div class="my_links">
+      <ul class="privacy_links">
+        <li><a href="https://www.planetbeauty.com/pages/privacy-policy">Privacy Policy</a></li>
+        <li>|</li>
+        <li><a href="https://www.planetbeauty.com/pages/terms-of-use">Terms of Use</a></li>
+        <li>|</li>
+        <li><a href="javascript:void(0)" id="ot-sdk-btn" class="ot-sdk-show-settings">Do Not Sell My Personal Information</a></li>
+      </ul>
+        </div>
+        {% comment %} Shipping free text {% endcomment %}
+        <span class="site-footer__child-item__nav-label free-shipping">{{ footer_settings.free_shipping_message}}<br></span>
+        <small class="site-footer__copyright-content">Copyright &copy; {{ 'now' | date: "%Y" }}, {{ shop.name | link_to: routes.root_url }}.</small>
+        <small class="site-footer__copyright-content">All rights reserved.</small>
+        </div>
+        <div class="dmca_badge">
+        <a href="//www.dmca.com/Protection/Status.aspx?ID=86f9d293-2d0d-4edd-bf5f-2ceb7d494251" title="DMCA.com Protection Status" class="dmca-badge"> <img width="97" height="100" src ="https://cdn.shopify.com/s/files/1/0568/4484/5206/files/images_dmca_com-_dmca_premi_badge_1.webp?v=1719315198"  alt="DMCA.com Protection Status" /></a>  <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+      </div>
+      </div>
+    </div>
+  </div>
+</footer>

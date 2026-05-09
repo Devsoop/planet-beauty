@@ -1,0 +1,33 @@
+<div class="article-card">
+
+    <a href="{{ article.url }}" class="article-card__link">
+
+        {% assign article_image = article.image %}
+        {% if article_image %}
+            <div class="article-card__image-wrapper" style="position: relative; padding-top:{{ 1 | divided_by: article_image.aspect_ratio | times: 100 }}%;">
+                <img 
+                    class="article-card__image lazyload"
+                    data-src="{{ article_image.src | img_url: '1200x' }}"
+                    data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                    data-sizes="auto"
+                    alt="{{article_image.alt}}">
+            </div>
+        {% else %}
+            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+        {% endif %}
+
+        <h2 class="h3 article-card__title" >{{ article.title }}</h2>
+
+        <div class="article-card__excerpt">
+            {% if article.excerpt.size > 0 %}
+                {{ article.excerpt }}
+            {% else %}
+                {{ article.content | strip_html | truncatewords: 40 }}
+            {% endif %}
+        </div>
+
+        <div class="article-card__author">{{ article.published_at | date: "%b %d, %Y" }} by {{ article.author }}</div>
+
+    </a>
+
+</div>

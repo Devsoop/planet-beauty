@@ -1,0 +1,48 @@
+<div class="page-container static-page" data-static-page >
+
+    <div class="container">
+    
+        {%- comment -%}
+        <div class="static-page__heading">
+            <h1 class="highlight">{{ page.title }}</h1>
+        </div>
+        {%- endcomment -%}
+    
+        <div>{{ page.content }}</div>
+
+        {% unless settings.power_reviews_api == blank %}
+            {% unless settings.power_reviews_locale == blank %}
+                {% unless settings.power_reviews_merchant_group_id == blank %}
+                    {% unless settings.power_reviews_merchant_id == blank %}
+
+                        <div class="power-reviews power-reviews__write-a-review">
+                            <div id="pr-write"></div>
+                        </div>
+
+                        <script>
+                            window.pwr = window.pwr || function () {
+                            (pwr.q = pwr.q || []).push(arguments); 
+                            };
+                            pwr("render", {
+                                api_key: "{{ settings.power_reviews_api }}",
+                                locale: "{{ settings.power_reviews_locale }}",
+                                merchant_group_id: "{{ settings.power_reviews_merchant_group_id }}",
+                                merchant_id: "{{ settings.power_reviews_merchant_id }}",
+                                style_sheet: "{{ 'power-reviews.css' | asset_url }}",
+                            on_submit:function(config, data){
+                                    window.scrollTo(0,0);
+                                    },
+                            components: {
+                                Write: 'pr-write',
+                            }
+                            });
+                        </script>
+                
+                    {% endunless %}
+                {% endunless %}
+            {% endunless %}
+        {% endunless %}
+    
+    </div>
+  
+</div>

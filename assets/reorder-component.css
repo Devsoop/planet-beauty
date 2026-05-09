@@ -1,0 +1,16 @@
+.reorder-btn {
+    margin-top: 35px;
+}
+
+.reorder-btn .icon-loading {
+    display: none;
+}
+
+.reorder-btn.loading .icon-loading {
+    display: block;
+}
+
+.reorder-btn.loading span {
+    display: none;
+}
+

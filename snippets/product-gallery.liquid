@@ -1,0 +1,57 @@
+<div class="gallery">
+
+  {%- assign availableVariant = product.first_available_variant -%}
+
+  {%- comment -%} Thumbnails {%- endcomment -%}
+  {%- assign variantAlt = product.first_available_variant.featured_media.alt | downcase -%}
+
+
+  {%- comment -%} Product Media {%- endcomment -%}
+  <div class="gallery__images gallery__images-flex" data-gallery>
+    {% for media in product.media %}
+
+      {% case media.media_type %}
+
+        {% when 'image' %}
+          <div class="gallery__item" data-gallery-item="{{ media.alt | escape }}" data-gallery-item-index="{{ forloop.index0}}">
+            <div class="loading" style="{% unless forloop.first %}display:none;{% endunless %}padding-top:{{ 1 | divided_by: media.aspect_ratio | times: 100}}%;">
+              <img data-pswp-img data-pswp-src="{{ media.src | img_url: 'x2000'}}" data-pswp-width="{{ media.width }}" data-pswp-height="{{ media.height }}" width="{{ media.width }}" height="{{ media.height }}" src="{{ media.src | img_url: 'x2000'}}" alt="{{ media.alt | escape }}" loading="lazy" class="lazyload {{ image_class}}"/>
+            </div>
+          </div>
+
+        {% when 'video' %}
+          <div class="gallery__item" data-gallery-item="{{ media.alt | escape }}" data-gallery-item-index="{{ forloop.index0}}" data-gallery-item-disable-zoom>
+            <div class="loading gallery__video-container" style="{% unless forloop.first %}display:none;{% endunless %}padding-top:{{ 1 | divided_by: media.aspect_ratio | times: 100}}%;">
+              {{ media | video_tag: controls: true, class: "video" }}
+            </div>
+          </div>
+
+        {% when 'external_video' %}
+          <div class="gallery__item" data-gallery-item="{{ media.alt | escape }}" data-gallery-item-index="{{ forloop.index0}}" data-gallery-item-disable-zoom>
+            <div class="loading gallery__video-container" style="{% unless forloop.first %}display:none;{% endunless %}padding-top:{{ 1 | divided_by: media.aspect_ratio | times: 100}}%;">
+              {{ media | external_video_tag: class: "external_video", preload: true }}
+            </div>
+          </div>
+
+      {% endcase %}
+
+    {% endfor %}
+  </div>
+  {% if product.media.size > 1 %}
+    <div class="gallery__thumbnails" data-thumbnail-slider>
+      <div class="media-size-{{ product.media.size }}">
+        <ul class="gallery__product-thumbnails">
+          {% for media in product.media %}
+            {%- assign imageAlt = media.alt | downcase -%}
+            <li class="gallery__thumbnails-item"  {% unless variantAlt == imageAlt %}style="display: none;"{% endunless %} data-thumbnail-item='{{ media.alt }}' data-thumbnail-index="{{ forloop.index0 }}">
+              {%- assign imageUrl = media.preview_image | img_url: '110x110', scale: 2 -%}
+              <button role="button" aria-label="Show thumbnail: {{ media.alt }}">
+                {% render 'image', src: imageUrl, aspect_ratio: 1, class: 'gallery__thumbnail-image', alt: media.alt %}
+              </button>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  {% endif %}
+</div>

@@ -1,0 +1,26 @@
+<div class="banner-overlay">
+    <div class="banner-overlay__image">
+        {% render 'responsive-image', lazyload: true, alt_image: heading,
+        desktop_image: desktop_image, 
+        desktop_aspect_ratio: desktop_aspect_ratio,
+        desktop_image_width: desktop_image_width,
+        desktop_image_height: desktop_image_height, 
+        tablet_image: tablet_image, 
+        tablet_aspect_ratio: tablet_aspect_ratio,
+        tablet_image_width: tablet_image_width,
+        tablet_image_height: tablet_image_height, 
+        mobile_image: mobile_image, 
+        mobile_aspect_ratio: mobile_aspect_ratio,
+        mobile_image_width: mobile_image_width,
+        mobile_image_height: mobile_image_height %}
+    </div>
+
+    <div class="banner-overlay__container banner-overlay__position-{{overlay_position}} banner-overlay__align-{{text_align}}">
+        <div class="banner-overlay__text-container {% if small_style %}banner-overlay__small{% endif %}" {% if text_color %}style="color:{{text_color}}"{% endif %}>
+            <div class="banner-overlay__title">{{heading}}</div>
+            {% if subheading %}
+                <p class="banner-overlay__subtitle">{{subheading}}</p>
+            {% endif %}
+        </div>
+    </div>
+</div>

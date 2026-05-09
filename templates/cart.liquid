@@ -1,0 +1,146 @@
+<!-- Begin ReCharge code -->
+  {% include 'subscription-cart-footer' %}
+<!-- End ReCharge code -->
+
+<div id="sca_fg_cart">
+  <div class="page-container">
+
+    <div class="container">
+
+      <div class="cart-page" data-cart-page>
+        {% if cart.item_count > 0 %}
+          <h1>{{ 'cart.general.title' | t }}</h1>
+
+          <span class="cart-page__error-message" data-error-message></span>
+
+          <form action="/cart" method="post" novalidate class="cart-page__form">
+            <table class="cart-page__table">
+              <thead class="cart-page__row cart-page__table-head">
+                <tr>
+                  <th colspan="2">Product</th>
+                  <th class="text-right mobile--hide">Price</th>
+                  <th class="text-right mobile--hide">Qty</th>
+                  <th class="text-right mobile--hide">Total</th>
+                </tr>
+              </thead>
+              <tbody class="cart-page__table-body">
+                {% for item in cart.items %}
+                  <tr class="cart-page__row">
+
+                    {%- comment -%} Product Information {%- endcomment -%}
+                    <td colspan="2" class="cart-page__td-description">
+                      <div class="cart-page__product-information">
+                        <div class="cart-page__product-image">
+                          <a href="{{ item.url | within: collections.all }}">
+                            {% if item.image.size > 0 %}
+                              <img src="{{ item | img_url: 'medium' }}" alt="{{ item.title | escape }}">
+                            {% else %}
+                              {% render 'product-placeholder', alt: item.title | escape %}
+                            {% endif %}
+                          </a>
+                        </div>
+
+                        <div class="cart-page__product-description">
+                          <a class="cart-page__product-title" href="{{ item.url }}">{{ item.product.title }}</a>
+                          {{ item.variant.title }}
+
+                          {% if item.properties %}
+
+                            <div class="cart-page__product-properties">
+                              {% for propertie in item.properties %}
+                                <span>{{ propertie | first | replace: "_", " " }}: {{ propertie | last }}</span><br>
+                              {% endfor %}
+                            </div>
+                            
+                          {% endif %}
+
+                          <a class="cart-page__product-remove mobile--hide" aria-label="Remove" href="/cart/change?line={{ forloop.index }}&amp;quantity=0">remove</a>
+                        </div>
+
+                      </div>
+                    </td>
+
+                    {%- comment -%} Product Price {%- endcomment -%}
+                    <td class="text-right mobile--hide">
+                      <div class="cart-page__product-price">
+                        {{ item.price | money }}
+                      </div>
+                    </td>
+
+                    {%- comment -%} Product Quantity {%- endcomment -%}
+                    <td class="cart-page__td-quantity">
+                    
+                      <div class="cart-page__product-quantity">
+                        {% render 'quantity-selector', label: item.quantity, value: item.quantity, name: 'updates[]', id: item.id %}
+                      </div>
+
+                      <div class="cart-page__product-total tablet--hide" data-product-final-price="{{ item.id }}">
+                        {% if item.original_line_price != item.line_price %}
+                          {{ item.original_line_price | money }}
+                        {% endif %}
+                        {{ item.line_price | money }}
+                        {% for discount in item.discounts %}
+                          {{ discount.title }}
+                        {% endfor %}
+                      </div>
+
+                      <div class="cart-page__trash tablet--hide">
+                        <a class="cart-page__product-remove" aria-label="Remove" href="/cart/change?line={{ forloop.index }}&amp;quantity=0">
+                          {% include 'icon-trash' %}
+                        </a>
+                      </div>
+                      
+                    </td>
+
+                    {%- comment -%} Product Final Price {%- endcomment -%}
+                    <td class="mobile--hide" data-product-final-price="{{ item.id }}">
+                      {% if item.original_line_price != item.line_price %}
+                        {{ item.original_line_price | money }}
+                      {% endif %}
+                      {{ item.line_price | money }}
+                      {% for discount in item.discounts %}
+                        {{ discount.title }}
+                      {% endfor %}
+                    </td>
+                    
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+
+            {% render 'sca.freegifts.cart' %}
+
+            <div class="cart-page__div-buttons">
+              <p class="cart-page__subtotal">subtotal : <span data-subtotal>{{ cart.total_price | money }}</span></p>
+
+              <div class="cart-page__buttons">
+                {%- comment -%}
+                <button type="submit" name="update">{{ 'cart.general.update' | t }}</button>
+                {%- endcomment -%}
+                
+                <button class="cart-page__checkout-button" type="submit" name="checkout">{% include 'icon-lock' %}{{ 'cart.general.checkout' | t }}</button>
+              </div>
+            </div>
+
+          </form>
+        {% else %}
+        
+          {%- comment -%} Empity Message {%- endcomment -%}
+          <div class="cart-page__empty-message">
+            <h2>{{ 'cart.general.title' | t }}</h2>
+
+            <span>{{ 'cart.general.empty_message' | t }}</span>
+            
+            <a href="{{ routes.all_products_collection_url }}">
+              <button class="btn btn-ghost btn-icon btn-icon-after">
+                <span>{{ 'cart.general.empty_button_text' | t }}</span>{% include 'icon-arrow' %}</button>
+            </a>
+          </div>
+          
+        {% endif %}
+      </div>
+
+    </div>
+
+  </div>
+</div>

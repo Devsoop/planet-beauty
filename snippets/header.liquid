@@ -1,0 +1,62 @@
+{% if wrapper %}<div class="site-header">{% endif %}
+  <header class="page-container site-header__page-container">
+      <div class="container site-header__container">
+          <div class="site-header__left">
+            <div class="site-header__left-item site-header__menu">
+                <button class="btn-link" aria-label="Open menu" data-menu-open>{% render 'icon-menu' %}</button>
+            </div>
+            {% render 'button-linklist', linklist_id: 'header-links', linklist_class: 'site-header__left-item site-header__left-item-location' %}
+
+          </div>
+          <div class="site-header__logo">
+          {% if request.page_type == 'index' %}
+              <h1 class="site-header__logo-wrapper">{% render 'logo' %}</h1>
+          {% else %}
+              <a href="{{ routes.root_url }}" class="site-header__logo-wrapper">{% render 'logo' %}</a>
+          {% endif %}
+          </div>
+          <div class="site-header__right">
+              <div class="site-header__search" data-search-bar-header>
+                  {% render 'search-bar' %}
+              </div>
+              <div class="site-header__right-item search-btn">
+                  <button class="btn-link btn-link--text" aria-label="Open search" data-search-open><span>{% render 'icon-search' %} <span class="hidden__mobile text">Search</span></span></button>
+              </div>
+
+              {% if shop.customer_accounts_enabled %}
+                  {% if customer %}
+                      <div class="site-header__right-item site-header__account">
+                          <a href="{{ routes.account_url }}" class="btn-link btn-link--text">
+                            <span>{% render 'icon-user' %}<span>{{ 'layout.customer.account' | t }}</span></span>
+                          </a>
+                      </div>
+                  {% else %}
+                      <div class="site-header__right-item site-header__account">
+                          <a href="{{ routes.account_login_url }}" class="btn-link btn-link--text">
+                            <span>{% render 'icon-user' %}<span  class="hidden__mobile">{{ 'layout.customer.log_in' | t }}</span></span>
+                        </a>
+                      </div>
+                  {% endif %}
+              {% endif %}
+
+              {% comment %} <div class="site-header__right-item site-header__wishlist">
+                  <a href="#" class="btn-link"><span class="visually-hidden">Wish list</span>{% render 'icon-heart' %}</a>
+              </div> {% endcomment %}
+
+              <div class="site-header__right-item">
+                {% render 'minicart-button' %}
+              </div>
+          </div>
+          <div class="site-header__bottom">
+              {% render 'menu', menu: menu %}
+          </div>
+      </div>
+  </header>
+{% if wrapper %}</div>{% endif %}
+
+
+  <style>
+    .mylivechat_inline.mylivechat_template5.mylivechat_template_float_right.mylivechat_template_float_bottom {
+    display: none !important;
+}
+  </style>

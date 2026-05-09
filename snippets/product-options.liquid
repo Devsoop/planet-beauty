@@ -1,0 +1,19 @@
+
+
+    <select name="id" class="product-form__options" id="productSelect" data-swatches-variant-select>
+    {% for variant in product.variants %}
+      {% if variant.available %}
+        <option data-variant-id="{{ variant.id }}" value="{{ variant.id }}"
+          {% for option in product.options %}
+            data-swatches-option-{{option | replace: ' ', '-' }}="{{ variant.options[forloop.index0] | replace: ' ', '-' }}"
+          {% endfor %}
+        >
+          {{ variant.title }} - {{ variant.price | money_with_currency }}
+        </option>
+      {% else %}
+        <option data-variant-id="{{ variant.id }}" disabled="disabled">
+          {{ variant.title }} - sold out
+        </option>
+      {% endif %}
+    {% endfor %}
+  </select>

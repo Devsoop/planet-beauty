@@ -1,0 +1,50 @@
+/*
+//  Recharge Subscriptions App
+ _____________________________________________ */
+
+.rc-template__legacy-radio .rc-radio__input, 
+.rc-template__legacy-radio .rc-radio__label {
+    display: inline-block !important;
+    vertical-align: baseline !important;
+    margin-bottom: 0;
+    margin-left: 0;
+}
+
+.rc-template__legacy-radio .rc-radio.rc-option__subsave,
+.rc-template__legacy-radio .rc-radio + .rc-radio {
+    padding: 8px !important;
+}
+
+.rc-template__legacy-radio .rc_widget__option__selector+.rc-selling-plans {
+    padding: 0 16px 0 36px !important;
+}
+
+.rc_widget__option__plans__dropdown.rc-selling-plans__dropdown {
+    margin-top: 8px !important;
+    margin-bottom: 16px !important;
+}
+
+/* Account - Recharge pages */
+
+.recharge.page__customers__request-invite .rc_layout .columns {
+    margin: 40px auto 0 !important;
+}
+
+.recharge.page__customers__request-invite .rc_layout .button {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 340px;
+}
+
+.recharge.page__customers__request-invite .rc_header-settings__description p {
+    max-width: 355px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+@media (min-width: 900px) { 
+    .recharge.page__customers__request-invite .rc_title-bar__title h2 {
+        font-size: 36px;
+        line-height: 38px;
+    }
+}

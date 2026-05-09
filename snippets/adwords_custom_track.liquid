@@ -1,0 +1,295 @@
+{% comment %}
+// Shopify Tracking Code
+// This Shopify tracking code serves several purposes to enhance website tracking and performance analysis. Here are the main functions it performs:
+// 1. URL parameter retrieval:
+//    The code retrieves UTM parameters (utm_source, utm_medium, and utm_campaign) from the URL to track traffic source, medium, and campaign information.
+// 2. Cookie and local storage management:
+//    The code sets cookies and local storage items for the UTM parameters, enabling the website to remember these values for future visits.
+// 3. Customer ID retrieval:
+//    The code retrieves the customer ID from various sources, such as Shopify's customer object or the Shopify Analytics library.
+// 4. Page view tracking:
+//    The code tracks page views for different types of pages (e.g., homepage, collection pages, product pages, cart pages, search result pages), facilitating performance analysis across website sections.
+// 5. Add to Cart event tracking:
+//    The code tracks when a user clicks the "Add to Cart" button, providing insights into user behavior and product popularity.
+// 6. Begin Checkout event tracking:
+//    The code tracks when a user clicks the "Begin Checkout" button, providing insights into the checkout process and identifying areas for improvement.
+//
+// Implemented the Global Site Tag, Google Ads, and GA4 separately as per requirements. 
+//
+// Last update: June 20, 2023
+// Overall, this tracking code monitors user behavior, analyzes website performance, and optimizes marketing campaigns by providing valuable data.
+{% endcomment %}
+
+<script>
+  // Helper function to retrieve URL parameters
+  function getUrlParameter(name) {
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(window.location.href);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+  }
+
+  // Helper functions for setting cookies and local storage
+  function setCookie(name, value, days) {
+    var expires = "";
+    if (days) {
+      var date = new Date();
+      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+  }
+
+  function setLocalStorageItem(name, value) {
+    try {
+      localStorage.setItem(name, value);
+    } catch (error) {
+      console.error('Error setting local storage item:', error);
+    }
+  }
+
+  // Retrieve UTM parameters and set cookies/local storage
+  var utm_source = getUrlParameter('utm_source') || 'not_set';
+  var utm_medium = getUrlParameter('utm_medium') || 'not_set';
+  var utm_campaign = getUrlParameter('utm_campaign') || 'not_set';
+
+  setCookie('utm_source', utm_source, 30);
+  setCookie('utm_medium', utm_medium, 30);
+  setCookie('utm_campaign', utm_campaign, 30);
+
+  setLocalStorageItem('utm_source', utm_source);
+  setLocalStorageItem('utm_medium', utm_medium);
+  setLocalStorageItem('utm_campaign', utm_campaign);
+
+  // Retrieve customer ID
+  var getCustomerId = function () {
+    var customerId = null;
+
+    try {
+      if (window.Shopify && window.Shopify.customer) {
+        customerId = window.Shopify.customer.id;
+      } else if (window.meta && window.meta.customer) {
+        customerId = window.meta.customer.id;
+      } else if (__st && __st.cid) {
+        customerId = __st.cid;
+      } else if (
+        window.ShopifyAnalytics &&
+        window.ShopifyAnalytics.lib &&
+        window.ShopifyAnalytics.lib.user
+      ) {
+        var user = window.ShopifyAnalytics.lib.user();
+        if (user && user.traits && user.traits().uniqToken) {
+          customerId = user.traits().uniqToken;
+        }
+      }
+    } catch (error) {
+      console.error('Error retrieving customer ID:', error);
+    }
+
+    return customerId;
+  };
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=GT-KFHHK76"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    try {
+      dataLayer.push(arguments);
+    } catch (error) {
+      console.error('Error pushing to dataLayer:', error);
+    }
+  }
+  gtag('js', new Date());
+  gtag('config', 'GT-KFHHK76');
+  
+  // Check if AW-961616509 event has already been fired
+  var awEventFired = false;
+  var existingAWEventIndex = -1;
+  for (var i = 0; i < window.dataLayer.length; i++) {
+    if (window.dataLayer[i].event === 'awEvent' && window.dataLayer[i].send_to === 'AW-961616509') {
+      awEventFired = true;
+      existingAWEventIndex = i;
+      break;
+    }
+  }
+
+  try {
+    if (!awEventFired) {
+      gtag('config', 'AW-961616509');
+    } else {
+      // Append additional data to the existing AW-961616509 event
+      window.dataLayer[existingAWEventIndex].ecomm_pagetype = 'home';
+    }
+    
+    gtag('config', 'G-5KJ4XHEQF3', {
+      'enhanced_conversions': true,
+      'linker': {
+        'domains': [
+          'planet-beauty-production.myshopify.com',
+          'www.planetbeauty.com',
+          'planetbeauty.com',
+          'google.com',
+          'googleadservices.com',
+          'paypal.com',
+          'portal.afterpay.com',
+          'pay.shopify.com',
+          'shop.app',
+          'checkout.shopify.com',
+          'pay.google.com',
+          'amazon.com',
+        ],
+      },
+      'send_page_view': false,
+      'campaign': {
+        'source': utm_source,
+        'medium': utm_medium,
+      },
+    });
+  } catch (error) {
+    console.error('Error configuring Google tags:', error);
+  }
+</script>
+
+{% if template contains 'index' %}
+  <script>
+    try {
+      gtag('event', 'page_view', {
+        'send_to': 'AW-961616509',
+        'page_location': window.location.href,
+        'user_id': getCustomerId(),
+        'client_id': getCustomerId(),
+        'ecomm_pagetype': 'home'
+      });
+    } catch (error) {
+      console.error('Error tracking page view:', error);
+    }
+  </script>
+{% elsif template contains 'collection' %}
+  <script>
+    try {
+      gtag('event', 'view_item_list', {
+        'send_to': 'AW-961616509',
+        'page_location': window.location.href,
+        'user_id': getCustomerId(),
+        'client_id': getCustomerId(),
+        'ecomm_pagetype': 'category'
+      });
+    } catch (error) {
+      console.error('Error tracking view item list:', error);
+    }
+  </script>
+  <script>
+    try {
+      gtag('event', 'view_item_list', {
+        'send_to': 'G-5KJ4XHEQF3',
+        'items': [
+          {% for collection_item in collection.products %}
+            {
+              'item_id': '{{ collection_item.first_available_variant.sku }}',
+              'item_name': '{{ collection_item.title | replace: "'", "&#39;" }}',
+              'item_brand': "{{ collection_item.vendor }}",
+              {% for collection in product.collections %}
+                'item_category{% unless forloop.index == 1 %}{{ forloop.index }}{% endunless %}': "{{ collection.title }}",
+              {% endfor %}
+              'item_variant': "{{ collection_item.first_available_variant.title }}",
+              'price': {{ collection_item.price }}
+            }{% unless forloop.last %},{% endunless %}
+          {% endfor %}
+        ]
+      });
+    } catch (error) {
+      console.error('Error tracking view item list:', error);
+    }
+  </script>
+{% elsif template contains 'product' %}
+  <script>
+    try {
+      gtag('event', 'page_view', {
+        'page_location': window.location.href,
+        'user_id': getCustomerId(),
+        'client_id': getCustomerId(),
+        'value': {{ product.selected_or_first_available_variant.price | money_without_currency | remove: "," }},
+        'items': [{
+          'id': '{{ product.selected_or_first_available_variant.sku }}',
+          'google_business_vertical': 'retail'
+        }],
+        'send_to': 'AW-961616509'
+      });
+    } catch (error) {
+      console.error('Error tracking page view:', error);
+    }
+  </script>
+  <script>
+    try {
+      gtag('event', 'view_item', {
+        'send_to': 'G-5KJ4XHEQF3',
+        'currency': 'USD',
+        {% if product.compare_at_price_max > product.price %}
+        'value': {{ product.compare_at_price_max }},
+        {% endif %}
+        'items': [
+          {
+            'item_id': {% if product.selected_or_first_available_variant.sku %}'{{ product.selected_or_first_available_variant.sku }}'{% else %}'{{ product.selected_or_first_available_variant.id }}'{% endif %},
+            'item_name': '{{ product.title | replace: "'", "&#39;" }}',
+            {% if product.compare_at_price_max > product.price %}'coupon': '{{ discount.title }}',{% endif %}
+            {% if product.compare_at_price_max %}'discount': {{ product.compare_at_price_max | minus: product.selected_or_first_available_variant.price | times: 100.0 | divided_by: product.compare_at_price_max | money_without_currency | times: 100 | remove: ".0" }},{% endif %}
+            'item_brand': '{{ product.vendor | remove: "'" | remove: '"' }}',
+            {% for collection in product.collections %}
+            'item_category{% unless forloop.index == 1 %}{{ forloop.index }}{% endunless %}': '{{ collection.title }}',
+            {% endfor %}
+            'item_variant': '{{ product.selected_or_first_available_variant.title | remove: "'" | remove: '"' }}',
+            'price': {{ product.selected_or_first_available_variant.price | money_without_currency | remove: "," }}
+          }
+        ],
+        'ecommerce': {
+          'items': [
+            {
+              'item_name': '{{ product.title | replace: "'", "&#39;" }}',
+              'item_id': {% if product.selected_or_first_available_variant.sku %}'{{ product.selected_or_first_available_variant.sku }}'{% else %}'{{ product.selected_or_first_available_variant.id }}'{% endif %},
+              'price': {{ product.selected_or_first_available_variant.price | money_without_currency | remove: "," }},
+              'item_brand': '{{ product.vendor | remove: "'" | remove: '"' }}',
+              {% for collection in product.collections %}
+              'item_category{% unless forloop.index == 1 %}{{ forloop.index }}{% endunless %}': '{{ collection.title }}',
+              {% endfor %}
+              'item_variant': '{{ product.selected_or_first_available_variant.title | remove: "'" | remove: '"' }}'
+            }
+          ]
+        }
+      });
+    } catch (error) {
+      console.error('Error tracking view item:', error);
+    }
+  </script>
+{% elsif template contains 'search' %}
+  <script>
+    try {
+      window.dataLayer.push({
+        'event': 'view_search_results',
+        'page_location': window.location.href,
+        'user_id': getCustomerId(),
+        'client_id': getCustomerId(),
+        'ecomm_pagetype': 'searchresults',
+        'search_term': '{{ search_terms | escape }}'
+      });
+    } catch (error) {
+      console.error('Error tracking view search results:', error);
+    }
+  </script>
+{% else %}
+  <script>
+    try {
+      window.dataLayer.push({
+        'event': 'page_view',
+        'page_location': window.location.href,
+        'user_id': getCustomerId(),
+        'client_id': getCustomerId()
+      });
+    } catch (error) {
+      console.error('Error tracking page view:', error);
+    }
+  </script>
+{% endif %}

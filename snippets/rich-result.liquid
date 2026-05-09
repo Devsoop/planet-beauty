@@ -1,0 +1,119 @@
+<!-- Imagination Media Rich Result Implementation - 1.0.0 -->
+
+<script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Organization",
+      "name": {{ shop.name | json }},
+      "description": {{ shop.description | json }},
+      "sameAs": [
+        {{ settings.social_twitter_link | json }},
+        {{ settings.social_facebook_link | json }},
+        {{ settings.social_pinterest_link | json }},
+        {{ settings.social_instagram_link | json }}
+      ],
+      "url": {{ shop.url | append: page.url | json }},
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": {{ shop.address.country | json }},
+        "postalCode": {{ shop.address.zip | json }},
+        "streetAddress": {{ shop.address.street | json }}
+      },
+      "telephone": {{ shop.phone | json }},
+      "email": {{ shop.email | json }},
+      "image": "https://cdn.shopify.com/s/files/1/0568/4484/5206/files/1500x500.png?v=1633094665"
+    }
+</script>
+
+{% if template.name == "product" %}
+
+    {%- comment -%}
+    {% if product.available %}
+        {% assign available = "https://schema.org/InStock" %}
+    {% else %}
+        {% assign available = "https://schema.org/OutOfStock "%}
+    {% endif %}
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Product",
+            "description": {{ product.description | strip_html | json }},
+            "name": {{ product.title | strip_html | json }},
+            "image": {{ product.featured_image | img_url | json }},
+            "sku": {{ current_variant.sku | json }},
+            "offers": {
+                "@type": "Offer",
+                "availability": {{ available | json }},
+                "url": {{ product.url  | append: page.url | json }},
+                "price": {{ product.price | money_without_currency  | json }},
+                "priceCurrency": {{ product.price | money_with_currency | split: ' ' | last  | json }}
+            }
+        }
+    </script>
+    {%- endcomment -%}
+
+{% elsif  template.name == "collection" %}
+    
+    <script type="application/ld+json">
+        {
+        "@context": "https://schema.org/",
+        "@type": "CollectionPage",
+        "name": {{ collection.title | strip_html | json }},
+        "image": {{ collection.image | img_url | json }},
+        "description": {{ collection.description | strip_html | json }},
+        "url": {{ collection.url | append: page.url | json }}
+        }
+    </script>
+
+{% elsif  template.name == "index"  %}
+  
+    {% assign potential_action_target = shop.url | append: routes.search_url | append: "?q={search_term_string}" %}
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "WebSite",
+        "name": {{ shop.name | strip_html | json }},
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {{ potential_action_target | json }},
+          "query-input": "required name=search_term_string"
+        },
+        "url": {{ shop.url | append: page.url | json }}
+      }
+    </script>
+
+{% elsif  template.name == "blog" %}
+
+    <script type="application/ld+json">
+        {
+        "@context": "http://schema.org",
+        "@type": "Blog",
+        "name": {{ blog.title | strip_html | json }},
+        "keywords": "{% for tag in blog.all_tags %}{{ tag }}{% endfor %}",
+        "url": {{ blog.url | append: page.url | json }}
+        }
+    </script>
+
+{% elsif  template.name == "article" %}
+
+    <script type="application/ld+json">
+        {
+        "@context": "https://schema.org/",
+        "@type": "Article",
+        "name": {{ article.title | strip_html | json }},
+        "about": {{ article.excerpt | strip_html | json }},
+        "keywords": "{% for tag in article.tags %}{{ tag }}{% endfor %}",
+        "mainEntityOfPage": {{ article.url | append: page.url | json }},
+        "url": {{ article.url | append: page.url | json }},
+        "image": {{ article.image | img_url: '2000x' | json }},
+        "dateCreated": {{ article.created_at | append: page.url | json }},
+        "datePublished": {{ article.published_at | append: page.url | json }},
+        "articleBody": {{ article.content | strip_html | json }},
+        "author": {{ article.author | strip_html | json }},
+        "description": {{ article.excerpt | strip_html | json }}
+        }
+    </script>
+
+{% endif %}
+

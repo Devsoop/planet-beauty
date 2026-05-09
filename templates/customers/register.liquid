@@ -1,0 +1,67 @@
+<!-- /templates/customers/register.liquid -->
+<style>
+  fieldset{
+    border:none;
+  }
+</style>
+<div class="page-width"> 
+  <section class="register-form-container" data-register-form>
+    
+    <header class="heading__wrapper"> 
+      <h1 class="heading h1 highlight-internal">{{ 'customer.register.title' | t }}</h1>
+    </header>
+
+    {% form 'create_customer' %}
+    
+    {%- if form.errors -%}
+      <div role="alert" class="register-form__message--error">
+        <h2>{{ 'contact.form.error_heading' | t }}</h2>
+        {{ form.errors | default_errors }}
+      </div>
+    {%- endif -%}
+
+    <fieldset>
+      <legend class="visually-hidden">Create Account Form</legend>
+
+      <label for="first_name">{{ 'customer.register.first_name' | t }}</label>
+      <input id="first_name" type="text" name="customer[first_name]" size="30" />
+
+      <label for="last_name">{{ 'customer.register.last_name' | t }}</label>
+      <input id="last_name" type="text" name="customer[last_name]" size="30" />
+
+      <label for="email">{{ 'customer.register.email' | t }}</label>
+      <input id="email" type="email" name="customer[email]" size="30" />
+
+      <div class="password-field">
+        <label for="password">{{ 'customer.register.password' | t }}</label>
+        <div class="password-input-wrapper">
+          <input id="password" type="password" name="customer[password]" size="30" data-password />
+          {% comment %}
+          <button type="button" class="btn-link" aria-label="Show password" data-password-show>{% include "icon-hide" %}</button>
+          <button type="button" class="btn-link" aria-label="Hide password" data-password-hide>{% include "icon-show" %}</button>
+      {% endcomment %}
+        </div>
+      </div>
+
+      <div class="password-confirm-field">
+        <label for="password_confirmation">{{ 'customer.register.password_confirmation' | t }}</label>
+        <div class="password-input-wrapper">
+          <input id="password_confirmation" type="password" name="customer[password_confirmation]" size="30" data-password-confirmation required />
+          {% comment %}
+          <button type="button" class="btn-link" aria-label="Show password" data-password-show>{% include "icon-hide" %}</button>
+          <button type="button" class="btn-link" aria-label="Hide password" data-password-hide>{% include "icon-show" %}</button>
+      {% endcomment %}
+        </div>
+      </div>
+
+      <div role="alert" class="register-form__message--error hidden" data-password-error>
+        <p>Error: Different passwords. Enter the same password in both fields.</p>
+      </div>
+
+      <input type="submit" value="{{ 'customer.register.submit' | t }}" class="btn" data-submit />
+
+    </fieldset>
+
+    {% endform %}
+  </section>
+</div>

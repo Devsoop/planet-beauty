@@ -1,0 +1,134 @@
+<script>
+    window.powerReviews = window.powerReviews || [];
+    window.powerReviews.reviewSnippet = null;
+    window.powerReviews.reviewDisplay = null;
+    window.powerReviews.questionSnippet = null;
+    window.powerReviews.questionDisplay = null;
+</script>
+
+
+
+
+  
+<div class="page-container">
+
+    <div class="container">
+
+        {% render 'breadcrumbs' %}
+        {% section 'product-single-gift-card' %}
+        {% section 'related-products' %}
+
+    </div>
+
+    {% render 'pswp-gallery' %}
+
+ 
+
+</div>
+<script>
+  var swatchImages = [];
+
+  {% for image in product.images %}
+    {% assign image_alt = image.alt | handle %}
+    {% if image_alt contains 'swatch' %}
+      {% assign alt_parts = image.alt | split: '/' %}
+      {% for part in alt_parts %}
+        {% assign part_handle = part | handle %}
+        {% if forloop.index != 1 and part_handle != 'swatch' %}
+          {% assign final_alt = part %}
+        {% endif %}
+      {% endfor %}
+      swatchImages.push({
+        src: "{{ image.src | img_url: '42x' }}",
+        alt: "{{ final_alt | strip }}"
+      });
+    {% endif %}
+  {% endfor %}
+
+  console.log(swatchImages);
+
+  function updateSwatchImages() {
+  document.querySelectorAll('.image-swatches__swatch').forEach(function(swatchElement) {
+    var matched = false;
+    var image = swatchElement.querySelector('img');
+
+    if (image) {
+      var imageAlt = image.alt.trim().toLowerCase(); // Convert alt text to lowercase
+
+      swatchImages.forEach(function(swatch) {
+        if (swatch.alt.toLowerCase() === imageAlt) { // Compare both in lowercase
+          image.src = swatch.src;
+          matched = true;
+        }
+      });
+
+      if (!matched) {
+        swatchElement.classList.add('no_swatch_image');
+      }
+    }
+  });
+}
+
+
+  var intervalId = setInterval(function() {
+    updateSwatchImages();
+
+    if (document.querySelectorAll('.image-swatches__swatch img').length > 0) {
+      clearInterval(intervalId);
+    }
+  }, 500);
+</script>
+
+
+
+<script type="application/ld+json">
+	{
+		"@context": "http://schema.org/",
+		"@type": "Product",
+		"name": {{ product.title | json }},
+		"url": {{ request.origin | append: product.url | json }},
+		{% if seo_media -%}
+			"image": [
+				{{ seo_media | image_url: width: 1920 | prepend: "https:" | json }}
+			],
+		{%- endif %}
+		"description": {{ product.description | strip_html | json }},
+		{% if product.selected_or_first_available_variant.sku != blank -%}
+			"sku": {{ product.selected_or_first_available_variant.sku | json }},
+		{%- endif %}
+		"brand": {
+			"@type": "Brand",
+			"name": {{ product.vendor | json }}
+		},
+		"offers": [
+			{%- for variant in product.variants -%}
+				{
+					"@type" : "Offer",
+					{%- if variant.sku != blank -%}
+						"sku": {{ variant.sku | json }},
+					{%- endif -%}
+					{%- if variant.barcode.size == 12 -%}
+						"gtin12": {{ variant.barcode }},
+					{%- endif -%}
+					{%- if variant.barcode.size == 13 -%}
+						"gtin13": {{ variant.barcode }},
+					{%- endif -%}
+					{%- if variant.barcode.size == 14 -%}
+						"gtin14": {{ variant.barcode }},
+					{%- endif -%}
+					"availability" : "http://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}",
+					"price" : {{ variant.price | divided_by: 100.00 | json }},
+					"priceCurrency" : {{ cart.currency.iso_code | json }},
+					"url" : {{ request.origin | append: variant.url | json }}
+				}{% unless forloop.last %},{% endunless %}
+			{%- endfor -%}
+		]
+	}
+</script>
+
+<div data-rebuy-id="79771" data-rebuy-shopify-product-ids="{{ product.id }}"></div>
+
+
+
+
+

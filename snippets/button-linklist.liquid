@@ -1,0 +1,10 @@
+{% for item in linklists[linklist_id].links %}
+    <div class="{{ linklist_class }}">
+        {%- assign item_title = item.title | downcase -%}
+        {%- capture item_icon -%}
+            {% if item_title contains 'reward' %}{% render 'icon-rewards' %}{% endif %}
+            {% if item_title contains 'stores' %}{% render 'icon-location' %}{% endif %}
+        {%- endcapture -%}
+        <a href="{{ item.url }}" class="btn-link">{{ item_icon }}<span>{{ item.title }}</span></a>
+    </div>
+{% endfor %}

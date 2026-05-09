@@ -1,0 +1,246 @@
+<!-- /templates/customers/account.liquid -->
+<style>
+@media (max-width: 767.98px) {
+  #customer_orders {
+    display: none;
+  }
+}
+.styled-link-button {
+      display: block;
+    border: 1px solid;
+    font-size: 16px;
+    text-decoration: none;
+    margin-bottom: 8px;
+    max-width: 100%;
+    width: max-content;
+    min-width: 250px;
+    font-weight: bold;
+    padding: 4px 10px;
+}
+</style>
+
+<div class="page-container">
+  <div class="container">
+    <div class="page-width account-template">
+      <div class="account-template__header new_section">
+        <h1 class="account-template__title">
+          Welcome
+          {% if customer.default_address %}                          
+            {{ customer.default_address.first_name }}
+          {% else %}
+            {{ customer.first_name }}
+          {% endif %}
+        </h1>
+
+        <div class="tr_row_mob row" style="width: 90%; margin: 0 auto;">
+          <div class="column left" style="text-align: left;">
+            <p><strong>Account Info</strong></p>
+            <p><strong>Name:</strong>
+              {% if customer.default_address %}                          
+                {{ customer.default_address.first_name }} {{ customer.default_address.last_name }}
+              {% else %}
+                {{ customer.first_name }} {{ customer.last_name }}
+              {% endif %}
+            </p>
+            <p><strong>Email:</strong> {{ customer.email }}</p>
+            <p><strong>Phone:</strong>
+              {% if customer.default_address %}                          
+                {{ customer.default_address.phone }}
+              {% else %}
+                {{ customer.phone }}
+              {% endif %}
+            </p>
+            <p><strong>Password:</strong> ********</p>
+            <p><strong>Birthday:</strong> ******</p>
+            <a id="update-account-info" href="#" role="button" class="styled-link-button">Update Account Info</a>
+
+            {% assign reset_password_text = 'customer.account.reset_password' | t %}
+            {% if reset_password_text != blank %}
+            <div class="account-template__reset-password">
+              <a href="#recover" data-recover-password-btn class="styled-link-button">{{ reset_password_text }}</a>
+              {% render 'reset-password', close_link: routes.account_url %}
+            </div>
+            {% endif %}
+
+            <a href="/account/logout/" class="logout styled-link-button" aria-label="Logout">Logout</a>
+          </div>
+
+          <div class="column right">
+            <a href="/account?view=buy-it-again" class="styled-link-button">Buy it Again</a>
+            <a href="/account?view=past-orders" class="styled-link-button">Past Orders</a>
+            <a href="/pages/stay-beautiful/" class="styled-link-button">Update Email Preferences</a>
+            <a href="/tools/recurring/login/" class="styled-link-button">Manage Your Subscriptions</a>
+            <a href="/account/addresses/" class="styled-link-button">Update Your Address Book</a>
+          </div>
+        </div>
+
+        {% for address in customer.addresses %}
+        <div data-edit-address-form="{{address.id}}" class="addresses-template__form">
+          <h2>Edit Info</h2>
+          {% form 'customer_address', address %}
+          <div class="addresses-template__form--half-width-container">
+            <div class="addresses-template__form--half-width">
+              <label for="first_name">First Name</label>
+              <input type="text" id="first_name" name="address[first_name]" size="30" value="{{ address.first_name }}" />
+            </div>
+            <div class="addresses-template__form--half-width">
+              <label for="last_name">Last Name</label>
+              <input type="text" id="last_name" name="address[last_name]" size="30" value="{{ form.last_name }}" />
+            </div>
+          </div>
+
+          <label for="company">Company</label>
+          <input type="text" id="company" name="address[company]" value="{{ form.company }}" />
+
+          <label for="address1">Address 1</label>
+          <input type="text" id="address1" name="address[address1]" value="{{ form.address1 }}" />
+
+          <label for="address2">Address 2</label>
+          <input type="text" id="address2" name="address[address2]" value="{{ form.address2 }}" />
+
+          <div class="addresses-template__form--half-width-container">
+            <div class="addresses-template__form--half-width">
+              <label for="city">City</label>
+              <input type="text" id="city" name="address[city]" value="{{ form.city }}" />
+            </div>
+            <div class="addresses-template__form--half-width">
+              <label for="country">Country</label>
+              <select name="address[country]" data-default="{{ form.country }}">{{ all_country_option_tags }}</select>
+            </div>
+          </div>
+
+          <label for="zip">Zip/Post Code</label>
+          <input type="text" id="zip" name="address[zip]" value="{{ form.zip }}" autocapitalize="characters" />
+
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="address[phone]" value="{{ form.phone }}" />
+
+          <div class="addresses-template__edit-item-options">
+            <div><input type="submit" class="btn" value="{{ 'customer.addresses.update' | t }}"></div>
+            <div><button id="caneclBtn" type="button" class="addresses-template__elem--full-width">{{ 'customer.addresses.cancel' | t }}</button></div>
+          </div>
+          {% endform %}
+        </div>
+        {% endfor %}
+
+        <script>
+        $(document).ready(function() {
+          $("#update-account-info").on("click", function(e) {
+            e.preventDefault();
+            $('.addresses-template__form').toggleClass("active");
+          });
+
+          $("#caneclBtn").on("click", function() {
+            $('.addresses-template__form').removeClass("active");
+          });
+        });
+        </script>
+
+        {% include 'buy-it-again' %}
+
+        <div id="customer_orders" class="account-template__orders">
+          <h2>Orders</h2>
+          {% paginate customer.orders by 10 %}
+          {% if customer.orders.size != 0 %}
+          <table class="account-template__table-orders">
+            <thead>
+              <tr>
+                <th scope="col">{{ 'customer.orders.order_number' | t }}</th>
+                <th scope="col">{{ 'customer.orders.date' | t }}</th>
+                <th scope="col">Tracking number</th>
+                <th scope="col">{{ 'customer.orders.fulfillment_status' | t }}</th>
+                <th scope="col">{{ 'customer.orders.total' | t }}</th>
+                <th scope="col">Re-Order</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for order in customer.orders %}
+              <tr>
+                <th data-label="{{ 'customer.orders.order_number' | t }}" scope="row">
+                  <a href="{{ order.customer_url }}" aria-label="View order {{ order.name }}">{{ order.name }}</a>
+                </th>
+                <td data-label="{{ 'customer.orders.date' | t }}">{{ order.created_at | time_tag: format: 'date' }}</td>
+                <td>
+                  {% for line_item in order.line_items %}
+                    {% if forloop.first %}
+                      <a href="{{ line_item.fulfillment.tracking_url }}" target="_blank">{{ line_item.fulfillment.tracking_number }}</a>
+                    {% endif %}
+                  {% endfor %}
+                </td>
+                <td>{{ order.fulfillment_status_label }}</td>
+                <td>{{ order.total_price | money }}</td>
+                <td><a target="_blank" href="https://www.planetbeauty.com/apps/rebuy/reorder?shopify_order_id={{ order.id }}">Reorder</a></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% else %}
+          <p>You haven't placed any orders yet.</p>
+          {% endif %}
+          {{ paginate | default_pagination }}
+          {% endpaginate %}
+        </div>
+
+        {% if customer.default_address %}
+        <div class="account-template__address">
+          <h2>Address</h2>
+          <p>{{ customer.default_address.address1 }}</p>
+          {% if customer.default_address.address2 != "" %}<p>{{ customer.default_address.address2 }}</p>{% endif %}
+          <p>{{ customer.default_address.city }}, {% if address.province_code %}{{ customer.default_address.province_code }}, {% endif %}{{ customer.default_address.country }}</p>
+          <p>{{ customer.default_address.zip }}</p>
+          <p>{{ customer.default_address.phone }}</p>
+          <div class="account-template__view_addresses">
+            <a href="{{ routes.account_addresses_url }}">{{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})</a>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .column {
+      float: left;
+      width: 50%;
+      padding: 10px;
+      height: auto;
+    }
+
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    .left {
+      padding-left: 50px;
+      text-align: left;
+      width: 68%;
+    }
+
+    .left p,
+    .right p {
+      margin: 0 0 5px;
+      font-size: 16px;
+    }
+
+    .left p:first-child,
+    .right p:first-child {
+      font-size: 18px;
+    }
+
+    .right {
+      font-size: 18px;
+      text-align: left;
+      padding-left: 0 !important;
+      width: 32%;
+    }
+
+    @media screen and (max-width: 768px) {
+      .left, .right {
+        width: 100%;
+        padding-left: 0;
+      }
+    }
+  </style>
+</div>

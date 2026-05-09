@@ -1,0 +1,33 @@
+<div class="page-container page-{{ template.suffix }} static-page">
+  <div class="{{ section.settings.container_style }}">
+    <div>{{ page.content }}</div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Page Content",
+  "settings": [
+    {
+      "type": "select",
+      "id": "container_style",
+      "label": "Container style",
+      "default": "container",
+      "options": [
+        { "label": "Small", "value": "container--small" },
+        { "label": "Normal", "value": "container" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": {
+        "en": "Page Content"
+      },
+      "category": {
+        "en": "Page"
+      }
+    }
+  ]
+}
+{% endschema %}

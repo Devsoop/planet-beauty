@@ -1,0 +1,90 @@
+{% if section.settings.enable_text %}
+
+  <div class="page-container page-{{ template.suffix }} static-page">
+
+    <div class="text-content {% if section.settings.heading == blank %}no-heading{% endif %} {{ section.settings.container_style }}">
+
+      {% if section.settings.heading != blank %} 
+        
+        <h2 class="{% if section.settings.center_title == true %} text-content__heading_acids {% else %} text-content__heading {% endif %} ">{{section.settings.heading}}</h2>
+
+      {% endif %}
+
+      {% for block in section.blocks %}
+
+        {% if block.settings.content != blank %}
+
+          <div class="text-content__paragraph {% if section.settings.center_title == true %} text-content__paragraph-acids {% endif %}" >{{block.settings.content}}</div>
+
+        {% endif %}
+
+      {% endfor %}
+
+    </div>
+
+  </div>
+
+{% endif %}
+
+{% schema %}
+{
+  "name": "Text Content",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_text",
+      "default": true,
+      "label": "Enable this section"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Title"
+    },
+    {
+      "type": "checkbox",
+      "id": "center_title",
+      "default": false,
+      "label": "Center the Title and Paragraph"
+    },
+    {
+      "type": "select",
+      "id": "container_style",
+      "label": "Container style",
+      "default": "container",
+      "options": [
+        { "label": "Small", "value": "container--small" },
+        { "label": "Normal", "value": "container" }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "name": "Paragraph",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": {
+        "en": "Text Content"
+      },
+      "category": {
+        "en": "Text"
+      },
+      "blocks": [
+        {
+          "type": "paragraph"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

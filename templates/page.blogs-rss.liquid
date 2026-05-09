@@ -1,0 +1,29 @@
+{% layout none %}
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>{{ shop.name }} - Blog List</title>
+    <link>{{ shop.url }}</link>
+    <description>A list of blogs from {{ shop.name }}</description>
+    <atom:link href="{{ shop.url }}/pages/blogs-rss" rel="self" type="application/rss+xml" />
+    {% for article in blogs %}
+      <item>
+        <title>{{ article.title }}</title>
+        <link>{{ shop.url }}{{ article.url }}</link>
+        <description>{{ article.summary | strip_html }}</description>
+      </item>
+    {% endfor %}
+  </channel>
+</rss>
+
+<script>
+  const blogs = {{ blogs | json_encode }};
+  console.log(blogs);
+</script>
+{% if blogs %}
+  {% for article in blogs %}
+    {{ article.title }}
+  {% endfor %}
+{% else %}
+  No blogs found.
+{% endif %}

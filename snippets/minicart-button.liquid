@@ -1,0 +1,10 @@
+<a class="mini-cart__toggle btn-link btn-link btn-link--text" 
+href="{{ routes.cart_url }}" data-minicart-toggle>
+    <span>
+        <div class="mini-cart__count-icon">
+            <div data-minicart-count="{{ cart.item_count }}" class="mini-cart__count {% if cart.item_count > 9 %}mini-cart__count--large{% endif %} {% if cart.item_count > 99 %}mini-cart__count--extra-large{% endif %}">{{ cart.item_count }}</div>
+            {% render 'icon-bag' %}
+        </div>
+        <span class="hidden__mobile">Bag</span>
+    </span>
+</a>

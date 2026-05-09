@@ -1,0 +1,114 @@
+{% if section.settings.enable_image_grid %}
+
+  <div class="page-container page-{{ template.suffix }} static-page">
+    <div class="{{ section.settings.container_style }}">
+
+      <div class="image-grid">
+          
+        {% for block in section.blocks %}
+
+          {% if block.settings.desktop_image != blank %}
+
+            {%- assign desktop_image = block.settings.desktop_image | img_url: '1300x' -%}
+            {%- assign tablet_image = block.settings.tablet_image | img_url: '1200x' -%}
+            {%- assign mobile_image = block.settings.mobile_image | img_url: '600x' -%}
+
+            <div class="image-grid__item {% if block.settings.full_image %}image-grid__item--full{% endif %}">
+              {% render 'banner-overlay', 
+              small_style: true,
+              mobile_image: mobile_image,
+              mobile_aspect_ratio: block.settings.mobile_image.aspect_ratio,
+              tablet_image: tablet_image,
+              tablet_aspect_ratio: block.settings.tablet_image.aspect_ratio,
+              desktop_image: desktop_image,
+              desktop_aspect_ratio: block.settings.desktop_image.aspect_ratio %}
+            </div>
+
+          {% endif %}
+
+        {% endfor %}
+          
+      </div>
+    </div>
+  </div>
+
+{% endif %}
+
+{% schema %}
+{
+  "name": "Image Grid",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_image_grid",
+      "default": true,
+      "label": "Enable this section"
+    },
+    {
+      "type": "select",
+      "id": "container_style",
+      "label": "Container style",
+      "default": "container",
+      "options": [
+        { "label": "Small", "value": "container--small" },
+        { "label": "Normal", "value": "container" }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Images"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Mobile Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "tablet_image",
+          "label": "Tablet Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "desktop_image",
+          "label": "Desktop Image"
+        },
+        {
+          "type": "header",
+          "content": "Full width"
+        },
+        {
+          "type": "checkbox",
+          "id": "full_image",
+          "default": false,
+          "label": "Full Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": {
+        "en": "Image Grid"
+      },
+      "category": {
+        "en": "Image"
+      },
+      "blocks": [
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

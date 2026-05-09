@@ -1,0 +1,49 @@
+{% comment %} Price filter {% endcomment %}
+
+{% assign price_options = '0 - 25 | 25 - 50 | 50 - 100 | 100 - 200 | 200' | split: '|' %}
+
+{% assign path = request.path %}
+
+<div class="filters__filter {% if collection.url != request.path %}hide-filter{% endif %}" data-filter-option>
+
+    <label for="select_price">Price</label>
+
+    <select aria-label="Price" class="select-button" id="select_price" onchange="location = this.value;">
+
+        {% comment %} default option {% endcomment %}
+        <option {% unless pageParam %} class="active"{% endunless %} value="{{ path }}" {% if collection.url == request.path %}selected="selected"{% endif %}>Price</option>
+
+        {% comment %} options {% endcomment %}
+        {% for item in price_options %}
+
+            {% assign option_label = item | strip %}
+            
+            {% assign option_parts = option_label | split: ' - ' %}
+
+            {% if option_parts.first == option_parts.last %}
+                {% assign handle_price = 'filter.v.price.gte=' | append: option_parts.first %}
+                {% capture displayed_label %}${{option_label}}+{% endcapture %}
+            {% else %}
+                {% assign handle_price_first_Param = 'filter.v.price.gte=' | append: option_parts.first %}
+                {% assign handle_price_last_Param = '&filter.v.price.lte=' | append: option_parts.last %}
+                {% assign handle_price = handle_price_first_Param | append: handle_price_last_Param %}
+                {% capture displayed_label %}${{option_parts.first}} - ${{option_parts.last}}{% endcapture %}
+            {% endif %}
+
+            {%- capture value -%}
+                {{ path | append: '?' }}{{ handle_price }}
+            {%- endcapture -%}
+
+            <option 
+            class="{{ option_label | handle }}" 
+            data-tag="price-{{ option_label | handle }}" 
+            value="{{ value }}"
+            {% if pageParam contains handle_price %} selected="selected"{% endif %}>
+            {{displayed_label}}
+            </option>
+
+        {% endfor %}
+
+    </select>
+
+</div>

@@ -1,0 +1,148 @@
+{% comment %} Get Page Params {% endcomment %}
+{% if settings.display_price_filter %}
+
+  {%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+
+  {%- assign pageUrlWithParams = contentForQuerystring | split:'"pageurl":"' | last | split:'"' | first | split:'.myshopify.com' | last |
+    replace:'\/','/' | 
+    replace:'%20',' ' | 
+    replace:'\u0026','&'
+  -%}
+
+  {% assign pageParam_parts = pageUrlWithParams | split: '?' %}
+
+  {% if pageParam_parts.size > 1 %}
+    {% assign pageParam = '?' | append: pageParam_parts.last %}
+  {% endif %}
+  
+{% endif %}
+
+{%- comment -%} Filters {%- endcomment -%}
+
+{%- comment -%} <div class="filters active"> {%- endcomment -%}
+<div class="filters" data-filter>
+
+  <div class="filters__container">
+
+    <div class="filters__top">
+        <button class="btn-link filters__close" aria-label="Close filters" data-filter-close>{% render 'icon-close' %}</button>
+    </div>
+
+    {%- capture filters -%}
+
+      {%- assign tags_list = '' -%}
+      {%- assign all_groups = '' -%}
+      {%- assign groups = '' -%}
+
+      {%- comment -%} Load all groups (Color, Price, Size) {%- endcomment -%}
+      {%- for tag in collection.all_tags -%}
+
+        {%- assign tag_parts = tag | split: ':' -%}
+        
+        {%- if tag_parts.size == 2 -%}
+
+          {% unless all_groups contains tag_parts.first %}
+            {%- assign groups = groups | append: tag_parts.first | append: ',' -%}
+            {%- assign all_groups = all_groups | append: groups -%}
+          {%- endunless -%}
+          
+        {%- endif -%} 
+      {%- endfor -%}
+      
+      {%- assign groups = groups | split: ',' | compact | uniq -%}
+
+      {%- comment -%} Load all data {%- endcomment -%}
+      {%- for group in groups -%}
+      
+        <div class="filters__filter" data-filter-option>
+          <label for="select_{{ group | downcase }}">{{ group }}</label>
+          <select aria-label="{{ group | replace: '_', ' ' }}" class="select-button" id="select_{{ group | downcase }}" onchange="location = this.value;">
+
+            {%- comment -%} All Option {%- endcomment -%}
+            {% assign path = request.path %}
+            {% if collection.url != request.path %}
+              {%- for tag in collection.all_tags -%}
+                
+                {% assign h_tag = tag | handleize %}
+                {%- assign tag_parts = tag | split: ':' -%}
+                {%- assign first_tag = tag_parts.first -%}
+                {% assign current_group = group | downcase %}
+            
+                {%- comment -%} There is any filter on the URL {%- endcomment -%}
+                {% if current_group == first_tag %}
+
+                  {% assign remove_tag = h_tag | prepend: '+' %}
+
+                  {% if request.path contains remove_tag %}
+                    {%- comment -%} With + {%- endcomment -%}
+                    {% assign path = path | remove: remove_tag %}
+                  {% elsif request.path contains h_tag %}
+                    {%- comment -%} Without + {%- endcomment -%}
+                    {% assign path = path | remove: h_tag %}
+                  {% endif %}
+                  
+                {% endif %}
+              {%- endfor -%}
+            {% endif %}
+
+            <option {% unless current_tags %} class="active"{% endunless %} value="{{ path }}" {% if collection.url == request.path %}selected="selected"{% endif %}>{{ group | replace: '_', ' ' }}</option>
+
+            {%- for tag in collection.all_tags -%}
+
+              {%- assign tag_parts = tag | split: ':' -%}
+              {%- assign group_tag = tag_parts.last -%}
+
+              {%- if tag_parts.first == group -%}
+
+                  {% assign handle_tag = tag | handleize %}
+                    
+                  {%- capture value -%}
+                    {% if collection.url == path %}
+                      {{ path | append: '/' }}{{ handle_tag }}
+                    {% elsif path contains handle_tag %}
+                      {{ path }}
+                    {% else %}
+                      {{ path | append: '+' }}{{ handle_tag }}
+                    {% endif %}
+                  {%- endcapture -%}
+
+                  <option 
+                    class="{{ group_tag | handle }}" 
+                    data-tag="{{ handle_tag }}" 
+                    value="{{ value }}"
+                    {% if request.path contains handle_tag %} selected="selected"{% endif %}>
+                    {{ group_tag }}
+                  </option>
+                
+              {%- endif -%}
+
+            {%- endfor -%}
+          
+          </select>
+
+        </div>
+
+      {%- endfor -%}
+
+      {% if settings.display_price_filter %}
+        {% render 'filter-price', pageParam: pageParam %}
+      {% endif %}
+
+    {%- endcapture -%}
+
+    {{ filters }}
+      
+    {%- comment -%} Clear Filters - Button {%- endcomment -%}
+    {% if collection.url != request.path %}
+      <div class="filters__filter">
+        <div class="filters__clear-button">
+          <a href="{{ collection.url }}">Clear filters</a>
+        </div>
+      </div>
+    {% endif %}
+
+  </div>
+
+  <div class="filters__overlay global-overlay" data-filter-close></div>
+  
+</div>

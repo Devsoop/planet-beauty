@@ -1,0 +1,40 @@
+<div class="mini-cart-container">
+  
+  <div class="mini-cart" data-mini-cart>
+
+    <form action="/cart" method="post" novalidate>
+
+    {%- comment -%} Header {%- endcomment -%}
+    <div class="mini-cart__header">
+      <div class="mini-cart__bag-container">
+        {% render 'icon-bag' %}
+        <div class="mini-cart__item-count">
+          <span data-minicart-count></span>
+        </div>
+      </div>
+      <div class="mini-cart__header-total" data-mini-cart-total1></div>
+      <button class="btn-link close" aria-label="Close" data-minicart-close-button>{% render 'icon-close' %}</button>
+    </div>
+
+    {%- comment -%} Minicart error messages {%- endcomment -%}
+    <div class="mini-cart__error-message" data-error-message></div>
+
+    {%- comment -%} Minicart items {%- endcomment -%}
+    <div class="mini-cart__items" data-mini-cart-items></div>
+
+    {%- comment -%} Minicart footer {%- endcomment -%}
+    <div class="mini-cart__footer" data-minicart-footer>
+      <div class="mini-cart__footer-subtotal" data-minicart-subtotal></div>
+      <div class="mini-cart__footer-shipping" data-minicart-shipping></div>
+      <hr class="mini-cart__footer-line">
+      <div class="mini-cart__footer-total" data-minicart-total2></div>
+      <button type="submit" name="checkout" class="btn btn-ghost btn-icon btn-icon-before"> {% render 'icon-lock' %} Checkout Now</button>
+      <div class="mini-cart__footer-info"><a href="{{ routes.cart_url }}">View and edit cart</a></div>
+    </div>
+
+    </form>
+
+  </div>
+
+  <div class="minicart-overlay global-overlay" data-minicart-close></div>
+</div>

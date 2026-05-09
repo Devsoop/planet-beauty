@@ -1,0 +1,712 @@
+{%- assign product = all_products['ava-haircare-moisture-condition'] -%}
+
+<div class="page-container">
+
+    <div class="container">
+
+        <div class="page-width">
+            <div class="grid">
+                <div class="grid__item medium-up--five-sixths medium-up--push-one-twelfth">
+
+                    <div class="style-guide">
+
+                        <h2 class="style-guide-title">Fonts</h2>
+
+                        <h3>Noto Sans</h3>
+                        <p>Regular 400 / Bold 700</p>
+
+                        <br>
+
+                        <h3>Mulish</h3>
+                        <p>Bold 700 / Black 900</p>
+
+                        <h2 class="style-guide-title">Headings</h2>
+
+                        <h1>Heading 1</h1>
+                        <h2>Heading 2</h2>
+                        <h3>Heading 3</h3>
+                        <h4>Heading 4</h4>
+                        <h5>Heading 5</h5>
+                        <h6>Heading 6</h6>
+
+                        <div class="h1">Heading 1</div>
+                        <div class="h2">Heading 2</div>
+                        <div class="h3">Heading 3</div>
+                        <div class="h4">Heading 4</div>
+                        <div class="h5">Heading 5</div>
+                        <div class="h6">Heading 6</div>
+
+                        <div class="h1 highlight">Your Kinda Vibe</div><br>
+                        <div class="h4 highlight">Your Kinda Vibe</div><br>
+
+                        <div class="h1 highlight-internal">People Who Bought this Also Bought..</div><br>
+                        <div class="h4 highlight-internal">People Who Bought this Also Bought..</div><br>
+                        
+                        <h2 class="style-guide-title">Paragraphs</h2>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                            et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                            aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                            culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        <p>Lorem ipsum dolor sit amet, <a href="#">consectetur adipiscing elit</a>, sed do eiusmod tempor
+                            incididunt ut labore
+                            et dolore magna aliqua. <b>Ut enim ad minim veniam</b>, quis nostrud exercitation ullamco laboris
+                            nisi ut
+                            aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                            culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        <h2 class="style-guide-title">Icons</h2>
+
+                        {% include 'icon-bag' %}
+                        {% include 'icon-chevron' %}
+                        {% include 'icon-close' %}
+                        {% include 'icon-filter' %}
+                        {% include 'icon-heart' %}
+                        {% include 'icon-lock' %}
+                        {% include 'icon-minus' %}
+                        {% include 'icon-plus' %}
+                        {% include 'icon-rewards' %}
+                        {% include 'icon-search' %}
+                        {% include 'icon-trash' %}
+                        {% include 'icon-user' %}
+                        {% include 'icon-shipping' %} 
+                        
+                        <br><br>
+
+                        {% include 'icon-arrow' %}
+                        {% include 'icon-menu' %}
+                        {% include 'icon-instagram' %}
+                        {% include 'icon-facebook' %}
+                        {% include 'icon-pinterest' %}
+                        {% render 'minicart-button' %}
+
+                        <h2 class="style-guide-title">Buttons</h2>
+
+                        <button>Button example</button>
+                        <button class="btn">Button</button>
+                        <a href="#" class="btn">Button link</a>
+                        <a href="#" class="btn btn-ghost">Button Link Ghost</a>
+                        <button class="btn" disabled>Button disabled</button>
+
+                        <div style="background: black; padding: 20px; margin: 30px 0;">
+                            <button class="btn btn-secondary">Secondary button</button>
+                            <a href="#" class="btn btn-secondary">Secondary button link</a>
+                            <button class="btn btn-secondary" disabled>Secondary button disabled</button>
+                        </div>
+
+                        <button class="btn-link">Button example</button>
+                        <a href="#" class="btn-link">Button link</a>
+                        <button class="btn-link">{% include 'icon-menu' %}</button>
+                        <button class="btn-link btn-link--text"><span>{% include 'icon-menu' %}<span>Menu</span></span></button>
+                        <a href="#" class="btn-link">{% include 'icon-menu' %}</a>
+
+                        <br><br>
+
+                        <button class="btn btn-ghost btn-icon btn-icon-before">{% include 'icon-bag' %}Button with icon</button>
+                        <button class="btn btn-ghost btn-icon btn-icon-after">Button icon after{% include 'icon-bag' %}</button>
+
+                        <br><br>
+
+                        <a href="#" class="btn btn-full">Full button</a>
+
+                        <h2 class="style-guide-title">Forms</h2>
+
+                        <label for="input__default">Label example</label>
+                        <input type="text" id="input__default" placeholder="Enter your email adress">
+
+                        <div>
+                            <label for="input__with-icon">Label example</label>
+                            <input type="text" id="input__with-icon" placeholder="Enter your email adress" class="with-icon">
+                            <!-- {% include 'icon-arrow' %} -->
+                        </div>
+                        
+
+                        <label for="input_test">Input Fading Label example</label>
+                        {% render 'input-fading-label',
+                            type:"text",
+                            id:"idInput",
+                            name:"name_input",
+                            label:"Label example",
+                            autocomplete:"off",
+                            autocorrect:"off",
+                            autocapitalize:"off",
+                            additionalClass:"additional_class",
+                            errosform:false
+                        %}
+
+                        <label for="select_test">Label example</label>
+                        <select id="select_test">
+                            <option>Select an option</option>
+                            <option>Select an option</option>
+                            <option>Select an option</option>
+                        </select>
+
+                        <label for="select_test_button">Select example Button</label>
+                        <select class="select-button" id="select_test_button">
+                            <option>Option 1</option>
+                            <option>Option 2</option>
+                            <option>Option 3</option>
+                        </select>
+
+                        <br><br>
+
+                        <div>
+                            <input type="radio" id="opt1" name="radiotest" value="opt1" checked>
+                            <label for="opt1">This is an example</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="opt2" name="radiotest" value="opt2">
+                            <label for="opt2">This is an example</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="opt3" name="radiotest" value="opt3">
+                            <label for="opt3">This is an example</label>
+                        </div>
+
+                        <br>
+
+                        <input type="checkbox" id="copt1" name="checkboxtest" value="opt1">
+                        <label for="copt1">This is an example</label><br>
+
+                        <input type="checkbox" id="copt2" name="checkboxtest" value="opt2">
+                        <label for="copt2">This is an example</label><br>
+
+                        <input type="checkbox" id="copt3" name="checkboxtest" value="opt3">
+                        <label for="copt3">This is an example</label><br>
+
+                        <br>
+
+                        <label for="input_textarea">Label example</label>
+                        <textarea name="textarea_test" id="input_textarea" cols="35" rows="5" placeholder="Enter your email adress"></textarea>
+
+                        <h2 class="style-guide-title">Color Swatches</h2>
+                        {% include 'product-swatches' %}
+                        
+                        <h2 class="style-guide-title">Quantity Selector</h2>
+                        <div style="max-width: 100px;">
+                            {% render 'quantity-selector', value: 1, name: 'quantity' %}
+                        </div>
+
+                        <h2 class="style-guide-title">Product Card</h2>
+
+                        <br>
+
+                        <div style="margin-bottom: 50px; width: 100%; max-width: 400px;">
+                            {% render 'product-card', product: product %}
+                        </div>
+
+                        <h2 class="style-guide-title">Product grid</h2>
+
+                        <br>
+
+                        <div style="margin-bottom: 50px; width: 100%;">
+                            <div class="product-grid">
+                                <div class="product-grid__item">
+                                    {% render 'product-card', product: product %}
+                                </div>
+                                <div class="product-grid__item">
+                                    {% render 'product-card', product: product %}
+                                </div>
+                                <div class="product-grid__item">
+                                    {% render 'product-card', product: product %}
+                                </div>
+                                <div class="product-grid__item">
+                                    {% render 'product-card', product: product %}
+                                </div>
+                                <div class="product-grid__item">
+                                    {% render 'product-card', product: product %}
+                                </div>
+                                <div class="product-grid__item">
+                                    {% render 'product-card', product: product %}
+                                </div>
+                                <div class="product-grid__item">
+                                    {% render 'product-card', product: product %}
+                                </div>
+                                <div class="product-grid__item">
+                                    {% render 'product-card', product: product %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <br><br>
+
+                        <h2 class="style-guide-title">Search bar</h2>
+                        <div style="margin-bottom: 50px;">
+                            {% render 'search-bar' %}
+                        </div>
+
+                        <h2 class="style-guide-title">Product single</h2>
+                        <div style="margin-bottom: 50px;">
+                            {% render 'product-single', product: product %}
+                        </div>
+
+                        <h2 class="style-guide-title">Accordion</h2>
+                        <div class="accordion" role="navigation" data-accordion>
+                            <div class="accordion__item">
+                                <button class="accordion__heading" id="btn1" aria-expanded="false" aria-controls="content1" data-accordion-heading>Title{% render 'icon-chevron' %}</button>
+                                <div class="accordion__content" id="content1" role="region" aria-labelledby="bt1" data-accordion-content>The latest in hair care, styling tools, colors and touch-ups, special treatments and more are available at your destination for beauty, Planet Beauty. Whether you are looking for ways to spice up your style or just need to maintain, we have the top brands at the best prices, sure to make heads turn. Unlock your savings today at Planet Beauty.</div>
+                            </div>
+                            <div class="accordion__item">
+                                <button class="accordion__heading" id="btn2" aria-expanded="false" aria-controls="content1" data-accordion-heading>Title{% render 'icon-chevron' %}</button>
+                                <div class="accordion__content" id="content2" role="region" aria-labelledby="bt2" data-accordion-content>The latest in hair care, styling tools, colors and touch-ups, special treatments and more are available at your destination for beauty, Planet Beauty. Whether you are looking for ways to spice up your style or just need to maintain, we have the top brands at the best prices, sure to make heads turn. Unlock your savings today at Planet Beauty.</div>
+                            </div>
+                            <div class="accordion__item">
+                                <button class="accordion__heading" id="btn3" aria-expanded="false" aria-controls="content3" data-accordion-heading>Title{% render 'icon-chevron' %}</button>
+                                <div class="accordion__content" id="content3" role="region" aria-labelledby="bt3" data-accordion-content>The latest in hair care, styling tools, colors and touch-ups, special treatments and more are available at your destination for beauty, Planet Beauty. Whether you are looking for ways to spice up your style or just need to maintain, we have the top brands at the best prices, sure to make heads turn. Unlock your savings today at Planet Beauty.</div>
+                            </div>
+                        </div>
+
+                        <br><br>
+
+                        <h2 class="style-guide-title">Breadcrumbs</h2>
+                        {% render 'breadcrumbs' %}
+
+                        <br><br>
+
+                        <h2 class="style-guide-title">Image</h2>
+
+                        {%- assign aspect_ratio = 1 -%}
+                        {% render 'image', src: 'https://picsum.photos/4000/', aspect_ratio: 1 %}
+
+                        <br><br>
+
+                        <h2 class="style-guide-title">Responsive image with lazy loading and aspect ratio</h2>
+
+                        {%- assign aspect_ratio_desktop = 3000 | divided_by: 1000.0 -%}
+                        {%- assign aspect_ratio_mobile = 600 | divided_by: 700.0 -%}
+                        {%- assign aspect_ratio_tablet = 1200 | divided_by: 500.0 -%}
+
+                        {% render 'responsive-image', lazyload: true, alt_image: 'Test image',
+                        desktop_image: 'https://picsum.photos/3000/1000', 
+                        desktop_aspect_ratio: aspect_ratio_desktop, 
+                        tablet_image: 'https://picsum.photos/1200/500', 
+                        tablet_aspect_ratio: aspect_ratio_tablet, 
+                        mobile_image: 'https://picsum.photos/600/700', 
+                        mobile_aspect_ratio: aspect_ratio_mobile %}
+
+                        <h2 class="style-guide-title">Default Carousel</h2>
+                        
+                        <div class="carousel carousel__mobile-half carousel__tablet-3 carousel__desktop-4" data-flickity-init='{ "groupCells": "true", "cellAlign": "left", "imagesLoaded": "true", "percentPosition": "false", "adaptiveHeight": "true", "groupCells": "100%", "lazyLoad": "true" }'>
+                            <div class="carousel__item">
+                                <img src="http://via.placeholder.com/500x300" alt="Image" />
+                            </div>
+                            <div class="carousel__item">
+                                <img src="http://via.placeholder.com/500x300" alt="Image" />
+                            </div>
+                            <div class="carousel__item">
+                                <img src="http://via.placeholder.com/500x300" alt="Image" />
+                            </div>
+                            <div class="carousel__item">
+                                <img src="http://via.placeholder.com/500x300" alt="Image" />
+                            </div>
+                            <div class="carousel__item">
+                                <img src="http://via.placeholder.com/500x300" alt="Image" />
+                            </div>
+                            <div class="carousel__item">
+                                <img src="http://via.placeholder.com/500x300" alt="Image" />
+                            </div>
+                            <div class="carousel__item">
+                                <img src="http://via.placeholder.com/500x300" alt="Image" />
+                            </div>
+                            <div class="carousel__item">
+                                <img src="http://via.placeholder.com/500x300" alt="Image" />
+                            </div>
+                            <div class="carousel__item">
+                                <img src="http://via.placeholder.com/500x300" alt="Image" />
+                            </div>
+                            <div class="carousel__item">
+                                <img src="http://via.placeholder.com/500x300" alt="Image" />
+                            </div>
+                        </div>
+                        
+                        <br><br>
+
+                        <div class="carousel" data-flickity-init='{ "groupCells": "true", "cellAlign": "left", "imagesLoaded": "true", "percentPosition": "false", "adaptiveHeight": "true", "groupCells": "100%", "lazyLoad": "true" }'>
+                            <div class="carousel__item">
+                                <img src="http://via.placeholder.com/2000x600" alt="Image" />
+                            </div>
+                            <div class="carousel__item">
+                                <img src="http://via.placeholder.com/2000x600" alt="Image" />
+                            </div>
+                            <div class="carousel__item">
+                                <img src="http://via.placeholder.com/2000x600" alt="Image" />
+                            </div>
+                            <div class="carousel__item">
+                                <img src="http://via.placeholder.com/2000x600" alt="Image" />
+                            </div>
+                        </div>
+                        
+                        <br><br>
+
+                        <h2 class="style-guide-title">Default carousel with products</h2>
+                        
+                        <div class="carousel carousel__mobile-half carousel__tablet-3 carousel__desktop-4" data-flickity-init='{ "groupCells": "true", "cellAlign": "left", "imagesLoaded": "true", "percentPosition": "false", "adaptiveHeight": "true", "groupCells": "100%", "lazyLoad": "true" }'>
+                            <div class="carousel__item">{% render 'product-card', product: product %}</div>
+                            <div class="carousel__item">{% render 'product-card', product: product %}</div>
+                            <div class="carousel__item">{% render 'product-card', product: product %}</div>
+                            <div class="carousel__item">{% render 'product-card', product: product %}</div>
+                            <div class="carousel__item">{% render 'product-card', product: product %}</div>
+                            <div class="carousel__item">{% render 'product-card', product: product %}</div>
+                        </div>
+                        
+                        <br><br>
+
+                        <h2 class="style-guide-title">Default carousel with inner arrow</h2>
+
+                        <div class="carousel carousel__inner-arrow" data-flickity-init='{ "groupCells": "true", "cellAlign": "left", "imagesLoaded": "true", "percentPosition": "false", "adaptiveHeight": "true", "groupCells": "100%", "lazyLoad": "true" }'>
+                            <div class="carousel__item">
+                                <img src="http://via.placeholder.com/2000x600" alt="Image" />
+                            </div>
+                            <div class="carousel__item">
+                                <img src="http://via.placeholder.com/2000x600" alt="Image" />
+                            </div>
+                            <div class="carousel__item">
+                                <img src="http://via.placeholder.com/2000x600" alt="Image" />
+                            </div>
+                            <div class="carousel__item">
+                                <img src="http://via.placeholder.com/2000x600" alt="Image" />
+                            </div>
+                        </div>
+                        
+                        <br><br>
+
+                        <h2 class="style-guide-title">Default carousel with heading</h2>
+
+                        <div class="carousel__wrapper">
+
+                            <div class="carousel__heading-wrapper">
+                                <h2 class="carousel__heading h1 highlight">Heading example</h2>
+                            </div>
+
+                            <div class="carousel" data-flickity-init='{ "groupCells": "true", "cellAlign": "left", "imagesLoaded": "true", "percentPosition": "false", "adaptiveHeight": "true", "groupCells": "100%", "lazyLoad": "true" }'>
+                                <div class="carousel__item">
+                                    <img src="http://via.placeholder.com/2000x600" alt="Image" />
+                                </div>
+                                <div class="carousel__item">
+                                    <img src="http://via.placeholder.com/2000x600" alt="Image" />
+                                </div>
+                                <div class="carousel__item">
+                                    <img src="http://via.placeholder.com/2000x600" alt="Image" />
+                                </div>
+                                <div class="carousel__item">
+                                    <img src="http://via.placeholder.com/2000x600" alt="Image" />
+                                </div>
+                            </div>
+                        
+                        </div>
+
+                        <h2 class="style-guide-title">Default carousel with border in the items</h2>
+
+                        <div class="carousel carousel__mobile-half carousel__tablet-3 carousel__desktop-4" data-flickity-init='{ "groupCells": "true", "cellAlign": "left", "imagesLoaded": "true", "percentPosition": "false", "adaptiveHeight": "true", "groupCells": "100%", "lazyLoad": "true" }'>
+                            <div class="carousel__item">
+                                <div class="carousel__item-container">
+                                    <img src="http://via.placeholder.com/500x300/FAEAEA" alt="Image" />
+                                </div>
+                            </div>
+                            <div class="carousel__item">
+                                <div class="carousel__item-container">
+                                    <img src="http://via.placeholder.com/500x300/FAEAEA" alt="Image" />
+                                </div>
+                            </div>
+                            <div class="carousel__item">
+                                <div class="carousel__item-container">
+                                    <img src="http://via.placeholder.com/500x300/FAEAEA" alt="Image" />
+                                </div>
+                            </div>
+                            <div class="carousel__item">
+                                <div class="carousel__item-container">
+                                    <img src="http://via.placeholder.com/500x300/FAEAEA" alt="Image" />
+                                </div>
+                            </div>
+                            <div class="carousel__item">
+                                <div class="carousel__item-container">
+                                    <img src="http://via.placeholder.com/500x300/FAEAEA" alt="Image" />
+                                </div>
+                            </div>
+                            <div class="carousel__item">
+                                <div class="carousel__item-container">
+                                    <img src="http://via.placeholder.com/500x300/FAEAEA" alt="Image" />
+                                </div>
+                            </div>
+                            <div class="carousel__item">
+                                <div class="carousel__item-container">
+                                    <img src="http://via.placeholder.com/500x300/FAEAEA" alt="Image" />
+                                </div>
+                            </div>
+                            <div class="carousel__item">
+                                <div class="carousel__item-container">
+                                    <img src="http://via.placeholder.com/500x300/FAEAEA" alt="Image" />
+                                </div>
+                            </div>
+                            <div class="carousel__item">
+                                <div class="carousel__item-container">
+                                    <img src="http://via.placeholder.com/500x300/FAEAEA" alt="Image" />
+                                </div>
+                            </div>
+                            <div class="carousel__item">
+                                <div class="carousel__item-container">
+                                    <img src="http://via.placeholder.com/500x300/FAEAEA" alt="Image" />
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <br><br>
+
+                        <h2 class="style-guide-title">Banner Overlay - Top Left</h2>
+
+                        {%- assign aspect_ratio_desktop = 1300 | divided_by: 280.0 -%}
+                        {%- assign aspect_ratio_tablet = 1200 | divided_by: 500.0 -%}
+                        {%- assign aspect_ratio_mobile = 600 | divided_by: 700.0 -%}
+
+                        {% render 'banner-overlay', 
+                            heading: 'Hair Styling Products',
+                            subheading: "Meet the fun-size beauty you'll love",
+                            overlay_position: "middle",
+                            text_align: "left",
+                            mobile_image: 'http://via.placeholder.com/600x700/',
+                            mobile_aspect_ratio: aspect_ratio_mobile,
+                            tablet_image: 'http://via.placeholder.com/1200x500/',
+                            tablet_aspect_ratio: aspect_ratio_tablet,
+                            desktop_image: 'http://via.placeholder.com/1300x280/',
+                            desktop_aspect_ratio: aspect_ratio_desktop %}
+                            
+                        <h2 class="style-guide-title">Banner Overlay - Small Style</h2>
+                        {% render 'banner-overlay', 
+                            heading: 'MUST HAVE',
+                            subheading: "Meet the fun-size beauty you'll love.",
+                            overlay_position: "bottom",
+                            text_align: "left",
+                            text_color: "#FFFFFF",
+                            small_style: true,
+                            mobile_image: 'http://via.placeholder.com/600x700/',
+                            mobile_aspect_ratio: aspect_ratio_mobile,
+                            tablet_image: 'http://via.placeholder.com/1200x500/',
+                            tablet_aspect_ratio: aspect_ratio_tablet,
+                            desktop_image: 'http://via.placeholder.com/1300x280/',
+                            desktop_aspect_ratio: aspect_ratio_desktop %}
+
+                        <br><br>
+
+                        <h2 class="style-guide-title">Pagination</h2>
+                        {% include 'pagination' %}
+
+                        <br><br>
+
+                        <h2 class="style-guide-title">Alert message</h2>
+                        {% render 'alert-message' %}
+
+                        <br><br>
+
+                        <h2 class="style-guide-title">Image grid</h2>
+
+                        <div class="image-grid">
+
+                            <div class="image-grid__item">
+                                {% render 'banner-overlay', 
+                                heading: 'MUST HAVE',
+                                subheading: "Meet the fun-size beauty you'll love.",
+                                overlay_position: "bottom",
+                                text_align: "left",
+                                text_color: "#FFFFFF",
+                                small_style: true,
+                                mobile_image: 'http://via.placeholder.com/600x700/',
+                                mobile_aspect_ratio: aspect_ratio_mobile,
+                                tablet_image: 'http://via.placeholder.com/1200x500/',
+                                tablet_aspect_ratio: aspect_ratio_tablet,
+                                desktop_image: 'http://via.placeholder.com/1300x280/',
+                                desktop_aspect_ratio: aspect_ratio_desktop %}
+                            </div>
+
+                            <div class="image-grid__item">
+                                {% render 'banner-overlay', 
+                                heading: 'MUST HAVE',
+                                subheading: "Meet the fun-size beauty you'll love.",
+                                overlay_position: "bottom",
+                                text_align: "left",
+                                text_color: "#FFFFFF",
+                                small_style: true,
+                                mobile_image: 'http://via.placeholder.com/600x700/',
+                                mobile_aspect_ratio: aspect_ratio_mobile,
+                                tablet_image: 'http://via.placeholder.com/1200x500/',
+                                tablet_aspect_ratio: aspect_ratio_tablet,
+                                desktop_image: 'http://via.placeholder.com/1300x280/',
+                                desktop_aspect_ratio: aspect_ratio_desktop %}
+                            </div>
+
+                            <div class="image-grid__item">
+                                {% render 'banner-overlay', 
+                                heading: 'MUST HAVE',
+                                subheading: "Meet the fun-size beauty you'll love.",
+                                overlay_position: "bottom",
+                                text_align: "left",
+                                text_color: "#FFFFFF",
+                                small_style: true,
+                                mobile_image: 'http://via.placeholder.com/600x700/',
+                                mobile_aspect_ratio: aspect_ratio_mobile,
+                                tablet_image: 'http://via.placeholder.com/1200x500/',
+                                tablet_aspect_ratio: aspect_ratio_tablet,
+                                desktop_image: 'http://via.placeholder.com/1300x280/',
+                                desktop_aspect_ratio: aspect_ratio_desktop %}
+                            </div>
+
+                            <div class="image-grid__item">
+                                {% render 'banner-overlay', 
+                                heading: 'MUST HAVE',
+                                subheading: "Meet the fun-size beauty you'll love.",
+                                overlay_position: "bottom",
+                                text_align: "left",
+                                text_color: "#FFFFFF",
+                                small_style: true,
+                                mobile_image: 'http://via.placeholder.com/600x700/',
+                                mobile_aspect_ratio: aspect_ratio_mobile,
+                                tablet_image: 'http://via.placeholder.com/1200x500/',
+                                tablet_aspect_ratio: aspect_ratio_tablet,
+                                desktop_image: 'http://via.placeholder.com/1300x280/',
+                                desktop_aspect_ratio: aspect_ratio_desktop %}
+                            </div>
+
+                            <div class="image-grid__item image-grid__item--full">
+                                {% render 'banner-overlay', 
+                                heading: 'MUST HAVE',
+                                subheading: "Meet the fun-size beauty you'll love.",
+                                overlay_position: "bottom",
+                                text_align: "left",
+                                text_color: "#FFFFFF",
+                                small_style: true,
+                                mobile_image: 'http://via.placeholder.com/600x700/',
+                                mobile_aspect_ratio: aspect_ratio_mobile,
+                                tablet_image: 'http://via.placeholder.com/1200x500/',
+                                tablet_aspect_ratio: aspect_ratio_tablet,
+                                desktop_image: 'http://via.placeholder.com/1300x280/',
+                                desktop_aspect_ratio: aspect_ratio_desktop %}
+                            </div>
+                        
+                        </div>
+
+                        <br><br>
+
+                        <h2 class="style-guide-title">Heading with Heading Description</h2>
+
+                        <div class="heading__wrapper">
+                            <h2 class="heading h1 highlight">@planetbeautyofficial</h2>
+                            <p class="heading__description">Makeup, skincare, haircare, and more!</p>
+                        </div>
+                        
+                        <br><br>
+
+                        <h2 class="style-guide-title">Class to hide elements</h2>
+                        
+                        <p>Classes available: <code class="code__inline">hidden__mobile</code> , <code class="code__inline">hidden__tablet</code> , <code class="code__inline">hidden__desktop</code>.</p>
+
+                        <p>Reize the screen to see the other elements.</p>
+
+                        <div class="hidden__tablet hidden__desktop">
+                            <img  src="https://via.placeholder.com/500x300/FAEAEA?text=Mobile" alt="test"/>
+                            <code class="code__inline">hidden__tablet hidden__desktop</code>
+                        </div>
+
+                        <div class="hidden__mobile hidden__desktop">
+                            <img src="https://via.placeholder.com/500x300/FAEAEA?text=Tablet" alt="test"/>
+                            <code>hidden__mobile hidden__desktop</code>
+                        </div>
+
+                        <div class="hidden__mobile hidden__tablet">
+                            <img src="https://via.placeholder.com/500x300/FAEAEA?text=Desktop" alt="test"/>
+                            <code>hidden__mobile hidden__tablet</code>
+                        </div>
+                        
+                        <br><br>
+
+                        <h2 class="style-guide-title">Full width container</h2>
+
+                        <div class="container__full-width">
+                        
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                                et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                                aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                                culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                            <p>Lorem ipsum dolor sit amet, <a href="#">consectetur adipiscing elit</a>, sed do eiusmod tempor
+                                incididunt ut labore
+                                et dolore magna aliqua. <b>Ut enim ad minim veniam</b>, quis nostrud exercitation ullamco laboris
+                                nisi ut
+                                aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                                culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        </div>
+                        
+                        <br><br>
+
+                        <h2 class="style-guide-title">Section Banner Slider</h2>
+
+                        {% section 'banner-slider' %}
+                        
+                        <br><br>
+
+                        <h2 class="style-guide-title">Standalone add to cart with loading</h2>
+                        
+                        <button class="btn btn-secondary btn-icon btn-icon-before btn-loading" data-cart-add="{{ product.first_available_variant.id}}" data-cart-add-qty="1" data-cart-add-prop="{info:'this is an example'}">
+                            {% render 'icon-bag' %}
+                            {% render 'icon-loading' %}
+                            {{ 'products.product.add_to_cart' | t }}
+                        </button>
+                        
+                        <br><br>
+
+                        <h2 class="style-guide-title">Add to cart form</h2>
+
+                        {% form 'product', product, class:form_classes, novalidate: 'novalidate', data-product-form: '' %}
+                          
+                            {% comment %}
+                                Automatically inserted by Shop Pay Installments theme updater
+                            {% endcomment %}
+                            {% unless settings.disable_autogenerated_payment_terms %}
+                                {{ form | payment_terms }}
+                            {% endunless %}
+
+                            <input type="hidden" name="quantity" value="1">
+                            <input type="hidden" name="id" value="{{ product.first_available_variant.id}}">
+
+                            <button 
+                            type="submit" name="add"
+                            class="btn btn-secondary btn-icon btn-icon-before btn-loading">
+                                {% render 'icon-bag' %}
+                                {% render 'icon-loading' %}
+                                {{ 'products.product.add_to_cart' | t }}
+                            </button>
+                            
+                        {% endform %}
+
+                        <br><br>
+
+                        <h2 class="style-guide-title">Skin Card</h2>
+
+                        {%- assign aspect_ratio_skinCard = 262 | divided_by: 324.0 -%}
+
+                        {% assign content_skinCard = "<p>Dry skin can feel tight throughout the day, and may experience noticeable flaking. Dry skin is largely due to genetics, environmental factors such as lifestyle & diet, hormonal changes, andclimate. <\/p><p>Daily exfoliation with gentle ingredients help promote skin cell turnover without removing skin’s natural oils. The best moisturizers for dry skin are those containing hyaluronic acid, glycerin, and marine actives like algae, because of their ability to attract water and deliver it directly to skin cells.<\/p>" %}
+
+                        {% render 'skin-card', image: "https://via.placeholder.com/262x324.png", : aspect_ratio: aspect_ratio_skinCard, heading: "Dry Skin", content: content_skinCard %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+    .style-guide-title {
+        display: block;
+        width: 100%;
+        border-bottom: 1px solid #CCC;
+        padding: 20px 0;
+        margin: 40px 0 20px 0;
+    }
+</style>

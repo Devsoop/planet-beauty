@@ -1,0 +1,55 @@
+{% assign current_variant = product.selected_or_first_available_variant %}
+
+<div class="product-swatches trrr" data-product-swatches="{{ product.handle }}" data-product-first-variant="{% if current_variant %}{{ current_variant.id }}{% else %}{{ product.first_available_variant.id }}{% endif %}"> 
+
+    {% unless product.options_with_values.size == 1 and product.options_with_values[0].values.size == 1%}
+        {% for option in product.options %}
+
+            {% assign option_up = option | upcase %}
+
+            <div class="{% if option_up == 'COLOR' %}image-swatches{% else %}text-swatches{% endif %}">
+
+                <div class="text-swatches__label"> Select {{option}}:</div>
+
+                {% for value in product.options_by_name[option].values %}
+                    {% if option_up == 'COLOR' %}
+                        <div class="image-swatches__swatch">
+                            <div class="image-loading"></div>
+                        </div>
+                    {% else %}
+                        <div class="text-swatches__swatch">
+                            <label class="label-loading"></label>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+        {% endfor %}
+    {% endunless %}
+  {% assign pro_dft = product.selected_or_first_available_variant.title | handle %}
+    {% if product.options_with_values.size == 1 and product.options_with_values[0].values.size == 1 and pro_dft != 'default-title' %}
+      {% for option in product.options %}
+        
+
+            {% assign option_up = option | upcase %}
+      <div class="{% if option_up == 'COLOR' %}image-swatches{% else %}text-swatches{% endif %} {{ product.selected_or_first_available_variant.title }}">
+        {% for value in product.options_by_name[option].values %}
+          {% assign selected_value_default = value %}
+        {% endfor %}
+                <div class="text-swatches__label"> Select {{option}}:<strong data-swatches-label="{{ option }}">{{ selected_value_default }}</strong></div>
+        {% for value in product.options_by_name[option].values %}
+                    {% if option_up == 'COLOR' %}
+                        <div class="image-swatches__swatch">
+                            <div class="image-loading"></div>
+                        </div>
+                    {% else %}
+                      
+                        <div class="text-swatches__swatch"><input type="radio" id="opt--{{ value }}" name="{{ option }}" aria-label="{{ value }}" value="{{ value }}" data-swatches-input="" data-swatches-name="{{option}}" checked>
+        <label for="opt--{{ value }}" data-uw-rm-color-contrast="prs">{{ value }}</label></div>
+                    {% endif %}
+                {% endfor %}
+      </div>
+        {% endfor %}
+      {% endif %}
+
+</div>

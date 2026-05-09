@@ -1,0 +1,27 @@
+{% render 'header', menu: section.settings.main_linklist, wrapper: false %}
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "site-header site-header__section",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "main_linklist",
+      "label": "Menu",
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}
+
+<script>
+  document.querySelector('.mini-cart__toggle').addEventListener('click', (event) => {
+    console.log('clciked');
+  event.preventDefault();
+  Rebuy.SmartCart.show();
+}, { once: true });
+//alert('header.liquid')
+   localStorage.setItem('stores', 'yes_store');
+//console.log('VARIANTS' + localStorage.getItem('store'));
+</script>

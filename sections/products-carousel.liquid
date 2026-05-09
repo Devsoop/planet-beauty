@@ -1,0 +1,64 @@
+<style>
+  @media (max-width: 768px) {
+  .carousel__mobile-half .carousel__item {
+    width: 45% !important;
+  }
+}
+</style>
+<div class="section-products-carousel">
+    {%- assign collection = collections[section.settings.collection] -%}
+    
+    {% if section.settings.title != blank %}
+      <div class="carousel__heading-wrapper">
+          <h2 class="carousel__heading h1 highlight">{{section.settings.title}}</h2>
+      </div>
+    {% endif %}
+
+    {% if collection != blank %}
+      <div class="carousel__products">
+          <div class="carousel__products-container">
+          <div class="carousel carousel__mobile-half carousel__tablet-3 carousel__desktop-4" data-flickity-init='{ "groupCells": "true", "cellAlign": "left", "imagesLoaded": "true", "percentPosition": "false", "adaptiveHeight": "true", "groupCells": "100%", "lazyLoad": "true", "accessibility": "false" }'>
+              {% for product in collection.products limit: section.settings.qty  %}
+                  <div class="carousel__item">{% render 'product-card-homepage', product: product %}</div>
+              {% endfor %}
+          </div>
+        </div>
+      </div>
+    {% endif %}
+
+</div>
+
+{% schema %}
+{
+  "name": "Products Carousel",
+  "settings": [
+    {
+        "type": "text",
+        "id": "title",
+        "default": "Products",
+        "label": "Heading"
+    },
+    {
+        "type": "collection",
+        "id": "collection",
+        "label": "Collection"
+     },
+     {
+        "type": "number",
+        "id": "qty",
+        "default": 8,
+        "label": "Quantity of products to be displayed"
+     }
+  ],
+  "presets": [
+    {
+      "name": {
+        "en": "Products Carousel"
+      },
+      "category": {
+        "en": "Collections"
+      }
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,197 @@
+
+            {% paginate customer.orders by 30 %}
+                {% if customer.orders.size != 0 %}
+                  <style>
+                    .rebuy-button{
+    display: block;
+    margin: 0;
+    outline: none;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 5px;
+    border-color: #2491c4;
+    box-shadow: none;
+    background: #2491c4;
+    padding: 10px 15px;
+    width: 100%;
+    height: auto;
+    text-align: center;
+    color: #fff;
+    font-size: 16px
+}
+                    .rebuy-button{
+                      margin-top: 10px;
+    color: #fff;
+    background: #dc0075;
+    border-color: #dc0075;
+                    }
+                    .section-products-carousel{
+                      display:block;
+                      clear:both;
+                    }
+  @media (min-width: 1200px) {
+    .carousel__products {
+         padding-top: 50%;
+    }
+}
+                      @media (max-width: 767.98px) {
+                        .tr_row_mob{
+                              display: flex;
+    flex-direction: column-reverse;
+                        }
+}
+                  
+</style>
+<div class="section-products-carousel">    
+      <div class="carousel__heading-wrapper">
+          <h2 class="carousel__heading h1 highlight">But It Again</h2>
+      </div>
+
+      <div class="carousel__products">
+          <div class="carousel__products-container">
+          <div class="carousel carousel__mobile-half carousel__tablet-3 carousel__desktop-4" data-flickity-init='{ "groupCells": "true", "cellAlign": "left", "imagesLoaded": "true", "percentPosition": "false", "adaptiveHeight": "true", "groupCells": "100%", "lazyLoad": "true", "accessibility": "false" }'>
+{% assign product_ids = "" %}
+{% for order in customer.orders %}  
+            {% for line_item in order.line_items %}
+              {% unless product_ids contains line_item.product.id %}
+              {% assign lil_tit = line_item.title | handle %}
+              {% if lil_tit contains 'free' or lil_tit contains 'shipping' %}
+                {% else %}
+              {% if line_item.product.available%}
+                  <div class="carousel__item">{% render 'product-card-new-web', product: line_item.product %}</div>
+                {% else %}
+                {% comment %}
+                <div class="carousel__item">
+                  <div class="product-card" data-product-card="" itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
+    <div class="product-card__wrapper">
+        <!-- <a class="product-card__link" href="" itemprop="item">
+            <span class="visually-hidden"></span>
+        </a> -->
+        <div class="product-card__image-container" style="display: block;">
+            <div class="product-card__image-wrapper" style="padding-top: 100%;">
+                <div style="position: absolute; top: 0; width: 100%; height: 100%;">
+                    <div class="responsive-image">
+                        <div class="loading hidden__desktop hidden__tablet" style="padding-top: 100%;">
+                            <picture>
+                                <source media="(max-width: 599px)" data-srcset="//www.planetbeauty.com/cdn/shop/files/PB-Image-Default_600x.png?v=1633551909" />
+                                <source media="(max-width: 899px)" data-srcset="//www.planetbeauty.com/cdn/shop/files/PB-Image-Default_1600x.png?v=1633551909" />
+                                <img
+                                    style="width: 100%; height: auto;"
+                                    alt="Image coming soon"
+                                    class="lazyload"
+                                    loading="eager"
+                                    width=""
+                                    height=""
+                                    data-src="//www.planetbeauty.com/cdn/shop/files/PB-Image-Default_2000x.png?v=1633551909"
+                                    src="//www.planetbeauty.com/cdn/shop/files/PB-Image-Default_2000x.png?v=1633551909"
+                                />
+                            </picture>
+                        </div>
+
+                        <div class="loading hidden__mobile hidden__desktop" style="padding-top: 100%;">
+                            <picture>
+                                <source media="(max-width: 599px)" data-srcset="//www.planetbeauty.com/cdn/shop/files/PB-Image-Default_600x.png?v=1633551909" />
+                                <source media="(max-width: 899px)" data-srcset="//www.planetbeauty.com/cdn/shop/files/PB-Image-Default_1600x.png?v=1633551909" />
+                                <img
+                                    style="width: 100%; height: auto;"
+                                    alt="Image coming soon"
+                                    class="lazyload"
+                                    loading="eager"
+                                    width=""
+                                    height=""
+                                    data-src="//www.planetbeauty.com/cdn/shop/files/PB-Image-Default_2000x.png?v=1633551909"
+                                    src="//www.planetbeauty.com/cdn/shop/files/PB-Image-Default_2000x.png?v=1633551909"
+                                />
+                            </picture>
+                        </div>
+
+                        <div class="loading hidden__mobile hidden__tablet" style="padding-top: 100%;">
+                            <picture class="loaded">
+                                <source
+                                    media="(max-width: 599px)"
+                                    data-srcset="//www.planetbeauty.com/cdn/shop/files/PB-Image-Default_600x.png?v=1633551909"
+                                    srcset="//www.planetbeauty.com/cdn/shop/files/PB-Image-Default_600x.png?v=1633551909"
+                                />
+                                <source
+                                    media="(max-width: 899px)"
+                                    data-srcset="//www.planetbeauty.com/cdn/shop/files/PB-Image-Default_1600x.png?v=1633551909"
+                                    srcset="//www.planetbeauty.com/cdn/shop/files/PB-Image-Default_1600x.png?v=1633551909"
+                                />
+                                <img
+                                    style="width: 100%; height: auto;"
+                                    alt="Image coming soon"
+                                    class="lazyloaded"
+                                    loading="eager"
+                                    width=""
+                                    height=""
+                                    data-src="//www.planetbeauty.com/cdn/shop/files/PB-Image-Default_1920x.png?v=1633551909"
+                                    src="//www.planetbeauty.com/cdn/shop/files/PB-Image-Default_1920x.png?v=1633551909"
+                                />
+                            </picture>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card__labels">
+                <div class="product-card__label">sold out</div>
+            </div>
+
+            <div class="product-card__swatches" data-variant-content=""></div>
+        </div>
+        <div class="product-card__text-container" style="text-align: left;">
+            <div class="product-card__vendor">{{ line_item.vendor }}</div>
+            <div class="product-card__name" itemprop="name">{{ line_item.title }}</div>
+            <meta itemprop="position" content="" />
+            <div class="product-card__price-container">
+                <div class="product-card__sale-price">{{ line_item.original_price | money }}</div>
+            </div>
+        </div>
+        <input type="number" id="quantity" name="quantity" value="1" min="1" style="display: none;" />
+      <div class="rebuy-product-options">
+            <select title="Select product variant" id="{{ product.id }}-select" aria-label="variant of {{ product.title }}" class="rebuy-select">
+                <option value="">Not Available</option>
+            </select>
+          </div>
+        <div class="rebuy-product-actions">
+            <button data-product-id="{{ line_item.product.id }}" aria-label="Product {{ line_item.title }} is sold out" type="button" class="rebuy-button buy_again_cart" disabled>
+  <span>SOLD OUT</span>
+</button>
+        </div>
+    </div>
+</div>
+
+                </div>
+                {% endcomment %}
+                {% endif %}
+                {% endif %}
+                              {% assign product_ids = product_ids | append: line_item.product.id | append: "," %}
+              {% endunless %}
+              {% endfor %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+</div>
+                              {% endif %}
+            {% endpaginate %}
+  <script>
+    $(document).ready(function(){
+
+    $('.carousel__products-container').each(function(){  
+       var highestBox = 0;
+      
+      $('.product-card__name', this).each(function(){
+        
+        if($(this).height() > highestBox) {
+          highestBox = $(this).height(); 
+        }
+      
+      });  
+            
+      $('.product-card__name',this).height(highestBox);
+                    
+    }); 
+
+});
+  </script>

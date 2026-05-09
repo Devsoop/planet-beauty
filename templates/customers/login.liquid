@@ -1,0 +1,121 @@
+<div class="page-width login-form-template">
+  <!-- LOGIN FORM -->
+  <div class="login-form-container active" data-customer-login-form aria-hidden="false">
+    <div class="heading__wrapper"> 
+      <h1 class="heading h1 highlight-internal"><strong>{{ 'customer.login.title' | t }}</strong></h1>
+    </div>
+
+    {% section 'login-message' %}
+
+    <div class="login-form__message-success login-form__recover-password-success" data-reset-password-success-msg>
+      <strong>{{ 'customer.recover_password.success' | t }}</strong>
+    </div>
+
+    {% form 'customer_login', aria_label: 'Customer Login Form' %}
+      {%- if form.errors -%}
+        <div class="login-form__message--error">
+          <h2><strong>{{ 'contact.form.error_heading' | t }}</strong></h2>
+          {{ form.errors | default_errors }}
+        </div>
+      {%- endif -%}
+
+      <label for="customer_email">{{ 'customer.login.email' | t }}
+        <input id="customer_email" type="email" name="customer[email]" />
+      </label>
+
+      {% if form.password_needed %}
+        <label for="customer_password" data-password-input>{{ 'customer.login.password' | t }}
+          <input id="customer_password" type="password" name="customer[password]" />
+          <button type="button" class="btn-link" aria-label="Show password" data-password-show>{% include "icon-hide" %}</button>
+          <button type="button" class="btn-link" aria-label="Hide password" data-password-hide>{% include "icon-show" %}</button>
+        </label>
+      {% endif %}
+
+      <div>
+        {% if form.password_needed %}
+          <div class="login-form__recover-password-link">
+            <a href="#recover" data-recover-password-btn><em>{{ 'customer.login.forgot_password' | t }}</em></a>
+          </div>
+        {% endif %}
+
+        <input type="submit" class="btn" value="{{ 'customer.login.sign_in' | t }}">
+
+        <a href="/account/register" class="btn btn-full">
+          <strong>{{ 'layout.customer.create_account' | t }}</strong>
+        </a>
+      </div>
+    {% endform %}
+
+    <!-- Begin ReCharge code -->
+    {% render 'subscription-account-login' %}
+    <!-- End ReCharge code -->
+  </div>
+
+  <!-- RECOVER FORM -->
+  <div class="login-form-container login-form__recover-password" data-recover-password-form aria-hidden="true">
+    <h2 class="login-form__title-recover-password"><strong>{{ 'customer.recover_password.title' | t }}</strong></h2>
+
+    {% form 'recover_customer_password', aria_label: 'Recover Password Form' %}
+      {% if form.posted_successfully? %}
+        <span data-recover-password-form-success></span>
+      {% endif %}
+
+      {%- if form.errors -%}
+        <div class="login-form__message--error">
+          {{ form.errors | default_errors }}
+        </div>
+      {%- endif -%}
+
+      <label for="recover_customer_email">{{ 'customer.login.email' | t }}</label>
+      <input type="email" name="email" id="recover_customer_email"/>
+
+      <input type="submit" class="btn" value="Submit" />
+      
+      <a class="btn btn-full" href="{{ routes.account_login_url }}" data-cancel-recover><em>{{ 'customer.recover_password.cancel' | t }}</em></a>
+    {% endform %}
+  </div>
+</div>
+
+<!-- Toggle Script -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const loginForm = document.querySelector('[data-customer-login-form]');
+  const recoverForm = document.querySelector('[data-recover-password-form]');
+  const recoverBtn = document.querySelector('[data-recover-password-btn]');
+  const cancelRecoverBtn = document.querySelector('[data-cancel-recover]');
+
+  function showRecoverForm() {
+    loginForm.classList.remove('active');
+    loginForm.setAttribute('aria-hidden', 'true');
+    recoverForm.classList.add('active');
+    recoverForm.setAttribute('aria-hidden', 'false');
+    recoverForm.querySelector('input[type="email"]').focus();
+  }
+
+  function showLoginForm() {
+    recoverForm.classList.remove('active');
+    recoverForm.setAttribute('aria-hidden', 'true');
+    loginForm.classList.add('active');
+    loginForm.setAttribute('aria-hidden', 'false');
+    loginForm.querySelector('input[type="email"]').focus();
+  }
+
+  if (recoverBtn) {
+    recoverBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      showRecoverForm();
+    });
+  }
+
+  if (cancelRecoverBtn) {
+    cancelRecoverBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      showLoginForm();
+    });
+  }
+
+  if (window.location.hash === '#recover') {
+    showRecoverForm();
+  }
+});
+</script>

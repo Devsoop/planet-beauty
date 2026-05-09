@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+
+<link rel='preconnect dns-prefetch' href='https://api.config-security.com/' crossorigin />
+<link rel='preconnect dns-prefetch' href='https://conf.config-security.com/' crossorigin />
+<link rel='preconnect dns-prefetch' href='https://whale.camera/' crossorigin />
+	
+  <title>
+  {% if template == 'product' or template == 'collection' %}
+    {% assign title_words = page_title | split: " " %}
+    {% assign truncated_title = title_words | slice: 0, 6 | join: " " %}
+    {% assign brand_name = "Planet Beauty" %}
+    {% assign appended_title = truncated_title | append: " - " | append: brand_name %}
+    {{ appended_title }}
+  {% else %}
+    {{ page_title }}
+  {% endif %}
+  </title>  
+
+  <meta charset="utf-8">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <meta name="description" content="{{ page_description | escape }}"> 
+  
+ <script src="https://cdn.rebuyengine.com/onsite/js/rebuy.js?shop={{ shop.permanent_domain }}" async></script>
+
+  
+  <script type="text/javascript">const observer=new MutationObserver(e=>{e.forEach(({addedNodes:e})=>{e.forEach(e=>{1===e.nodeType&&"IFRAME"===e.tagName&&(e.src.includes("youtube.com")||e.src.includes("vimeo.com"))&&(e.setAttribute("loading","lazy"),e.setAttribute("data-src",e.src),e.removeAttribute("src")),1===e.nodeType&&"LINK"===e.tagName&&(e.href.includes("place")||e.href.includes("vimo.com"))&&(e.setAttribute("data-href",e.href),e.removeAttribute("href")),1!==e.nodeType||"IMG"!==e.tagName||e.src.includes("data:image")||e.setAttribute("loading","eager"),1===e.nodeType&&"SCRIPT"===e.tagName&&("analytics"==e.className,"boomerang"==e.className&&(e.type="text/lazyload"),e.innerHTML.includes("asyncLoad")&&(e.innerHTML=e.innerHTML.replace("if(window.attachEvent)","document.addEventListener('asyncLazyLoad',function(event){asyncLoad();});if(window.attachEvent)").replaceAll(", asyncLoad",", function(){}")),(e.innerHTML.includes("PreviewBarInjector")||e.innerHTML.includes("adminBarInjector"))&&(e.innerHTML=e.innerHTML.replace("DOMContentLoaded","asyncLazyLoad")),(e.src.includes("assets/storefront")||e.src.includes("assets/shopify_pay/")||e.src.includes("onsite")||e.src.includes("gtag/js")||e.src.includes("yopo"))&&(e.setAttribute("data-src",e.src),e.removeAttribute("src")),(e.innerText.includes("loyaltylion")||e.innerText.includes("prefetchAssets")||e.innerText.includes("webPixelsManager")||e.src.includes("otSDKStub.js")||e.innerText.includes("gtm.start")||e.innerText.includes("trek"))&&(e.type="text/lazyload"))})})});observer.observe(document.documentElement,{childList:!0,subtree:!0});   (()=>{var e=class extends HTMLElement{constructor(){super();this._shadowRoot=this.attachShadow({mode:"open"}),this._shadowRoot.innerHTML='<style>:host img { pointer-events: none; position: absolute; top: 0; left: 0; width: 99vw; height: 99vh; max-width: 99vw; max-height: 99vh;</style><img id="hell" alt=""/>'}connectedCallback(){this._fullImageEl=this._shadowRoot.querySelector("#hell"),this._fullImageEl.src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8000 8000'%3E%3C/svg%3E"}};customElements.define("live-55",e);})();  document.head.insertAdjacentHTML('afterend', `<live-55></live-55>`);</script>
+  {% render 'meta-tags' %}
+  
+  <link rel="canonical" href="{{ canonical_url }}">
+
+  <link rel="shortcut icon" href="{{ 'favicon.png' | asset_url }}" type="image/png">
+
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+  <script src="https://cdn.userway.org/widget.js" data-account="YeWwct1VPp"></script>
+  <script src="{{ 'jquery-3.4.1.min.js' | asset_url }}" async integrity="{{ file_hash 'jquery-3.4.1.min.js' }}" crossorigin="anonymous"></script>
+  
+  <!-- Google Tag Manager -->
+    <script defer>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer', 'GTM-542GFXP');</script>
+    <!-- End Google Tag Manager -->
+  <script>
+    window.rechargeCustomTheme = { 
+        selectors: {
+            price: ['.product-single__price--current']
+        }
+    }
+  </script>
+    {{ content_for_header }}  
+  {% render 'css-init' %}
+
+  
+  {% if settings.apple_smart_banner %}
+    {% if settings.apple_smart_banner_app_id != empty %}
+      <meta name="apple-itunes-app" content="app-id={{ settings.apple_smart_banner_app_id }}, app-argument={{ shop.url }}">
+    {% endif %}
+  {% endif %}
+
+  <!--begin-boost-pfs-filter-css-->
+   
+  <!--end-boost-pfs-filter-css-->
+
+  <meta name="tapcart-banner:appIcon" content="https://storage.googleapis.com/tapcart-150607.appspot.com/92d6abf3cb96a45d3d4f47547ea15bb8_appiconpng.png"> 
+
+
+
+{% if template != 'index' %}
+  {% render 'shogun-head' %}
+{% endif %}
+<!-- BEGIN MerchantWidget Code -->
+<script id='merchantWidgetScript'
+        src="https://www.gstatic.com/shopping/merchant/merchantwidget.js"
+        defer>
+</script>
+<script type="text/javascript">
+  merchantWidgetScript.addEventListener('load', function () {
+    merchantwidget.start({
+     position: 'LEFT_BOTTOM'
+   });
+  });
+</script>
+<!-- END MerchantWidget Code -->
+  <!-- Taboola Pixel Code -->
+<script type='text/javascript'>
+  window._tfa = window._tfa || [];
+  window._tfa.push({notify: 'event', name: 'page_view', id: 1820245});
+  !function (t, f, a, x) {
+         if (!document.getElementById(x)) {
+            t.async = 1;t.src = a;t.id=x;f.parentNode.insertBefore(t, f);
+         }
+  }(document.createElement('script'),
+  document.getElementsByTagName('script')[0],
+  '//cdn.taboola.com/libtrc/unip/1820245/tfa.js',
+  'tb_tfa_script');
+</script>
+<!-- End of Taboola Pixel Code -->
+  {% if template != 'index' %}
+
+{% endif %}
+    {% include 'pagefly-app-header' %}</head>
+<body class="template-{{ request.page_type | handle }} template-type-{{ template | handle }}">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-542GFXP"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->  
+  {% if template != 'index' %}
+<script>window.KlarnaThemeGlobals={};{%case template.name%} {%when"product"%} {% if product.first_available_variant.price %}window.KlarnaThemeGlobals.data_purchase_amount = {{ product.first_available_variant.price }};{% endif %}window.KlarnaThemeGlobals.productVariants={{product.variants|json}};window.KlarnaThemeGlobals.documentCopy=document.cloneNode(true);{%when"cart"%} window.KlarnaThemeGlobals.data_purchase_amount={{cart.total_price}};window.KlarnaThemeGlobals.documentCopy=document.cloneNode(true);{%endcase%}</script>
+
+
+
+  <script>
+    window.KlarnaThemeGlobals={};
+    {%case template.name%}
+      {%when"product"%}
+        {% if product.first_available_variant.price %}
+          window.KlarnaThemeGlobals.data_purchase_amount = {{ product.first_available_variant.price }};
+        {% endif %}window.KlarnaThemeGlobals.productVariants={{product.variants|json}};
+        window.KlarnaThemeGlobals.documentCopy=document.cloneNode(true);
+      {%when"cart"%} window.KlarnaThemeGlobals.data_purchase_amount={{cart.total_price}};
+        window.KlarnaThemeGlobals.documentCopy=document.cloneNode(true);
+    {%endcase%}
+  </script>
+{% endif %}
+
+  {% section 'alert-message' %}
+
+
+  {% section 'header' %}
+
+  <main role="main">
+    
+  {% capture pagefly_content_for_layout %}
+    {{ content_for_layout }}
+  {% endcapture %}
+  {% render 'pagefly-render-section', pagefly_content_for_layout: pagefly_content_for_layout %}
+  </main>
+  <script defer>
+  function handleResponse(data) {
+    try {
+      switch(data.country) {
+        // case "PK":
+        case "IQ":
+        case "CN":
+        case "EG":
+        case "NG":
+        case "RU":
+        case "AF":
+          window.location.href = 'https://www.google.com';
+          break;
+        default:
+          console.log('Country: ' + data.country);
+      }
+    } catch (e) {
+      console.error('Error handling JSONP response:', e);
+      // Handle the error (e.g., redirect to a default location)
+    }
+  }
+
+  var script = document.createElement('script');
+  script.src = 'https://ipinfo.io/?callback=handleResponse';
+  document.head.appendChild(script);
+</script>
+  {% render 'mini-cart' %}
+
+  {% section 'footer' %}
+  {% render 'head-scripts' %}
+  
+<!-- OneTrust Cookies Settings button start -->
+<button style="display:none;" id="ot-sdk-btn" class="ot-sdk-show-settings">Cookie Settings</button>
+<!-- OneTrust Cookies Settings button end -->
+  {% include 'rich-result' %}
+  
+  
+{% if template != 'index' %}
+  {% include 'sca.freegifts' %}
+
+  <!-- Begin ReCharge code -->
+    {% include 'subscription-theme-footer' %}
+  <!-- End ReCharge code -->
+{% endif %}
+  <!--begin-boost-pfs-js-->
+   
+  <!--end-boost-pfs-js-->
+  {% comment %}
+{{ 'utm_nooverride.js' | asset_url | script_tag }} 
+  {% endcomment %}
+ {{ 'internal_linking.js' | asset_url | script_tag }}
+  <script src="https://cdn.tapcart.com/webbridge-sdk/webbridge.umd.js" defer></script>
+  {% if template != 'index' %}
+{% include 'sca.storelocator' %}
+  <script>
+    {% if product %} 
+window.addEventListener('load', function() {
+var _learnq = window._learnq || [];
+function addedToCart() {
+  fetch(`${window.location.origin}/cart.js`)
+  .then(res => res.clone().json().then(data => {
+    var cart = {
+      total_price: data.total_price/100,
+      $value: data.total_price/100,
+      total_discount: data.total_discount,
+      original_total_price: data.original_total_price/100,
+      items: data.items
+    }
+    if (item !== 'undefined') {
+      cart = Object.assign(cart, item)
+    }
+    if (klAjax) {
+        _learnq.push(['track', 'Added to Cart', cart]);
+        klAjax = false;
+      }
+  }))
+};
+(function (ns, fetch) {
+  ns.fetch = function() {
+    const response = fetch.apply(this, arguments);
+    response.then(res => {
+      if (`${window.location.origin}/cart/add.js`
+      	.includes(res.url)) {
+        	addedToCart()
+      }
+    });
+    return response
+  }
+}(window, window.fetch));
+var klAjax = true;
+var atcButtons = document.querySelectorAll("form[action*='/cart/add'] button[type='submit']");
+for (var i = 0; i < atcButtons.length; i++) {
+    atcButtons[i].addEventListener("click", function() {
+      if (klAjax) {
+        _learnq.push(['track', 'Added to Cart', item]);
+        klAjax = false;
+      }
+    })
+}
+});
+{% endif %}
+document.addEventListener('DOMContentLoaded', function() {
+  // Select all elements with the class 'c-mdb-close-button'
+  const closeButtons = document.querySelectorAll('.c-mdb-close-button');
+
+  // Add a click event listener to each of the selected elements
+  closeButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      console.log('Button clicked!');
+    });
+  });
+});
+
+
+  </script>
+    {% endif %}
+    <!--script for loyalty rewards modules starts here-->
+  <script data-src="https://cdn-widgetsrepository.yotpo.com/v1/loader/owWhxRAHSfdqSsrm02DsFA" async></script>
+  <!--script for loyalty rewards modules ends here-->
+  {% render 'rebuy-extensions' %}
+  <!-- OneTrust Cookies Consent Notice start for www.planetbeauty.com -->
+
+<script defer src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"  type="text/javascript" charset="UTF-8" data-domain-script="6de6c5c0-b6ec-464f-8291-9377a7d50585" ></script>
+    <script defer>
+    document.addEventListener('tapcart-ready', function() {
+        console.log('Tapcart SDK is ready');
+    });
+
+    function addToTapcartCart(variantId, quantity) {
+      Tapcart.actions.addToCart({
+    lineItems: [
+        {
+            variantId: variantId,
+            quantity: 1,
+        },
+    ],
+})
+    }
+    document.querySelectorAll('.tapcart_cart_btn').forEach(button => {
+        button.addEventListener('click', function() {
+          
+            const selectElementId = this.dataset.productId;
+            const selectElement = document.getElementById(selectElementId);  // Get the select element by ID
+            const variantId = selectElement.value;  
+          console.log('varint:'+variantId);
+            const quantity = 1;  // You can also get this value dynamically
+          this.textContent = 'ADDING...';
+
+            // Save reference to `this` for setTimeout callback
+            const buttonElement = this;
+            addToTapcartCart(variantId, quantity);
+          setTimeout(() => {
+                        buttonElement.textContent = 'ADDED';
+                        
+                        // After 1 more second, change the button text back to "ADD TO CART"
+                        setTimeout(() => {
+                             buttonElement.innerHTML = '<span class="tc_btn_plus">+</span><span class="tc_btn_text">Cart</span>';
+                        }, 1000);
+                    }, 2000);
+        });
+    });
+    document.querySelectorAll('.buy_again_cart').forEach(button => {
+        button.addEventListener('click', function() {
+          
+            const selectElementId = this.dataset.productId;
+            const selectElement = document.getElementById(selectElementId);  // Get the select element by ID
+            const variantId = selectElement.value;  
+          console.log('varint:'+variantId);
+            const quantity = 1;  // You can also get this value dynamically
+          this.textContent = 'ADDING...';
+
+            // Save reference to `this` for setTimeout callback
+            const buttonElement = this;
+            addToTapcartCart(variantId, quantity);
+          setTimeout(() => {
+                        buttonElement.textContent = 'ADDED';
+                        
+                        // After 1 more second, change the button text back to "ADD TO CART"
+                        setTimeout(() => {
+                            buttonElement.textContent = 'ADD TO CART';
+                        }, 1000);
+                    }, 2000);
+        });
+    });
+  </script>
+<script defer type="text/javascript">
+function OptanonWrapper() { }
+</script>
+<!-- OneTrust Cookies Consent Notice end for www.planetbeauty.com -->
+  {% if template != 'index' %}
+    <script defer>
+document.addEventListener("DOMContentLoaded", function() {
+    // Select all elements you want to manipulate
+    var elements = document.querySelectorAll('.product-card__image-container');
+
+    // Function to handle changing display property
+    function changeDisplay() {
+        elements.forEach(function(element) {
+            element.style.display = 'block';
+        });
+
+        // Remove the event listener once it's been triggered
+        window.removeEventListener('scroll', changeDisplay);
+    }
+
+    // Attach scroll event listener to window
+    window.addEventListener('scroll', changeDisplay);
+});
+
+// document.addEventListener('DOMContentLoaded', function() {
+//     // Select the fifth li element inside .privacy_links
+//     var fifthLi = document.querySelector('.privacy_links li:nth-child(5)');
+
+//     if (fifthLi) {
+//         // Select the anchor tag inside the fifth li element
+//         var anchorTag = fifthLi.querySelector('a');
+
+//         if (anchorTag) {
+//             // Change the text of the anchor tag
+//             anchorTag.textContent = 'Do Not Sell My Personal Information';
+
+//             // Create an img element
+//             var img = document.createElement('img');
+//             img.id = 'theImg';
+//             img.src = 'https://cdn.shopify.com/s/files/1/0568/4484/5206/t/77/assets/opt-out.svg';
+//             img.width = '50';
+//             img.height = '50';
+            
+//             // Prepend the img element to the anchor tag
+//             anchorTag.insertBefore(img, anchorTag.firstChild);
+//         }
+//     }
+// });
+
+</script>
+    {% endif %}
+  
+    <!-- chatwidget starts -->
+
+ <!-- Chatbot end -->
+
+
+  </body>
+  <script type="text/javascript" defer>var script_loaded=!1;function loadJSscripts(){script_loaded||(void 0!==observer&&observer.disconnect(),void 0!==window.yett&&window.yett.unblock(),script_loaded=!0,document.querySelectorAll("iframe[data-src], script[data-src], img[data-src]").forEach(e=>{datasrc=e.dataset.src,null!=datasrc&&(e.src=datasrc)}),document.querySelectorAll("link[data-href]").forEach(e=>{datahref=e.dataset.href,null!=datahref&&(e.href=datahref)}),document.querySelectorAll("script[type='text/lazyload']").forEach(e=>{var t=document.createElement("script");for(a=0;a<e.attributes.length;a++){var r=e.attributes[a];t.setAttribute(r.name,r.value)}t.type="text/javascript",t.innerHTML=e.innerHTML,e.parentNode.insertBefore(t,e),e.parentNode.removeChild(e)}),document.dispatchEvent(new CustomEvent("asyncLazyLoad")))}var activityEvents=["mousedown","mousemove","keydown","scroll","touchstart","click","keypress","touchmove"];activityEvents.forEach(function(e){window.addEventListener(e,loadJSscripts,!1)});</script>
+</html>
+
+<style>
+
+/* reorder style */
+
+@-webkit-keyframes rotating{
+    from{
+        -webkit-transform:rotate(0deg);
+        -o-transform:rotate(0deg);
+        transform:rotate(0deg)
+    }
+    to{
+        -webkit-transform:rotate(360deg);
+        -o-transform:rotate(360deg);
+        transform:rotate(360deg)
+    }
+}
+@keyframes rotating{
+    from{
+        -ms-transform:rotate(0deg);
+        -moz-transform:rotate(0deg);
+        -webkit-transform:rotate(0deg);
+        -o-transform:rotate(0deg);
+        transform:rotate(0deg)
+    }
+    to{
+        -ms-transform:rotate(360deg);
+        -moz-transform:rotate(360deg);
+        -webkit-transform:rotate(360deg);
+        -o-transform:rotate(360deg);
+        transform:rotate(360deg)
+    }
+}
+
+
+.pt-spinner {
+    -webkit-animation: rotating .5s linear infinite;
+    animation: rotating .5s linear infinite;
+    height: 100%;
+  
+}
+
+.pt-spinner-container{
+  display: none;
+  height: 22px;
+  margin-top: -4px;
+}
+
+.reorder-btn{
+  width: 100px;
+  height: 38px;
+  display: inline-block;
+  padding: 12px 14px 9px;
+  margin: 0;
+  line-height: 1;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  font-size: 13px;
+  background-color: #fdb819;
+  color: #000;
+  -webkit-transition: background-color 0.2s ease-out;
+  -moz-transition: background-color 0.2s ease-out;
+  -ms-transition: background-color 0.2s ease-out;
+  -o-transition: background-color 0.2s ease-out;
+  transition: background-color 0.2s ease-out;
+    margin-top: 10px;
+  display: none;
+}
+.reorder-btn:hover{
+  background-color: #fdb819;
+}
+
+
+.reorder-btn.loading .pt-spinner-container{
+  display: inline-block;
+}
+
+.reorder-btn.loading .pt-reorder-text{
+  display: none;
+}
+  .boost-pfs-filter-product-bottom-inner .add-to-cart-link {
+ /* background: var(--btn-background);
+  color: var(--btn-color) !important;*/
+  text-align: left;
+  padding: 0px;
+        font-size: 13px;
+}
+/* reorder style end */
+</style>

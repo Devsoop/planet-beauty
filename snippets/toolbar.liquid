@@ -1,0 +1,71 @@
+<div class="toolbar">
+
+  {% if collection.products_count > 0 %}
+
+    {%- comment -%} Count {%- endcomment -%}
+    <div class="toolbar__count">
+      <span>
+        {{ collection.products_count }} {% if collection.products_count == 1 %}item{% else %}items{% endif %}
+      </span>
+      <div class="toolbar__actions">
+        {% comment %} {% render 'icon-menu' %} {% endcomment %}
+      </div>
+    </div>
+
+  {% endif %}
+  
+
+  {%- comment -%} Filters {%- endcomment -%}
+  <div class="toolbar__all-filters">
+    <div class="toolbar__filters-group">
+
+      {% if collection.url != request.path %}
+
+        {% assign count = 0 %}
+
+        {%- comment -%} Load all groups (Color, Price, Size) {%- endcomment -%}
+        {%- for tag in collection.all_tags -%}
+
+          {% assign handleize_tag = tag | handleize %}
+
+          {% if request.path contains handleize_tag %}
+            {% assign count = count | plus: 1 %}
+          {% endif %}
+          
+        {%- endfor -%}
+
+      {% endif %}
+
+      {%- comment -%} Mobile Filter Button {%- endcomment -%}
+      <div class="toolbar__filter toolbar__filter-button">
+        <button data-mobile-button-filter {% if count > 0 %}class="has-filter"{% endif %}>
+          {% render 'icon-filter' %}
+          Filters 
+
+          {% if count > 0 %}
+            ({{ count }})
+          {% endif %}
+
+        </button>
+      </div>
+
+      {%- comment -%} Load All Filters {%- endcomment -%}
+      {% render 'filters' %}
+    </div>
+
+    {%- comment -%} Sort By Filter {%- endcomment -%}
+    <div class="toolbar__filter-sort-by">
+      <div class="toolbar__sort-by">
+        <span class="toolbar__sort-by-label" >{{ 'collections.sorting.title' | t }}:</span>
+        <label for="select_sort_by">{{ 'collections.sorting.title' | t }}</label>
+        {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+        <select class="select-button" id="select_sort_by" data-select-sort-by>
+          {%- for option in collection.sort_options -%}
+            <option value="{{ option.value }}" {% if option.value == sort_by %} selected="selected" {% endif %}>{{ option.name }}</option>
+          {%- endfor -%}
+        </select>
+      </div>
+    </div>
+  </div>
+
+</div>

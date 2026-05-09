@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="{{ locale }}" dir="{{ direction }}" class="{{ checkout_html_classes }}">
+  <head>
+    <script>(function () { function asyncLoad() { var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = 'https://s3.eu-west-1.amazonaws.com/production-klarna-il-shopify-osm/ebb4b9f8edac84b7e417f4fb67c62ab4f62a1b17/planet-beauty-production.myshopify.com-1671226072843.js'; var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x); }; if (window.attachEvent) { window.attachEvent('onload', asyncLoad); } else { window.addEventListener('load', asyncLoad, false); } })(); </script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, user-scalable=0">
+    <meta name="referrer" content="origin">
+
+    <title>{{ page_title }}a</title>
+
+     
+
+    {{ content_for_header }}
+
+    {{ checkout_stylesheets }}
+    {{ checkout_scripts }}
+    <!--script for loyalty rewards modules starts here-->
+    <script src="https://cdn-widgetsrepository.yotpo.com/v1/loader/owWhxRAHSfdqSsrm02DsFA" async></script>
+    <!--script for loyalty rewards modules ends here-->
+    
+  
+  {% render 'shogun-head' %}
+</head>
+  <body>
+
+    {{ skip_to_content_link }}
+
+    <header class="banner" data-header role="banner">
+      <div class="wrap">
+        {{ content_for_logo }}
+      </div>
+    </header>
+
+    {{ order_summary_toggle }}
+
+   
+ 
+    <div id="editCartBtn" class="lsu-m-b-md removeBtn">
+            <a class="ls-btn lsb lsb--secondary alt lsb--w-100 no-icon" data-log-id="EditCart:Header" href="/cart">Edit Cart</a>
+        </div>
+   
+    
+
+    <div class="content" data-content>
+      <div class="wrap">
+        <div class="main">
+          <header class="main__header" role="banner">
+            {{ content_for_logo }}
+            {{ breadcrumb }}
+            {{ alternative_payment_methods }}
+          </header>
+          <main class="main__content" role="main">
+            {{ content_for_layout }}
+          </main>
+          <footer class="main__footer" role="contentinfo">
+            {{ content_for_footer }}
+          </footer>
+        </div>
+        <aside class="sidebar" role="complementary">
+          <div class="sidebar__header">
+            {{ content_for_logo }}
+          </div>
+          <div class="sidebar__content">
+            {{ content_for_order_summary }}
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    {{ tracking_code }}
+
+    {% if settings.enable_yotpo_checkout %}
+      {% if settings.yotpo_checkout_id != empty %}
+      <div class="yotpo-widget-instance" data-yotpo-instance-id="{{ settings.yotpo_checkout_id }}"></div>
+      {% endif %}
+    {% endif %}
+
+    <div data-rebuy-id="82693"></div>
+    <script async src="https://cdn.rebuyengine.com/onsite/js/rebuy.js?shop=planet-beauty-production.myshopify.com"></script>
+  </body>
+</html>
+
+ <style>
+    .mylivechat_inline.mylivechat_template5.mylivechat_template_float_right.mylivechat_template_float_bottom {
+    display: none !important;
+}
+  </style>
+    
+
+    <style>
+  .showBtn{
+    display: block;
+  }
+
+  .removeBtn{
+        display: none;
+  }
+  .lsu-m-b-md {
+  margin-bottom: 10px !important;
+  text-align: center;
+  width: 15%;
+  margin: 0 auto;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  margin-top: 10px;
+  background: #323A45;
+  color: #fff;
+}
+  .lsb.lsb--w-100 {
+  display: inline-block;
+  width: 100%;
+  box-sizing: border-box;
+}
+  .lsb.lsb--secondary {
+  padding: calc(.8125em - 1px) calc(1.5em - 2px);
+  background-color: #f6f5f9;
+  
+  color: #333078;
+}
+  .lsb.lsb--secondary {
+  padding: calc(.8125em - 1px) calc(1.5em - 2px);
+  color: #fff;
+    background: #323A45;
+}
+  #editCartBtn{
+   
+  }
+  @media screen and (max-width: 768px) {
+   .lsu-m-b-md {
+  width: 85% !important;
+}
+#editCartBtn{
+    
+  }
+  }
+  </style> 
+
+  <script>            
+        let store = localStorage.getItem('stores');
+       //alert(store);
+   if (store == 'yes_store') {
+     //alert('Yes111111');
+     var element = document.getElementById("editCartBtn");
+      element.classList.remove("removeBtn");
+      element.classList.add("showBtn");    
+   }else{
+    // alert(store);
+     var element = document.getElementById("editCartBtn");
+      element.classList.remove("showBtn");
+      element.classList.add("removeBtn");  
+     const box = document.getElementById('editCartBtn');
+     box.removeAttribute('style');
+   } 
+
+    </script>

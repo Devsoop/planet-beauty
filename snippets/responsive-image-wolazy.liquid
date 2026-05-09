@@ -1,0 +1,48 @@
+<div class="responsive-image">
+
+    {% comment %} MOBILE {% endcomment %}
+    {% if mobile_aspect_ratio %}
+        <div class="loading hidden__desktop hidden__tablet" style="padding-top:{{ 1 | divided_by: mobile_aspect_ratio | times: 100 }}%;">
+    {% else %}
+        <div class="hidden__desktop hidden__tablet">
+    {% endif %}
+
+        <picture>
+            <source media="(max-width: 599px)" data-srcset="{{ mobile_image }}" />
+            <source media="(max-width: 899px)" data-srcset="{{ mobile_image }}" />
+            <img {% if flickity_id %}data-flickity-id="{{ flickity_id }}"{% endif %} style="width: 100%;height: auto;" {% if small_image %}src="{{ small_image }}"{% endif %} alt="{{ alt_image }}" loading="eager" width="{{ mobile_image_width }}" height="{{ mobile_image_width }}" data-src="{{ mobile_image }}" src="{{ mobile_image }}" />
+        </picture>
+
+    </div>
+
+    {% comment %} TABLET {% endcomment %}
+    {% if tablet_aspect_ratio %}
+        <div class="loading hidden__mobile hidden__desktop" style="padding-top:{{ 1 | divided_by: tablet_aspect_ratio | times: 100 }}%;">
+    {% else %}
+        <div class="hidden__mobile hidden__desktop">
+    {% endif %}
+
+        <picture>
+            <source media="(max-width: 599px)" data-srcset="{{ mobile_image }}" />
+            <source media="(max-width: 899px)" data-srcset="{{ tablet_image }}" />
+            <img {% if flickity_id %}data-flickity-id="{{ flickity_id }}"{% endif %} style="width: 100%;height: auto;" {% if small_image %}src="{{ small_image }}"{% endif %} alt="{{ alt_image }}" loading="eager" width="{{ tablet_image_width }}" height="{{ tablet_image_width }}" data-src="{{ desktop_image }}" />
+        </picture>
+
+    </div>
+
+    {% comment %} DESKTOP {% endcomment %}
+    {% if desktop_aspect_ratio %}
+        <div class="loading hidden__mobile hidden__tablet" style="padding-top:{{ 1 | divided_by: desktop_aspect_ratio | times: 100 }}%;">
+    {% else %}
+        <div class="hidden__mobile hidden__tablet">
+    {% endif %}
+
+        <picture>
+            <source media="(max-width: 599px)" data-srcset="{{ mobile_image }}" />
+            <source media="(max-width: 899px)" data-srcset="{{ tablet_image }}" />
+            <img {% if flickity_id %}data-flickity-id="{{ flickity_id }}"{% endif %} style="width: 100%;height: auto;" {% if small_image %}src="{{ small_image }}"{% endif %} alt="{{ alt_image }}"  loading="eager" width="{{ desktop_image_width }}" height="{{ desktop_image_width }}" data-src="{{ desktop_image }}" src="{{ desktop_image }}" />
+        </picture>
+
+    </div>
+
+</div>

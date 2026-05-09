@@ -1,0 +1,225 @@
+<!-- /templates/customers/account.liquid -->
+
+<div class="page-container">
+
+    <div class="container">
+
+        <div class="page-width account-template">
+
+
+       {% comment %}
+        <div class="account-template__header"   >
+
+                <h1 class="account-template__title">{{ 'customer.account.title' | t }}</h1>
+
+                <!-- Begin Recharge code -->
+                <p><a href="/tools/recurring/login/">Manage Subscriptions</a></p>
+                <!-- End Recharge code -->
+
+                <a href="/pages/rewards" >{{ 'customer.account.rewards' | t }}</a>
+
+                {% assign reset_password_text = 'customer.account.reset_password' | t %}
+
+                {% if reset_password_text != blank %}
+                <div class="account-template__reset-password">
+                    <p><a href="#recover" data-recover-password-btn>{{ 'customer.account.reset_password' | t }}</a></p>
+                    {% render 'reset-password', close_link: routes.account_url  %}
+                </div>
+                {% endif %}
+
+                {{ 'layout.customer.log_out' | t | customer_logout_link }}
+
+            </div>
+    {% endcomment %} 
+            <div class="account-template__header new_section">
+                <h1 class="account-template__title">Welcome {{customer.first_name}}</h1>
+                <div class="row" style="width: 90%;margin: 0 auto;">
+                    <div class="column left" style="text-align: left;">
+                        <p>Account Info</p>                     
+                        <p>Name: {{ customer.first_name }} {{ customer.last_name }}</p>
+                        <p>Email: {{ customer.email }}</p>
+                        <p>Phone: {{ customer.phone }}</p>
+                        <p>Password: ********</p>
+                        <p>Birthday: ******</p>
+                        <a href="/account/addresses"><h4>Update Account Info</h4> </a>
+                    </div>
+                    <div class="column right" style="">          
+                        <p>Your Rewards</p>
+                        <p>Redeemable Points: <span class="swell-point-balance">0</span>  Value: $0.00</p>
+                        <a href="/pages/stay-beautiful/"><h4> <span class="swell-embedded-referral-link"></span>Update Email Preferences</h4> </a>
+                        <a href="/tools/recurring/login/"><h4>Manage Your Subscriptions</h4></a>
+                        <a href="/account/addresses/"> <h4>Update Your Address Book</h4></a>
+                    </div>
+                </div>
+
+                <style>
+
+                    .column {
+                        float: left;
+                        width: 50%;
+                        padding: 10px;
+                        height: auto;
+                    }
+
+                    .row:after {
+                        content: "";
+                        display: table;
+                        clear: both;
+                    }
+
+                    .left {
+                        padding-left: 50px;
+                        text-align: left;
+                        width: 68%;
+                    }
+
+                    .left p {
+                        margin: 0px;
+                        margin-bottom: 3px;
+                        font-size: 16px;
+                    }
+
+                    .left h4 {
+                        border: 1px solid;
+                        padding: 4px;
+                        font-size: 16px;
+                        margin-bottom: 8px;
+                        max-width: 200px;
+                    }
+
+
+
+                    .right {
+                        margin: 0px;
+                        margin-bottom: 5px;
+                        font-size: 18px;
+                        text-align: left;
+                        padding-left: 0px !important;
+                        width: 32%;
+
+                    }
+
+
+
+                    .right p {
+                        margin: 0px;
+                        margin-bottom: 5px;
+                        font-size: 16px;
+                    }
+
+                    .right h4 {
+                        border: 1px solid;
+                        padding: 4px;
+                        font-size: 16px;
+                        margin-bottom: 8px;
+                        max-width: 260px;
+                    }
+
+
+                    .right p:nth-child(2) {
+                        margin-bottom: 20px;
+                    }
+
+                    .right p:nth-child(1) {
+                        font-size: 18px;
+                    }
+                    .left p:nth-child(1) {
+                        font-size: 18px;
+                    }
+
+                  .left a {
+                        text-decoration: none;
+                      }
+
+                     .right a {
+                        text-decoration: none;
+                      }
+
+                </style>
+
+            </div>
+
+            <div id="customer_orders" class="account-template__orders">
+                <h2>Orders</h2>
+                {% paginate customer.orders by 10 %}
+                {% if customer.orders.size != 0 %}
+                <!-- order details here -->
+                <table class="account-template__table-orders">
+                    <thead>
+                        <tr>
+                            <th scope="col">{{ 'customer.orders.order_number' | t }}</th>
+                            <th scope="col">{{ 'customer.orders.date' | t }}</th>
+                            <th scope="col">Tracking number</th>
+                            <th scope="col">{{ 'customer.orders.fulfillment_status' | t }}</th>
+                            <th scope="col">{{ 'customer.orders.total' | t }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in customer.orders %}
+                        <tr>
+                            <th data-label="{{ 'customer.orders.order_number' | t }}" scope="row">
+                                <a href="{{ order.customer_url }}" class="" aria-label="{{ 'customer.orders.order_number_link' | t: number: order.name }}">{{ order.name }} </a>
+                            </th>
+                            <td data-label="{{ 'customer.orders.date' | t }}">{{ order.created_at | time_tag: format: 'date' }}</td>
+                           
+                          
+                          <td data-label="{{ 'customer.orders.payment_status' | t }}">
+                           {% comment %} {{ order.financial_status_label }}  {% endcomment %} 
+                            {% for line_item in order.line_items %}
+     {% if forloop.first == true %}
+<a href="{{ line_item.fulfillment.tracking_url }}" target="_blank">{{ line_item.fulfillment.tracking_number }}</a>
+
+     {% endif %}
+{% endfor %} 
+                            
+                          
+                          </td>
+                           
+                          
+                          <td data-label="{{ 'customer.orders.fulfillment_status' | t }}">{{ order.fulfillment_status_label }}</td>
+                            <td data-label="{{ 'customer.orders.total' | t }}">{{ order.total_price | money }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <p>You haven't placed any orders yet.</p>
+                {% endif %}
+                {{ paginate | default_pagination }}
+                {% endpaginate %}
+            </div>
+
+            {% if customer.default_address %}
+            <div class="account-template__address">
+                <h2>Address</h2>
+                <p>{{ customer.default_address.address1 }}</p>
+                {% if customer.default_address.address2 != "" %}
+                <p>{{ customer.default_address.address2 }}</p>
+                {% endif %}
+                <p>{{ customer.default_address.city}}, {% if address.province_code %}{{ customer.default_address.province_code }}, {% endif %}{{ customer.default_address.country }}</p>
+                <p>{{ customer.default_address.zip }}</p>
+                <p>{{ customer.default_address.phone }}</p>
+                <div class="account-template__view_addresses" ><a href="{{ routes.account_addresses_url }}">{{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})</a></div> 
+            </div>
+            {% endif %}
+ 
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+@media screen and (max-width: 768px){
+ .left {   
+    width: 100%;
+   padding-left: 0px;
+}
+  .right {
+    padding-left: 0px !important;
+    width: 100%;
+}
+}
+  
+</style>
+

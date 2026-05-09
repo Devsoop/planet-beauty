@@ -1,0 +1,47 @@
+    
+    <style>
+        @media screen and (min-width: 1200px) {
+        .gc_form_field_wrapper{
+                display: flex;
+    gap: 5px;
+    align-items: flex-start;
+        }
+        .gc_form_field_wrapper .gc_form_field{
+        width:calc((100% - 5px) / (2));
+        }
+    }
+        #giftcard_message{
+        width:100%;
+        }
+        .gc_form_main input{
+                margin: 0 0 10px;
+                width:100%;
+                    max-width: 100%;
+                     font-size: 13px;
+        }
+    </style>
+    <div class="gc_form_main">
+    <div class="gc_form_field_wrapper">
+    <div class="gc_form_field">
+    <label for="giftcard_sender_name" aria-label="Sender name">Sender name*</label>
+    <input required aria-required="true" class="required" id="giftcard_sender_name" type="text" name="properties[giftcard_sender_name]">
+    </div>
+    <div class="gc_form_field">
+    <label for="giftcard_sender_email" aria-label="Sender email">Sender email*</label>
+    <input required aria-required="true" class="required" id="giftcard_sender_email" type="text" name="properties[giftcard_sender_email]">
+</div>
+</div>
+<div class="gc_form_field_wrapper">
+<div class="gc_form_field">
+    <label for="giftcard_recipient_name" aria-label="Recipient name">Recipient name*</label>
+    <input required aria-required="true" class="required" id="giftcard_recipient_name" type="text" name="properties[giftcard_recipient_name]">
+</div>
+<div class="gc_form_field">
+    <label for="giftcard_recipient_email" aria-label="Recipient email">Recipient email*</label>
+    <input required aria-required="true" class="required" id="giftcard_recipient_email" type="text" name="properties[giftcard_recipient_email]">
+</div>
+</div>
+    <label for="giftcard_message" aria-label="Message">Message</label>
+    <textarea aria-required="false" id="giftcard_message" name="properties[giftcard_message]"></textarea>
+    </div>
+

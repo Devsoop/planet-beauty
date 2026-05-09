@@ -1,0 +1,55 @@
+<script src="{{ 'hoverintent.min.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'flickity.min.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'tabbable.min.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'focus-trap.min.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'focus-visible.min.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'bundle.js' | asset_url }}" defer="defer"></script>
+
+<script type="text/javascript">
+ 
+
+{% comment %} Init theme {% endcomment %}
+window.theme = window.theme || {};
+window.theme.script = {};
+window.theme.file_url = "{{ '' | file_url }}";
+
+{% comment %} Lazyload {% endcomment %}
+window.theme.script.lazysizes = "{{ 'lazysizes.min.js' | asset_url }}";
+
+</script>
+
+{% comment %} Settings used in JS code {% endcomment %}
+<script type="text/javascript">
+    window.default_product_image = {
+        desktop : {
+            src: {{ settings.default_product_image.src | json }},
+            aspect_ratio: {{ settings.default_product_image.aspect_ratio | json }}
+        },
+        mobile : {
+            src: {{ settings.default_product_image_mobile.src | json }},
+            aspect_ratio: {{ settings.default_product_image_mobile.aspect_ratio | json }}
+        }
+    };
+</script>
+
+{% comment %} Product page {% endcomment %}
+{% if template.name contains 'product' %}
+    {{ 'photoswipe.css' | asset_url | stylesheet_tag }}
+    {{ 'default-skin.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'photoswipe.min.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'photoswipe-ui-default.min.js' | asset_url }}" defer="defer"></script>
+{% endif %}
+
+{% comment %} Skin Pages {% endcomment %}
+{% if template == 'page.skin-type' or template == 'page.skin-acids'%}
+    {{ 'page-skin-type.css' | asset_url | stylesheet_tag }}
+{% endif %}
+
+{% comment %} Hair Pages {% endcomment %}
+{% if template == 'page.hair-loss' or template == 'page.hair-oils'%}
+    {{ 'page-hair.css' | asset_url | stylesheet_tag }}
+{% endif %}
+
+{% comment %} We must have this CSS style for the whole site {% endcomment %}
+{{ 'recharge-subscriptions.css' | asset_url | stylesheet_tag }}
+

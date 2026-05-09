@@ -1,0 +1,32 @@
+<div class="social-icons">
+    <ul class="social-icons__list">
+        <!-- Instagram -->
+        <li class="social-icons__item">
+            <a class="social-icons__link" href="{{settings.social_instagram_link}}" aria-describedby="instagram-label">
+                <span id="instagram-label" class="visually-hidden">Instagram</span>
+                {% render 'icon-instagram' %}
+            </a>
+        </li>
+        <!-- Facebook -->
+        <li class="social-icons__item">
+            <a class="social-icons__link" href="{{settings.social_facebook_link }}" aria-describedby="facebook-label">
+                <span id="facebook-label" class="visually-hidden">Facebook</span>
+                {% render 'icon-facebook' %}
+            </a>
+        </li>
+        <!-- Pinterest -->
+        <li class="social-icons__item">
+            <a class="social-icons__link" href="{{settings.social_pinterest_link }}" aria-describedby="pinterest-label">
+                <span id="pinterest-label" class="visually-hidden">Pinterest</span>
+                {% render 'icon-pinterest' %}
+            </a>
+        </li>
+        <!-- Twitter -->
+        <li class="social-icons__item">
+            <a class="social-icons__link" href="{{settings.social_twitter_link}}" aria-describedby="twitter-label">
+                <span id="twitter-label" class="visually-hidden">Twitter</span>
+                {% render 'icon-twitter' %}
+            </a>
+        </li>
+    </ul>
+</div>

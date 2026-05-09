@@ -1,0 +1,33 @@
+<div class="section-reviews">
+
+    <div class="heading__wrapper">
+        <h2 class="heading h1 highlight">{{ section.settings.title }}</h2>
+    </div>
+
+    {% assign current_variant = product.selected_or_first_available_variant %}
+
+</div>
+
+{% schema %}
+{
+  "name": "Product Reviews",
+  "settings": [
+    {
+        "type": "text",
+        "id": "title",
+        "default": "Product Reviews",
+        "label": "Heading"
+    }
+  ],
+  "presets": [
+    {
+      "name": {
+        "en": "Product Reviews"
+      },
+      "category": {
+        "en": "Reviews"
+      }
+    }
+  ]
+}
+{% endschema %}

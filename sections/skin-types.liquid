@@ -1,0 +1,102 @@
+
+{% if section.settings.enable_text %}
+
+  <div class="page-container page-{{ template.suffix }} static-page">
+
+    <div class="skin-types {{ section.settings.container_style }}">
+
+        {% if section.settings.heading != blank %}
+
+            <h2 class="skin-types__heading">{{section.settings.heading}}</h2>
+
+        {% endif %}
+
+        <div class="skin-types__items">
+
+            {% for block in section.blocks %}
+
+                <div class="skin-types__item">
+
+                  {%- assign image_url = block.settings.image | img_url: '600x' -%}
+
+                  {%- assign aspect_ratio = block.settings.image.aspect_ratio -%}
+
+                  {% render 'skin-card', image: image_url, aspect_ratio: aspect_ratio, heading: block.settings.heading, content: block.settings.content %}
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+  </div>
+
+{% endif %}
+
+{% schema %}
+{
+  "name": "Skin Type",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_text",
+      "default": true,
+      "label": "Enable this section"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Title",
+      "default": "Skin Types"
+    },
+    {
+      "type": "select",
+      "id": "container_style",
+      "label": "Container style",
+      "default": "container",
+      "options": [
+        { "label": "Small", "value": "container--small" },
+        { "label": "Normal", "value": "container" }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "quote",
+      "name": "Quote",
+      "settings": [
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Title",
+            "default": "Dry Skin"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "<p>Dry skin can feel tight throughout the day, and may experience noticeable flaking. Dry skin is largely due to genetics, environmental factors such as lifestyle & diet, hormonal changes, andclimate.</p>"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Skin Types",
+      "category": "Image",
+      "blocks": [
+        {
+          "type": "quote"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

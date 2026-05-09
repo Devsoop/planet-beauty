@@ -1,0 +1,17 @@
+{% if alt == blank %}
+    {%- assign alt = 'Image' -%}
+{% endif %}
+
+{% if aspect_ratio %}
+
+    <div class="loading {{ class }}" style="padding-top:{{ 1 | divided_by: aspect_ratio | times: 100}}%;">
+        <img data-src="{{ src }}" alt="{{ alt }}" loading="lazy" class="lazyload {{ image_class}}"/>
+    </div>
+
+{% else %}
+
+    <div class="{{ class }}" >
+        <img data-src="{{ src }}" alt="{{ alt }}" loading="lazy" class="lazyload {{ image_class}}"/>
+    </div>
+    
+{% endif %}

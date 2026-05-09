@@ -1,0 +1,23 @@
+<!-- /templates/customers/activate_account.liquid -->
+{% form 'activate_customer_password' %}
+{{ form.errors | default_errors }}
+<div class="password">
+  <label for="password" data-password-input>Password
+    <input type="password" name="customer[password]" />
+    <button type="button" class="btn-link" aria-label="Show password" data-password-show>{% include "icon-hide" %}</button>
+    <button type="button" class="btn-link" aria-label="Hide password" data-password-hide>{% include "icon-show" %}</button>
+  </label>
+</div>
+<div class="password_confirm">
+  <label for="password_confirmation" data-password-input>Password Confirmation
+    <input type="password" name="customer[password_confirmation]" />
+    <button type="button" class="btn-link" aria-label="Show password" data-password-show>{% include "icon-hide" %}</button>
+    <button type="button" class="btn-link" aria-label="Hide password" data-password-hide>{% include "icon-show" %}</button>
+  </label>
+</div>
+<div class="action_bottom">
+  <input type="submit" value="Activate Account" />
+  <span>or</span>
+  <input type="submit" name="decline" value="Decline Invitation" />
+</div>
+{% endform %}

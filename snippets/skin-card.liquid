@@ -1,0 +1,13 @@
+<div class="skin-card">
+    <div class="skin-card__image-wrapper">
+        {% if image %}
+            {% render 'image', src: image , aspect_ratio: aspect_ratio %}
+        {% else %}
+            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+        {% endif %}  
+    </div>
+    <div class="skin-card__text-wrapper">
+        <div class="skin-card__item-heading">{{heading}}</div>
+        <div class="skin-card__item-text">{{content}}</div>
+    </div>
+</div>

@@ -1,0 +1,121 @@
+<div class="page-container">
+
+  <div class="container">
+
+    {% paginate collection.products by section.settings.products_per_page %}
+    <div class="collection">
+
+      {% if collection.image.src != blank %}
+
+        {%- assign mobile_image = collection.image.src | img_url: '600x' -%}
+        {%- assign tablet_image = collection.image.src | img_url: '800x' -%}
+        {%- assign desktop_image = collection.image.src | img_url: '2000x' -%}
+
+        {% render 'banner-overlay', 
+        heading: collection.title,
+        overlay_position: "middle",
+        text_align: "left",
+
+        mobile_image: mobile_image,
+        mobile_aspect_ratio: collection.image.aspect_ratio,
+        mobile_image_width: collection.image.width,
+        mobile_image_height: collection.image.height 
+
+        tablet_image: tablet_image,
+        tablet_aspect_ratio: collection.image.aspect_ratio,
+        tablet_image_width: collection.image.width,
+        tablet_image_height: collection.image.height, 
+
+        desktop_image: desktop_image,
+        desktop_aspect_ratio: collection.image.aspect_ratio,
+        desktop_image_width: collection.image.width
+        desktop_image_height: collection.image.height %}
+
+      {% else %} 
+        <div class="heading__wrapper">
+            <h1 class="heading h1 highlight-internal">{{collection.title}}</h1>
+        </div>
+      {% endif %}
+
+      {% render 'breadcrumbs' %}
+
+      {% render 'toolbar' %}
+
+      <div class="product-grid" itemscope itemtype="https://schema.org/itemListElement">
+
+        {% for product in collection.products %}
+
+          <div class="product-grid__item">
+            {% render 'product-card', product: product, show_product_reviews: section.settings.show_product_reviews %}
+          </div>
+
+        {% else %}
+
+          <div class="product-grid__no-products">
+            <p>{{ 'collections.filters.no_products_message' | t }}</p>
+          </div>
+
+        {% endfor %}
+
+      </div>
+
+      {% if paginate.pages > 1 %}
+        {% render 'pagination', paginate: paginate %}
+      {% endif %}
+
+      {% if collection.description != blank %}
+        <div class="collection__description-container">
+          <div class="collection__text-content">
+            <h2 class="collection__title" >{{ collection.title}}</h2>
+            <p class="collection__description" >{{collection.description}}</p>
+          </div>
+          <div class="collection__social-content">
+            <h2 class="collection__social-title" >Follow Us!</h2>
+            <p>Makeup, skincare, haircare, and more!</p>
+            <div class="collection__social-icons">
+              {% render 'social-icons' %}
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  {% endpaginate %}
+
+  </div>
+
+</div>
+
+{% if section.settings.show_product_reviews %}
+  {% render 'power-reviews-collection-script' %}
+{% endif %}
+
+{% schema %}
+{
+  "name": "Collection Page",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "label": "Products per page",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Power Reviews"
+    },
+    {
+      "type": "paragraph",
+      "content": "For this feature to load correctly, remember to enable header scripts in theme settings: Theme settings -> Power Reviews"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_reviews",
+      "label": "Show product reviews",
+      "default": false
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,28 @@
+{% assign image = settings.default_product_image %}
+
+{% assign image_mobile = settings.default_product_image_mobile %}
+
+{% assign alt_image = alt | default: 'Image coming soon' %}
+
+{% if image != blank %}
+
+    {% assign image_mobile_src = image_mobile | img_url: '600x' %}
+
+    {% assign image_tablet_src = image | img_url: '1600x' -%}
+
+    {% assign image_desktop_src = image | img_url: '2000x' -%}
+
+    {% render 'responsive-image', lazyload: true, alt_image: alt_image,
+    desktop_image: image_desktop_src, 
+    desktop_aspect_ratio: image.aspect_ratio, 
+    tablet_image: image_tablet_src, 
+    tablet_aspect_ratio: image.aspect_ratio, 
+    mobile_image: image_mobile_src, 
+    mobile_aspect_ratio: image_mobile.aspect_ratio %}
+
+{% else %}
+
+    {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+
+{% endif %}
+

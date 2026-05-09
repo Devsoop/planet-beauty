@@ -1,0 +1,7 @@
+$asset-domain: 'cdn.shopify.com';
+$asset-version: 'v={{ 'now' | date: '%Y%m%d%H%M%S' }}';
+
+$asset-path: '/themes/{{ theme.id }}';
+
+$stylesheet-url: 'https://#{$asset-domain}/#{$asset-path}/assets/theme.css?#{$asset-version}';
+$javascript-url: 'https://#{$asset-domain}/#{$asset-path}/assets/theme.js?#{$asset-version}';

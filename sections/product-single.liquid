@@ -1,0 +1,45 @@
+{% render 'product-single', product: product, blocks: section.blocks, show_product_reviews: section.settings.show_product_reviews, display_qa: section.settings.display_qa%}
+
+{% schema %}
+{
+  "name": "Product pages",
+  "settings": [
+                
+  ],
+  "blocks":[
+        {
+        "type": "additional_info",
+        "name": "Additional Info",
+        "settings":[
+            {
+                "type": "text",
+                "id": "heading",
+                "label": "Heading"
+            },
+            {
+                "type": "richtext",
+                "id": "content",
+                "label": "Content"
+            }
+        ]
+        },
+    {
+        "type": "tag_base",
+        "name": "Tag base message",
+        "settings":[
+           {
+                "type": "text",
+                "id": "tag",
+                "label": "Add tag"
+            },
+            {
+                "type": "text",
+                "id": "custom-message",
+                "label": "Message Against the above tag"
+            }
+        ]
+        }
+   ]
+}
+{% endschema %}
+

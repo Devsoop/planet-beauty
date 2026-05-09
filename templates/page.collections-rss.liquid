@@ -1,0 +1,27 @@
+{% layout none %}
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>{{ shop.name }} - Collection List</title>
+    <link>{{ shop.url }}</link>
+    <description>A list of collections from {{ shop.name }}</description>
+    <atom:link href="{{ shop.url }}/pages/collections-rss" rel="self" type="application/rss+xml" />
+    <table>
+      <thead>
+        <tr>
+          <th>Collection Name</th>
+          <th>Keywords</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for collection in collections %}
+          <tr>
+            <td>{{ collection.url }}</td>
+            <td>{{ collection.title }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </channel>
+</rss>

@@ -1,0 +1,88 @@
+<nav class="menu" data-menu>
+
+    <div class="menu__container">
+
+        <div class="menu__top">
+            <button class="btn-link menu__close" aria-label="Close menu" data-menu-close>{% render 'icon-close' %}</button>
+            <div class="menu__top-links">
+                {% if customer %}
+                    <a href="{{ routes.account_url }}" class="menu__account btn-link">{% render 'icon-user' %}{{ 'menu.mobile_menu.logged_in_title' | t }}</a>
+                {% else %}
+                    <a href="{{ routes.account_login_url }}" class="menu__account btn-link">{% render 'icon-user' %}{{ 'menu.mobile_menu.logged_out_title' | t }}</a>
+                {% endif %}
+                
+            </div>
+        </div>
+
+        <div class="menu__navigation-wrapper">
+
+            <ul class="menu__navigation">
+
+                {% for level1 in linklists[menu].links %}
+
+                    {% if level1.levels > 0 %}
+
+                        {%- comment -%} Level 1 {%- endcomment -%}
+                        <li class="menu__navigation-level-1 {% if level1.title == 'Holiday' %}holiday-link{% endif %}">
+
+                            <div class="menu__submenu-button">
+                                <a class="link-highlight" href="{{ level1.url }}" data-menu-level1-link data-menu-submenu-target-hover="level_1_{{ level1.title | handleize }}"><span>{{ level1.title | escape }}</span></a>
+                                <button class="btn-link menu__navigation-button" aria-label="Open submenu {{ level1.title | escape }}" data-menu-submenu-target="level_1_{{ level1.title | handleize }}">{% render 'icon-arrow' %}</button>
+                            </div>
+    
+                            <div data-menu-submenu="level_1_{{ level1.title | handleize }}" class="menu__submenu">
+
+                                <ul class="menu__submenu-list">
+        
+                                    <li class="menu__submenu-heading">
+                                        <button class="btn-link menu__navigation-button menu__navigation-back" aria-label="Close submenu {{ level1.title | escape }}" data-menu-submenu-close-target="level_1_{{ level1.title | handleize }}">{% render 'icon-arrow' %}</button>
+                                        <a class="link-highlight" href="{{ level1.url }}"><span>{{ level1.title | escape }}</span></a>
+                                    </li>
+
+                                    {% for level2 in level1.links %}
+
+                                        {%- comment -%} Level 2 {%- endcomment -%}
+                                        <li class="menu__navigation-level-2">
+                                            <a class="link-highlight" href="{{ level2.url }}"><span>{{ level2.title | escape }}</span></a>
+
+                                            {% if level2.levels > 0 %}
+                                                <ul>
+                                                    {% for level3 in level2.links %}
+
+                                                        {%- comment -%} Level 3 {%- endcomment -%}
+                                                        <li class="menu__navigation-level-3">
+                                                            <a href="{{ level3.url }}">{{ level3.title | escape }}</a>
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            {% endif %}
+                                        </li>
+                                    {% endfor %}
+
+                                </ul>
+
+                            </div>
+                        </li>
+                    {% else %}
+
+                        {%- comment -%} Level 1 {%- endcomment -%}
+                        <li class="menu__navigation-level-1">
+                            <a class="link-highlight" data-menu-level1-link href="{{ level1.url }}"><span>{{ level1.title | escape }}</span></a>
+                        </li>
+                    {% endif %}
+
+                {% endfor %}
+
+            </ul>
+        
+        </div>
+
+        <div class="menu__bottom">
+            {% render 'button-linklist', linklist_id: 'header-links', linklist_class: 'menu__bottom-item' %}
+        </div>
+
+    </div>
+
+    <div class="menu__overlay global-overlay" data-menu-close></div>
+
+</nav>
