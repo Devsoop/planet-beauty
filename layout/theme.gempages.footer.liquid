@@ -329,7 +329,28 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   </script>
 <script defer type="text/javascript">
-function OptanonWrapper() { }
+function OptanonWrapper() {
+  var label = 'Cookie Preferences.';
+  function applyFooterCookieLinkLabel() {
+    var el = document.getElementById('footer-cookie-preferences');
+    if (!el || el.textContent === label) return;
+    el.textContent = label;
+  }
+  applyFooterCookieLinkLabel();
+  setTimeout(applyFooterCookieLinkLabel, 0);
+  setTimeout(applyFooterCookieLinkLabel, 250);
+  setTimeout(applyFooterCookieLinkLabel, 1000);
+  var footerEl = document.getElementById('footer-cookie-preferences');
+  if (footerEl && typeof MutationObserver !== 'undefined') {
+    try {
+      new MutationObserver(applyFooterCookieLinkLabel).observe(footerEl, {
+        childList: true,
+        characterData: true,
+        subtree: true,
+      });
+    } catch (e) {}
+  }
+}
 </script>
 <!-- OneTrust Cookies Consent Notice end for www.planetbeauty.com -->
   {% if template != 'index' %}

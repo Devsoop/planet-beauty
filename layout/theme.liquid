@@ -39,13 +39,7 @@
   <script src="https://cdn.userway.org/widget.js" data-account="YeWwct1VPp"></script>
   <script src="{{ 'jquery-3.4.1.min.js' | asset_url }}" async integrity="{{ file_hash 'jquery-3.4.1.min.js' }}" crossorigin="anonymous"></script>
   
-  <!-- Google Tag Manager -->
-    <script defer>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer', 'GTM-542GFXP');</script>
-    <!-- End Google Tag Manager -->
+  {% comment %} GTM loads only after cookie consent — see planetBeautyInjectGTM in OptanonWrapper {% endcomment %}
   <script>
     window.rechargeCustomTheme = { 
         selectors: {
@@ -106,10 +100,7 @@
 {% endif %}
     {% include 'pagefly-app-header' %}</head>
 <body class="template-{{ request.page_type | handle }} template-type-{{ template | handle }}">
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-542GFXP"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->  
+{% comment %} noscript GTM removed: GTM loads after consent via JS only {% endcomment %}  
   {% if template != 'index' %}
 <script>window.KlarnaThemeGlobals={};{%case template.name%} {%when"product"%} {% if product.first_available_variant.price %}window.KlarnaThemeGlobals.data_purchase_amount = {{ product.first_available_variant.price }};{% endif %}window.KlarnaThemeGlobals.productVariants={{product.variants|json}};window.KlarnaThemeGlobals.documentCopy=document.cloneNode(true);{%when"cart"%} window.KlarnaThemeGlobals.data_purchase_amount={{cart.total_price}};window.KlarnaThemeGlobals.documentCopy=document.cloneNode(true);{%endcase%}</script>
 
@@ -327,7 +318,96 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   </script>
 <script defer type="text/javascript">
-function OptanonWrapper() { }
+(function () {
+  var GTM_ID = 'GTM-542GFXP';
+
+  function planetBeautyHideBannerClose() {
+    var root = document.getElementById('onetrust-banner-sdk');
+    if (!root) return;
+    var closeWrap = root.querySelector('#onetrust-close-btn-container');
+    var closeBtn = root.querySelector('.onetrust-close-btn-handler');
+    [closeWrap, closeBtn].forEach(function (el) {
+      if (!el) return;
+      el.style.setProperty('display', 'none', 'important');
+      el.style.setProperty('visibility', 'hidden', 'important');
+      el.style.setProperty('pointer-events', 'none', 'important');
+    });
+    if (!root.dataset.pbCloseObserved && typeof MutationObserver !== 'undefined') {
+      root.dataset.pbCloseObserved = '1';
+      try {
+        new MutationObserver(planetBeautyHideBannerClose).observe(root, {
+          childList: true,
+          subtree: true,
+        });
+      } catch (e) {}
+    }
+  }
+
+  function planetBeautyShouldLoadGTM() {
+    var raw = window.OnetrustActiveGroups || window.OptanonActiveGroups || '';
+    var parts = String(raw)
+      .split(',')
+      .map(function (s) {
+        return s.trim();
+      })
+      .filter(Boolean);
+    return parts.length >= 2;
+  }
+
+  window.planetBeautyHideBannerClose = planetBeautyHideBannerClose;
+
+  window.planetBeautyInjectGTM = function () {
+    if (window.__planetBeautyGTMInjected || !planetBeautyShouldLoadGTM()) return;
+    window.__planetBeautyGTMInjected = true;
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+    var j = document.createElement('script');
+    j.async = true;
+    j.id = 'planet-beauty-gtm';
+    j.src = 'https://www.googletagmanager.com/gtm.js?id=' + encodeURIComponent(GTM_ID);
+    document.head.appendChild(j);
+  };
+})();
+
+function OptanonWrapper() {
+  var label = 'Cookie Preferences.';
+  function applyFooterCookieLinkLabel() {
+    var el = document.getElementById('footer-cookie-preferences');
+    if (!el || el.textContent === label) return;
+    el.textContent = label;
+  }
+  applyFooterCookieLinkLabel();
+  setTimeout(applyFooterCookieLinkLabel, 0);
+  setTimeout(applyFooterCookieLinkLabel, 250);
+  setTimeout(applyFooterCookieLinkLabel, 1000);
+  var footerEl = document.getElementById('footer-cookie-preferences');
+  if (footerEl && typeof MutationObserver !== 'undefined') {
+    try {
+      new MutationObserver(applyFooterCookieLinkLabel).observe(footerEl, {
+        childList: true,
+        characterData: true,
+        subtree: true,
+      });
+    } catch (e) {}
+  }
+
+  if (typeof window.planetBeautyHideBannerClose === 'function') {
+    window.planetBeautyHideBannerClose();
+    setTimeout(window.planetBeautyHideBannerClose, 0);
+    setTimeout(window.planetBeautyHideBannerClose, 300);
+    setTimeout(window.planetBeautyHideBannerClose, 800);
+    setTimeout(window.planetBeautyHideBannerClose, 2000);
+    var _pbCloseTries = 0;
+    var _pbCloseIv = setInterval(function () {
+      window.planetBeautyHideBannerClose();
+      if (++_pbCloseTries > 40) clearInterval(_pbCloseIv);
+    }, 250);
+  }
+
+  if (typeof planetBeautyInjectGTM === 'function') {
+    planetBeautyInjectGTM();
+  }
+}
 </script>
 <!-- OneTrust Cookies Consent Notice end for www.planetbeauty.com -->
   {% if template != 'index' %}
