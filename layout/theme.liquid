@@ -28,7 +28,7 @@
  <script src="https://cdn.rebuyengine.com/onsite/js/rebuy.js?shop={{ shop.permanent_domain }}" async></script>
 
   
-  <script type="text/javascript">const observer=new MutationObserver(e=>{e.forEach(({addedNodes:e})=>{e.forEach(e=>{1===e.nodeType&&"IFRAME"===e.tagName&&(e.src.includes("youtube.com")||e.src.includes("vimeo.com"))&&(e.setAttribute("loading","lazy"),e.setAttribute("data-src",e.src),e.removeAttribute("src")),1===e.nodeType&&"LINK"===e.tagName&&(e.href.includes("place")||e.href.includes("vimo.com"))&&(e.setAttribute("data-href",e.href),e.removeAttribute("href")),1!==e.nodeType||"IMG"!==e.tagName||e.src.includes("data:image")||e.setAttribute("loading","eager"),1===e.nodeType&&"SCRIPT"===e.tagName&&("analytics"==e.className,"boomerang"==e.className&&(e.type="text/lazyload"),e.innerHTML.includes("asyncLoad")&&(e.innerHTML=e.innerHTML.replace("if(window.attachEvent)","document.addEventListener('asyncLazyLoad',function(event){asyncLoad();});if(window.attachEvent)").replaceAll(", asyncLoad",", function(){}")),(e.innerHTML.includes("PreviewBarInjector")||e.innerHTML.includes("adminBarInjector"))&&(e.innerHTML=e.innerHTML.replace("DOMContentLoaded","asyncLazyLoad")),(e.src.includes("assets/storefront")||e.src.includes("assets/shopify_pay/")||e.src.includes("onsite")||e.src.includes("gtag/js")||e.src.includes("yopo"))&&(e.setAttribute("data-src",e.src),e.removeAttribute("src")),(e.innerText.includes("loyaltylion")||e.innerText.includes("prefetchAssets")||e.innerText.includes("webPixelsManager")||e.src.includes("otSDKStub.js")||e.innerText.includes("gtm.start")||e.innerText.includes("trek"))&&(e.type="text/lazyload"))})})});observer.observe(document.documentElement,{childList:!0,subtree:!0});   (()=>{var e=class extends HTMLElement{constructor(){super();this._shadowRoot=this.attachShadow({mode:"open"}),this._shadowRoot.innerHTML='<style>:host img { pointer-events: none; position: absolute; top: 0; left: 0; width: 99vw; height: 99vh; max-width: 99vw; max-height: 99vh;</style><img id="hell" alt=""/>'}connectedCallback(){this._fullImageEl=this._shadowRoot.querySelector("#hell"),this._fullImageEl.src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8000 8000'%3E%3C/svg%3E"}};customElements.define("live-55",e);})();  document.head.insertAdjacentHTML('afterend', `<live-55></live-55>`);</script>
+  <script type="text/javascript">const observer=new MutationObserver(e=>{e.forEach(({addedNodes:e})=>{e.forEach(e=>{1===e.nodeType&&"IFRAME"===e.tagName&&(e.src.includes("youtube.com")||e.src.includes("vimeo.com"))&&(e.setAttribute("loading","lazy"),e.setAttribute("data-src",e.src),e.removeAttribute("src")),1===e.nodeType&&"LINK"===e.tagName&&(e.href.includes("place")||e.href.includes("vimo.com"))&&(e.setAttribute("data-href",e.href),e.removeAttribute("href")),1!==e.nodeType||"IMG"!==e.tagName||e.src.includes("data:image")||e.setAttribute("loading","eager"),1===e.nodeType&&"SCRIPT"===e.tagName&&("analytics"==e.className,"boomerang"==e.className&&(e.type="text/lazyload"),e.innerHTML.includes("asyncLoad")&&(e.innerHTML=e.innerHTML.replace("if(window.attachEvent)","document.addEventListener('asyncLazyLoad',function(event){asyncLoad();});if(window.attachEvent)").replaceAll(", asyncLoad",", function(){}")),(e.innerHTML.includes("PreviewBarInjector")||e.innerHTML.includes("adminBarInjector"))&&(e.innerHTML=e.innerHTML.replace("DOMContentLoaded","asyncLazyLoad")),(e.src.includes("assets/storefront")||e.src.includes("assets/shopify_pay/")||e.src.includes("onsite")||e.src.includes("gtag/js")||e.src.includes("yopo"))&&(e.setAttribute("data-src",e.src),e.removeAttribute("src")),(e.innerText.includes("loyaltylion")||e.innerText.includes("prefetchAssets")||e.innerText.includes("webPixelsManager")||e.innerText.includes("gtm.start")||e.innerText.includes("trek"))&&(e.type="text/lazyload"))})})});observer.observe(document.documentElement,{childList:!0,subtree:!0});   (()=>{var e=class extends HTMLElement{constructor(){super();this._shadowRoot=this.attachShadow({mode:"open"}),this._shadowRoot.innerHTML='<style>:host img { pointer-events: none; position: absolute; top: 0; left: 0; width: 99vw; height: 99vh; max-width: 99vw; max-height: 99vh;</style><img id="hell" alt=""/>'}connectedCallback(){this._fullImageEl=this._shadowRoot.querySelector("#hell"),this._fullImageEl.src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8000 8000'%3E%3C/svg%3E"}};customElements.define("live-55",e);})();  document.head.insertAdjacentHTML('afterend', `<live-55></live-55>`);</script>
   {% render 'meta-tags' %}
   
   <link rel="canonical" href="{{ canonical_url }}">
@@ -47,7 +47,8 @@
         }
     }
   </script>
-    {{ content_for_header }}  
+    {{ content_for_header }}
+  {% render 'attentive-onetrust-loader' %}
   {% render 'css-init' %}
 
   
@@ -163,9 +164,6 @@
   {% section 'footer' %}
   {% render 'head-scripts' %}
   
-<!-- OneTrust Cookies Settings button start -->
-<button style="display:none;" id="ot-sdk-btn" class="ot-sdk-show-settings">Cookie Settings</button>
-<!-- OneTrust Cookies Settings button end -->
   {% include 'rich-result' %}
   
   
@@ -406,6 +404,9 @@ function OptanonWrapper() {
 
   if (typeof planetBeautyInjectGTM === 'function') {
     planetBeautyInjectGTM();
+  }
+  if (typeof window.planetBeautyLoadAttentive === 'function') {
+    window.planetBeautyLoadAttentive();
   }
 }
 </script>
